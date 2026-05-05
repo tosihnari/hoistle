@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>会場マップ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/global.css">
+  <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/button/button.css">
+  <link rel="stylesheet" href="prototype.css">
+  <style>
+    body {
+      background: var(--color-neutral-solid-gray-50);
+      padding-bottom: 0;
+    }
+
+    .venue-info-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--color-neutral-solid-gray-100);
+      padding: 12px 16px;
+    }
+    .venue-info-bar__name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-900);
+      margin: 0 0 2px;
+    }
+    .venue-info-bar__access {
+      font-size: 12px;
+      color: var(--color-neutral-solid-gray-500);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .venue-map-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header class="nav-bar">
+    <button class="icon-btn dads-button" type="button" aria-label="戻る" onclick="history.back()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <p class="nav-title">会場マップ</p>
+    <a href="00_map.html" class="icon-btn dads-button" aria-label="画面マップを開く">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+        <line x1="8" y1="2" x2="8" y2="18"/>
+        <line x1="16" y1="6" x2="16" y2="22"/>
+      </svg>
+    </a>
+  </header>
+
+  <!-- 会場情報 -->
+  <div class="venue-info-bar">
+    <p class="venue-info-bar__name">藤沢市スポーツセンター</p>
+    <p class="venue-info-bar__access">神奈川県藤沢市本藤沢4丁目2−1 / 小田急江ノ島線「片瀬江ノ島駅」徒歩5分</p>
+  </div>
+
+  <!-- 地図画像 -->
+  <img class="venue-map-img" src="../material/screen/googlemap.png" alt="藤沢市スポーツセンター周辺のGoogleマップ">
+
+  <script src="prototype-map.js"></script>
+</body>
+</html>

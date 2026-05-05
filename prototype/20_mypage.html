@@ -14,7 +14,7 @@
   <style>
     body {
       background: var(--color-neutral-solid-gray-50);
-      padding-bottom: 32px;
+      padding-bottom: 80px;
     }
 
     /* ─ プロフィールセクション ─ */
@@ -486,11 +486,7 @@
 
   <!-- ヘッダー -->
   <header class="nav-bar">
-    <button class="icon-btn dads-button" type="button" aria-label="戻る">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </button>
+  
     <p class="nav-title">プロフィール</p>
     <button class="icon-btn dads-button" type="button" aria-label="QRコード">
       <img src="../material/icon/qr_code.svg" width="24" height="24" alt="" aria-hidden="true">
@@ -499,8 +495,8 @@
 
   <!-- プロフィール -->
   <section class="profile-header" aria-label="プロフィール">
-    <img class="profile-avatar" src="https://placehold.co/128x128" alt="田中 健太">
-    <p class="profile-name">田中 健太</p>
+    <img class="profile-avatar" src="https://placehold.co/128x128" alt="山田 太郎">
+    <p class="profile-name">山田 太郎</p>
 
     <div class="followers-row">
       <a href="#" class="followers-link">
@@ -585,10 +581,10 @@
         </div>
         <div class="event-info">
           <div class="event-title-row">
-            <p class="event-title">週末ダブルス練習会</p>
+            <p class="event-title">交流戦 初心者歓迎会</p>
             <span class="dads-chip-label" data-style="outline" data-color="gray">エンジョイ</span>
           </div>
-          <p class="event-meta">2023年11月12日 · テニス</p>
+          <p class="event-meta">2023年11月12日 · バスケ</p>
         </div>
         <img class="event-row-arrow" src="../material/icon/arrow_right.svg" alt="" aria-hidden="true">
       </div>
@@ -688,6 +684,34 @@
       QRコードをスキャン
     </button>
   </dialog>
+
+  <!-- グローバルナビゲーション -->
+  <nav class="local-nav" aria-label="主要ナビゲーション">
+    <a class="local-nav__item" href="23_home.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+      検索
+    </a>
+    <a class="local-nav__item" href="22_reservation-list.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+        <polyline points="9 16 11 18 15 14"/>
+      </svg>
+      予約
+    </a>
+    <a class="local-nav__item local-nav__item--active" href="20_mypage.html" aria-current="page">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      マイページ
+    </a>
+  </nav>
 
   <script>
     const qrBtn = document.querySelector('[aria-label="QRコード"]');
