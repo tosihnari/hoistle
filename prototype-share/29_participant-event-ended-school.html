@@ -227,7 +227,7 @@
       <p class="post-event-trophy">🙌</p>
 
       <div class="post-event-message">
-        <p class="post-event-message__title">初参加！</p>
+        <p class="post-event-message__title">初参加！ありがとう！</p>
         <p class="post-event-message__subtitle">ナイスプレー！今日はゆっくり休んでくださいね！</p>
       </div>
 
@@ -237,7 +237,7 @@
           <div class="mvp-badge__avatar">
             <img src="assets/members/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
           </div>
-          <span class="mvp-badge__name">あなた（山田 太郎）</span>
+          <span class="mvp-badge__name">あなた（旭俊成）</span>
         </div>
       </div>
 
@@ -248,10 +248,10 @@
           <svg class="photo-card__arrow" width="8" height="12" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2 2 14 12 2 22"/></svg>
         </div>
         <div class="photo-card__thumbnails">
-          <div class="photo-card__thumb" style="overflow:hidden;padding:0;"><img src="assets/members/Toshinari.Asahi_旭俊成.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-          <div class="photo-card__thumb" style="overflow:hidden;padding:0;"><img src="assets/members/Yusaku.Takasugi_高杉優作.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-          <div class="photo-card__thumb" style="overflow:hidden;padding:0;"><img src="assets/members/Nanami.Tanahashi_棚橋七海.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-          <div class="photo-card__thumb" style="overflow:hidden;padding:0;"><img src="assets/members/Hayato.Akaiwa_赤岩駿斗.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <div class="photo-card__thumb" style="overflow:hidden;padding:0;"><img src="../material/screen/写真.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <div class="photo-card__thumb" style="overflow:hidden;padding:0;"><img src="../material/screen/写真.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <div class="photo-card__thumb" style="overflow:hidden;padding:0;"><img src="../material/screen/写真.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+          <div class="photo-card__thumb" style="overflow:hidden;padding:0;"><img src="../material/screen/写真.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         </div>
       </a>
     </div>
@@ -344,7 +344,7 @@
         <div class="venue-map" style="padding:0;overflow:hidden;">
           <img src="../material/screen/体育館の画像.jpg" alt="スポーツセンター外観" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
-        <a href="https://maps.google.com/maps?q=神奈川県藤沢市本藤沢４丁目２−１+スポーツセンター" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:12px;background:var(--color-neutral-solid-gray-900);color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
+        <a href="https://maps.google.com/maps?q=神奈川県藤沢市本藤沢４丁目２−１+スポーツセンター" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:12px;background:#fff;color:var(--color-neutral-solid-gray-900);border:1.5px solid var(--color-neutral-solid-gray-300);border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           地図で開く
         </a>
@@ -830,21 +830,25 @@
     participantsSheet.addEventListener('click', e => { if (e.target === participantsSheet) participantsSheet.close(); });
 
     // スクロール位置に連動してチップをアクティブ化
-    const sections = document.querySelectorAll('[id^="section-"]');
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          chips.forEach(c => c.classList.remove('filter-chip--active'));
-          const active = document.querySelector(`.filter-chip[data-target="${id}"]`);
-          if (active) {
-            active.classList.add('filter-chip--active');
-            active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-          }
+    const sectionEls = Array.from(document.querySelectorAll('[id^="section-"]'));
+    const chipBar = document.querySelector('.filter-chips-wrap');
+    function updateActiveChip() {
+      const chipBarH = chipBar ? chipBar.offsetHeight : 0;
+      const scrollY = window.scrollY + chipBarH + 10;
+      let current = sectionEls[0];
+      for (const sec of sectionEls) {
+        if (sec.offsetTop <= scrollY) current = sec;
+      }
+      if (current) {
+        chips.forEach(c => c.classList.remove('filter-chip--active'));
+        const active = document.querySelector(`.filter-chip[data-target="${current.id}"]`);
+        if (active) {
+          active.classList.add('filter-chip--active');
+          active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
-      });
-    }, { rootMargin: '-20% 0px -70% 0px' });
-    sections.forEach(s => io.observe(s));
+      }
+    }
+    window.addEventListener('scroll', updateActiveChip, { passive: true });
 
     // 参加者アバターにユーザーパラメータを付与
     const userMap = {
