@@ -121,7 +121,7 @@
       margin: 0;
     }
 
-    /* ─ 共通フォロワーカード ─ */
+    /* ─ 共通つながりカード ─ */
     .mutual-card {
       align-self: stretch;
       background: var(--color-neutral-solid-gray-50);
@@ -348,9 +348,9 @@
       <img src="../material/screen/ステッカー２.png" width="110" height="110" alt="ステッカー2">
       <div class="sticker-tooltip">バスケMVP！圧倒的なパフォーマンス🏀</div>
     </button>
-    <div class="profile-hero__name" aria-label="高杉優作、84 フォロワー">
+    <div class="profile-hero__name" aria-label="高杉優作、84 つながり">
       <p class="profile-hero__name-text">高杉優作</p>
-      <p class="profile-hero__connections">84 フォロワー</p>
+      <p class="profile-hero__connections">84 つながり</p>
     </div>
   </section>
 
@@ -362,7 +362,7 @@
         <img class="mutual-avatar" src="assets/members/Toshinari.Asahi_旭俊成.png" alt="" aria-hidden="true" style="object-fit:cover;">
         <div class="mutual-avatar mutual-avatar-more" aria-hidden="true">+1</div>
       </div>
-      <p class="mutual-text">3人の共通のフォロワーがいます</p>
+      <p class="mutual-text">3人の共通のつながりがいます</p>
     </div>
 
     <p class="bio-card">「バスケとランニングが好きです。週2〜3回活動しています。ガチ勢ではないですが、試合になると本気出します。初めての方も気軽に声かけてください！」</p>
@@ -477,8 +477,8 @@
     heroImg.src = member.photo;
     heroImg.alt = member.name;
     document.querySelector('.profile-hero__name-text').textContent = member.name;
-    document.querySelector('.profile-hero__connections').textContent = member.connections + ' フォロワー';
-    document.querySelector('.profile-hero__name').setAttribute('aria-label', member.name + '、' + member.connections + ' フォロワー');
+    document.querySelector('.profile-hero__connections').textContent = member.connections + ' つながり';
+    document.querySelector('.profile-hero__name').setAttribute('aria-label', member.name + '、' + member.connections + ' つながり');
     document.querySelector('.bio-card').textContent = '「' + member.bio + '」';
   </script>
   <script>
