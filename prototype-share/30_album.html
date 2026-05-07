@@ -32,6 +32,61 @@
       aspect-ratio: 390 / 715;
       object-fit: cover;
     }
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox__img {
+      max-width: 100%;
+      max-height: 80dvh;
+      object-fit: contain;
+      display: block;
+    }
+    .lightbox__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+    }
+    .share-bar {
+      padding: 16px;
+      display: flex;
+      gap: 8px;
+    }
+    .share-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+    }
+    .share-btn--x { background: #000; color: #fff; }
+    .share-btn--line { background: #06C755; color: #fff; }
+    .album-photo { cursor: pointer; }
   </style>
 </head>
 <body>
@@ -53,6 +108,41 @@
     <img class="album-photo" src="../material/screen/写真.png" alt="写真2">
     <img class="album-photo" src="../material/screen/写真.png" alt="写真3">
   </div>
+
+  <!-- lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="写真拡大表示">
+    <button class="lightbox__close" id="lightbox-close" aria-label="閉じる">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
+    </button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- SNSシェア -->
+  <div class="share-bar">
+    <a class="share-btn share-btn--x" href="https://twitter.com/intent/tweet?text=ホイッスルのイベント写真%F0%9F%8F%80" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.731-8.835L1.254 2.25H8.08l4.26 5.632 5.905-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      X でシェア
+    </a>
+    <a class="share-btn share-btn--line" href="https://line.me/R/msg/text/?ホイッスルのイベント写真%F0%9F%8F%80" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.89c.50 0 .906.406.906.907s-.406.907-.906.907h-2.447v1.44h2.447c.5 0 .906.406.906.907s-.406.907-.906.907H16.01a.907.907 0 0 1-.907-.907V9.89c0-.5.406-.907.907-.907zm-6.54 0c.5 0 .907.406.907.907v4.161c0 .5-.406.907-.907.907s-.907-.406-.907-.907V9.89c0-.5.407-.907.907-.907zm-2.638.907c0-.5-.406-.907-.906-.907s-.907.406-.907.907v3.254l-2.12-3.709a.907.907 0 0 0-1.692.455v4.161c0 .5.406.907.906.907s.907-.406.907-.907v-3.254l2.12 3.709a.907.907 0 0 0 .786.455.9.9 0 0 0 .906-.907V9.89V9.79zm-6.96-.53C4 8.086 4 7 4 7S9.372 2 12 2c2.628 0 8 5.086 8 8c0 3.313-3.582 6-8 6-1.31 0-2.543-.285-3.632-.793l-3.241.856a.226.226 0 0 1-.28-.28L5.7 12.54C4.618 11.45 4 10.24 4 9.36z"/></svg>
+      LINE でシェア
+    </a>
+  </div>
+
+  <script>
+    // lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.album-photo').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+      });
+    });
+    document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  </script>
 
   <script src="prototype-map.js"></script>
 </body>
