@@ -126,7 +126,6 @@
       <button class="filter-chip" data-target="section-equipment">設備・持ち物</button>
       <button class="filter-chip" data-target="section-schedule">当日の流れ</button>
       <button class="filter-chip" data-target="section-organizer">主催者情報</button>
-      <button class="filter-chip" data-target="section-cancel">キャンセル</button>
     </div>
   </div>
 
@@ -190,9 +189,13 @@
       <div class="section-group">
         <p class="section-sub">住所</p>
         <p style="font-size:14px;color:var(--color-neutral-solid-gray-800);margin:0 0 10px;">神奈川県藤沢市本藤沢４丁目２−１ スポーツセンター</p>
-        <div class="venue-map" role="img" aria-label="会場地図">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <div class="venue-map" style="padding:0;overflow:hidden;">
+          <img src="../material/screen/体育館の画像.jpg" alt="スポーツセンター外観" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
+        <a href="https://maps.google.com/maps?q=神奈川県藤沢市本藤沢４丁目２−１+スポーツセンター" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:12px;background:var(--color-neutral-solid-gray-900);color:#fff;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          地図で開く
+        </a>
       </div>
 
       <div class="section-group">
@@ -690,6 +693,19 @@
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
     sections.forEach(s => io.observe(s));
+
+    // 参加者アバターにユーザーパラメータを付与
+    const userMap = {
+      '旭俊成': 'asahi', '高杉優作': 'takasugi', '棚橋七海': 'tanahashi', '赤岩駿斗': 'akaiwa',
+      '栗田茉奈': 'kurita', '手塚光': 'tezuka', '向井猛': 'mukai', '吉村優一': 'yoshimura',
+      '黒川優喜': 'kurokawa', '國分椋太': 'kokubun', '小林新': 'kobayashi', '長島明子': 'nagashima'
+    };
+    document.querySelectorAll('.participant-avatar').forEach(link => {
+      const img = link.querySelector('img');
+      if (!img) return;
+      const userId = userMap[img.alt];
+      if (userId) link.href = '21_user-profile.html?user=' + userId;
+    });
   </script>
 
   <script src="prototype-map.js"></script>

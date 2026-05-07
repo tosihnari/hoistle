@@ -176,32 +176,6 @@
       line-height: 1.43;
     }
 
-    /* ─ フォローボタン ─ */
-    .follow-section {
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .follow-btn {
-      --button-color: var(--color-neutral-solid-gray-900);
-      --button-hover-color: var(--color-neutral-solid-gray-700);
-      --button-active-color: var(--color-neutral-solid-gray-800);
-      width: 100%;
-      border-radius: 12px !important;
-    }
-
-    .follow-hint {
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--color-neutral-solid-gray-400);
-      text-align: center;
-      margin: 0;
-      line-height: 1.33;
-    }
-
     /* ─ スタッツ・最近のイベントセクション ─ */
     .stats-events-section {
       background: var(--color-neutral-white);
@@ -392,11 +366,6 @@
     </div>
 
     <p class="bio-card">「バスケとランニングが好きです。週2〜3回活動しています。ガチ勢ではないですが、試合になると本気出します。初めての方も気軽に声かけてください！」</p>
-
-    <div class="follow-section">
-      <button class="dads-button follow-btn" data-type="solid-fill" data-size="lg" type="button">フォローする</button>
-      <p class="follow-hint">相互フォローになると、メッセージを送ることができるようになります</p>
-    </div>
   </section>
 
   <!-- スタッツ・最近のイベント -->
@@ -484,6 +453,34 @@
       </div>
     </div>
   </section>
+  <script>
+    // メンバーデータ
+    const members = {
+      asahi:     { name: '旭俊成',   photo: 'assets/members/Toshinari.Asahi_旭俊成.png',     connections: 128, bio: '主に週末、都内でバスケをしています。楽しく真剣にプレイできる仲間を募集中です！よろしくお願いします！' },
+      takasugi:  { name: '高杉優作', photo: 'assets/members/Yusaku.Takasugi_高杉優作.png',   connections: 84,  bio: 'バスケとランニングが好きです。週2〜3回活動しています。試合になると本気出します。初めての方も気軽に声かけてください！' },
+      tanahashi: { name: '棚橋七海', photo: 'assets/members/Nanami.Tanahashi_棚橋七海.png',  connections: 56,  bio: 'バレーとバスケが好きです。初心者の方も大歓迎！みんなで楽しく体を動かしましょう。' },
+      akaiwa:    { name: '赤岩駿斗', photo: 'assets/members/Hayato.Akaiwa_赤岩駿斗.png',     connections: 45,  bio: 'スポーツ全般好きです。仕事終わりに軽く動けるイベントをよく探しています！よろしく！' },
+      kurita:    { name: '栗田茉奈', photo: 'assets/members/Mana.Kurita_栗田茉奈.png',        connections: 72,  bio: 'テニスとランニングが好きです。健康のために体を動かせる仲間を探しています！' },
+      tezuka:    { name: '手塚光',   photo: 'assets/members/Hikaru.Tezuka_手塚光.png',        connections: 38,  bio: '週末は必ずスポーツしています。バスケのスリーポイントが得意です！' },
+      mukai:     { name: '向井猛',   photo: 'assets/members/Takeru .Mukai_向井猛.png',        connections: 61,  bio: 'サッカーメインですが、最近バスケにもハマってます。フットワーク得意です。' },
+      yoshimura: { name: '吉村優一', photo: 'assets/members/Yuichi.Yoshimura_吉村優一.png',  connections: 47,  bio: '週1〜2回活動しています。仕事帰りに気軽に参加できるイベントが好きです。' },
+      kurokawa:  { name: '黒川優喜', photo: 'assets/members/Yuki.Kurokawa_黒川優喜.png',     connections: 33,  bio: 'バスケ歴5年です。楽しく動けるイベントをいつも探しています！' },
+      kokubun:   { name: '國分椋太', photo: 'assets/members/Ryota.Kokubun_國分椋太.png',     connections: 29,  bio: '運動不足解消のために始めました。みなさんよろしくお願いします！' },
+      kobayashi: { name: '小林新',   photo: 'assets/members/Arata.Kobayashi_小林新.png',     connections: 52,  bio: 'ランニングが好きです。マラソン大会にも出ています。スポーツ全般OK！' },
+      nagashima: { name: '長島明子', photo: 'assets/members/Akiko.Nagashima_長島明子.png',   connections: 41,  bio: '体を動かすのが好きです。スポーツで新しい友達を作りたいです！' },
+    };
+    const params = new URLSearchParams(location.search);
+    const userId = params.get('user') || 'takasugi';
+    const member = members[userId] || members['takasugi'];
+    // ヒーロー画像・名前
+    const heroImg = document.querySelector('.profile-hero__bg');
+    heroImg.src = member.photo;
+    heroImg.alt = member.name;
+    document.querySelector('.profile-hero__name-text').textContent = member.name;
+    document.querySelector('.profile-hero__connections').textContent = member.connections + ' フォロワー';
+    document.querySelector('.profile-hero__name').setAttribute('aria-label', member.name + '、' + member.connections + ' フォロワー');
+    document.querySelector('.bio-card').textContent = '「' + member.bio + '」';
+  </script>
   <script>
     document.querySelectorAll('.sticker-btn').forEach(btn => {
       btn.addEventListener('click', e => {
