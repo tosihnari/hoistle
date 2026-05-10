@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>参加者専用ページ</title>
+  <title>参加者専用ページ（開催前）</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -62,30 +62,8 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .participant-teams {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .participant-team__label {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-600);
-      margin: 0 0 8px;
-      line-height: 1.5;
-    }
-    .participant-teams .participant-avatars {
-      flex-wrap: wrap;
-      overflow-x: visible;
-      gap: 8px;
-    }
-    .participant-teams .participant-avatar {
-      width: 40px;
-      height: 40px;
-      box-shadow: none;
-      outline: 1px solid var(--color-neutral-solid-gray-200);
-      outline-offset: -1px;
-    }
+    .participant-teams .participant-avatars { flex-wrap: nowrap; overflow-x: auto; gap: 8px; }
+    .participant-teams .participant-avatar { width: 40px; height: 40px; box-shadow: none; outline: 1px solid var(--color-neutral-solid-gray-200); outline-offset: -1px; }
   </style>
 </head>
 <body>
@@ -103,17 +81,15 @@
 
   <!-- ヒーロー -->
   <div class="event-hero">
-    <div class="event-hero__bg">
-      <p class="event-hero__title">第１回 ビギナーズ ホイッスルカップ</p>
+    <div class="event-hero__bg" data-category="エンジョイ">
+      <p class="event-hero__title">バスケ エンジョイ交流戦 初心者・未経験者歓迎</p>
     </div>
   </div>
-  <a href="19_participant-event-dm.html" class="notice-banner">
-    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20" fill="var(--color-neutral-solid-gray-700)" aria-hidden="true" style="flex-shrink:0">
-      <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-    </svg>
+  <a href="DM.html" class="notice-banner">
+    <img src="../material/icon/faq.svg" width="24" height="24" aria-hidden="true" style="flex-shrink:0">
     <div class="notice-banner__body">
-      <p class="notice-banner__label">運営からのメッセージ</p>
-      <p class="notice-banner__text">未経験の方も大歓迎です！みんなで…</p>
+      <p class="notice-banner__label">運営へのお問合せはこちら</p>
+      <p class="notice-banner__text" style="white-space: normal; overflow: visible; text-overflow: clip;">イベントについての質問や遅刻の連絡はこちら</p>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="10" fill="var(--color-neutral-solid-gray-400)" aria-hidden="true" style="flex-shrink:0">
       <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
@@ -128,7 +104,6 @@
       <button class="filter-chip" data-target="section-equipment">設備・持ち物</button>
       <button class="filter-chip" data-target="section-schedule">当日の流れ</button>
       <button class="filter-chip" data-target="section-organizer">主催者情報</button>
-      <button class="filter-chip" data-target="section-cancel">キャンセル</button>
     </div>
   </div>
 
@@ -150,32 +125,19 @@
         </button>
       </div>
       <div class="participant-teams" aria-label="参加者一覧">
-        <div class="participant-team">
-          <p class="participant-team__label">チームA</p>
-          <div class="participant-avatars">
-            <a href="21_user-profile.html?user=asahi" class="participant-avatar"><img src="assets/members/Toshinari.Asahi_旭俊成.png" alt="旭俊成" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=takasugi" class="participant-avatar"><img src="assets/members/Yusaku.Takasugi_高杉優作.png" alt="高杉優作" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=tanahashi" class="participant-avatar"><img src="assets/members/Nanami.Tanahashi_棚橋七海.png" alt="棚橋七海" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=akaiwa" class="participant-avatar"><img src="assets/members/Hayato.Akaiwa_赤岩駿斗.png" alt="赤岩駿斗" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          </div>
-        </div>
-        <div class="participant-team">
-          <p class="participant-team__label">チームB</p>
-          <div class="participant-avatars">
-            <a href="21_user-profile.html?user=kurita" class="participant-avatar"><img src="assets/members/Mana.Kurita_栗田茉奈.png" alt="栗田茉奈" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=tezuka" class="participant-avatar"><img src="assets/members/Hikaru.Tezuka_手塚光.png" alt="手塚光" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=mukai" class="participant-avatar"><img src="assets/members/Takeru .Mukai_向井猛.png" alt="向井猛" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=yoshimura" class="participant-avatar"><img src="assets/members/Yuichi.Yoshimura_吉村優一.png" alt="吉村優一" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          </div>
-        </div>
-        <div class="participant-team">
-          <p class="participant-team__label">チームC</p>
-          <div class="participant-avatars">
-            <a href="21_user-profile.html?user=kurokawa" class="participant-avatar"><img src="assets/members/Yuki.Kurokawa_黒川優喜.png" alt="黒川優喜" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=kokubun" class="participant-avatar"><img src="assets/members/Ryota.Kokubun_國分椋太.png" alt="國分椋太" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=kobayashi" class="participant-avatar"><img src="assets/members/Arata.Kobayashi_小林新.png" alt="小林新" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-            <a href="21_user-profile.html?user=nagashima" class="participant-avatar"><img src="assets/members/Akiko.Nagashima_長島明子.png" alt="長島明子" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          </div>
+        <div class="participant-avatars">
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yusaku.Takasugi_高杉優作.png" alt="高杉優作" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Nanami.Tanahashi_棚橋七海.png" alt="棚橋七海" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Hayato.Akaiwa_赤岩駿斗.png" alt="赤岩駿斗" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Mana.Kurita_栗田茉奈.png" alt="栗田茉奈" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Hikaru.Tezuka_手塚光.png" alt="手塚光" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Takeru .Mukai_向井猛.png" alt="向井猛" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yuichi.Yoshimura_吉村優一.png" alt="吉村優一" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yuki.Kurokawa_黒川優喜.png" alt="黒川優喜" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Ryota.Kokubun_國分椋太.png" alt="國分椋太" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Arata.Kobayashi_小林新.png" alt="小林新" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Akiko.Nagashima_長島明子.png" alt="長島明子" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
         </div>
       </div>
     </div>
@@ -195,6 +157,10 @@
         <div class="venue-map" style="padding:0;overflow:hidden;">
           <img src="../material/screen/地図の画像.png" alt="スポーツセンター外観" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
+        <a href="https://maps.google.com/maps?q=神奈川県藤沢市本藤沢４丁目２−１+スポーツセンター" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:12px;background:#fff;color:var(--color-neutral-solid-gray-900);border:1.5px solid var(--color-neutral-solid-gray-300);border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          地図で開く
+        </a>
       </div>
 
       <div class="section-group">
@@ -369,14 +335,13 @@
 
     <!-- 主催者情報 -->
     <section id="section-organizer" class="section">
-      <h2 class="section-title">主催者情報</h2>
+      <h2 class="section-title">運営者情報</h2>
+      <p class="section-sub">主催者</p>
       <div class="organizer-profile-card">
         <div class="organizer-profile-card__main">
           <div class="organizer-profile-card__avatar-wrap">
             <div class="organizer-profile-card__avatar">
-              <div class="img-placeholder" aria-label="主催者アイコン">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              </div>
+              <img src="../material/user-icon/運営_男性2.png" alt="Whistle公式">
             </div>
             <div class="organizer-profile-card__badge" aria-label="公式認定">
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -405,6 +370,79 @@
               <line x1="3" y1="10" x2="21" y2="10"/>
             </svg>
             <span class="organizer-profile-card__stat-text">50回以上開催</span>
+          </div>
+        </div>
+      </div>
+      <p class="section-sub">当日スタッフ</p>
+      <div class="organizer-profile-card">
+        <div class="organizer-profile-card__main">
+          <div class="organizer-profile-card__avatar-wrap">
+            <div class="organizer-profile-card__avatar">
+              <img src="../material/user-icon/運営_男性1.png" alt="田中 誠">
+            </div>
+            <div class="organizer-profile-card__badge" aria-label="公式認定">
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 7L5.5 9.5L11 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="organizer-profile-card__body">
+            <p class="organizer-profile-card__name">田中 誠</p>
+            <p class="organizer-profile-card__description">参加者の安全管理と円滑な進行をサポートします。初めての方も安心してご参加いただけるよう丁寧にお声がけします。</p>
+          </div>
+        </div>
+        <div class="organizer-profile-card__stats">
+          <div class="organizer-profile-card__stat">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span class="organizer-profile-card__stat-text">当日スタッフ歴3年</span>
+          </div>
+          <div class="organizer-profile-card__stat">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span class="organizer-profile-card__stat-text">イベント50回以上サポート</span>
+          </div>
+        </div>
+      </div>
+      <div class="organizer-profile-card">
+        <div class="organizer-profile-card__main">
+          <div class="organizer-profile-card__avatar-wrap">
+            <div class="organizer-profile-card__avatar">
+              <img src="../material/user-icon/運営_女性1.png" alt="鈴木 花子">
+            </div>
+            <div class="organizer-profile-card__badge" aria-label="公式認定">
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 7L5.5 9.5L11 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="organizer-profile-card__body">
+            <p class="organizer-profile-card__name">鈴木 花子</p>
+            <p class="organizer-profile-card__description">イベント運営と受付を担当します。お困りのことがあればお気軽にお声がけください。</p>
+          </div>
+        </div>
+        <div class="organizer-profile-card__stats">
+          <div class="organizer-profile-card__stat">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <span class="organizer-profile-card__stat-text">スタッフ歴2年</span>
+          </div>
+          <div class="organizer-profile-card__stat">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span class="organizer-profile-card__stat-text">参加者対応400名以上</span>
           </div>
         </div>
       </div>
@@ -557,10 +595,124 @@
     </div>
     <div class="sheet-body">
 
-      
+      <!-- 参加予定ユーザー一覧 -->
+      <div class="participant-list">
+        <a href="ユーザープロフィール.html" class="participant-item">
+          <div class="participant-avatar">R</div>
+          <div class="participant-info">
+            <div class="participant-name-row">
+              <p class="participant-name">りく / rikuto</p>
+              <span class="participant-level">放課後レベル</span>
+            </div>
+            <p class="participant-relation">前回のイベントで一緒</p>
+          </div>
+        </a>
+        <a href="ユーザープロフィール.html" class="participant-item">
+          <div class="participant-avatar">H</div>
+          <div class="participant-info">
+            <div class="participant-name-row">
+              <p class="participant-name">hina__</p>
+              <span class="participant-level">部活レベル</span>
+            </div>
+            <p class="participant-relation">前回のイベントで一緒</p>
+          </div>
+        </a>
+        <a href="ユーザープロフィール.html" class="participant-item">
+          <div class="participant-avatar">Y</div>
+          <div class="participant-info">
+            <div class="participant-name-row">
+              <p class="participant-name">ゆうま</p>
+              <span class="participant-level">部活レベル</span>
+            </div>
+            <p class="participant-relation">3回同じイベントに参加しています</p>
+          </div>
+        </a>
+        <a href="ユーザープロフィール.html" class="participant-item">
+          <div class="participant-avatar">M</div>
+          <div class="participant-info">
+            <div class="participant-name-row">
+              <p class="participant-name">みおん._.</p>
+              <span class="participant-level">放課後レベル</span>
+            </div>
+            <p class="participant-relation">3回同じイベントに参加しています</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- 参加傾向 -->
+      <div class="trend-section">
+        <p class="trend-section__title">現在の参加の傾向</p>
+
+        <!-- 年齢層 -->
+        <div class="trend-block">
+          <p class="trend-block__label">年齢層</p>
+          <div class="age-trend">
+            <div class="age-trend__track" aria-hidden="true"></div>
+            <div class="age-trend__items" role="img" aria-label="年齢層の傾向：20代・30代が多い">
+              <div class="age-item">
+                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
+                <span class="age-item__label">10代</span>
+              </div>
+              <div class="age-item">
+                <div class="age-item__dot-wrap"><div class="age-item__dot age-item__dot--active"></div></div>
+                <span class="age-item__label age-item__label--active">20代</span>
+              </div>
+              <div class="age-item">
+                <div class="age-item__dot-wrap"><div class="age-item__dot age-item__dot--active"></div></div>
+                <span class="age-item__label age-item__label--active">30代</span>
+              </div>
+              <div class="age-item">
+                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
+                <span class="age-item__label">40代</span>
+              </div>
+              <div class="age-item">
+                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
+                <span class="age-item__label">50代</span>
+              </div>
+              <div class="age-item">
+                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
+                <span class="age-item__label">60代</span>
+              </div>
+              <div class="age-item">
+                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
+                <span class="age-item__label">70代〜</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 男女比 -->
+        <div class="trend-block">
+          <p class="trend-block__label">男女比</p>
+          <div class="gender-ratio" role="img" aria-label="男女比：男性がやや多い">
+            <span class="gender-ratio__label">男性</span>
+            <div class="gender-ratio__track">
+              <div class="gender-ratio__dot" aria-hidden="true"></div>
+            </div>
+            <span class="gender-ratio__label">女性</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </dialog>
 
   <script>
+    // カウントダウン
+    let total = 12 * 3600 + 34 * 60 + 56;
+    const nums = document.querySelectorAll('.countdown__num');
+    const tick = () => {
+      const h = Math.floor(total / 3600);
+      const m = Math.floor((total % 3600) / 60);
+      const s = total % 60;
+      nums[0].textContent = String(h).padStart(2, '0');
+      nums[1].textContent = String(m).padStart(2, '0');
+      nums[2].textContent = String(s).padStart(2, '0');
+      if (total > 0) total--;
+    };
+    tick();
+    setInterval(tick, 1000);
+
     // フィルターチップのクリック → スクロール
     const chips = document.querySelectorAll('.filter-chip');
     chips.forEach(chip => {
@@ -578,27 +730,39 @@
     participantsSheet.addEventListener('click', e => { if (e.target === participantsSheet) participantsSheet.close(); });
 
     // スクロール位置に連動してチップをアクティブ化
-    const sections = document.querySelectorAll('section[id]');
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          chips.forEach(c => c.classList.remove('filter-chip--active'));
-          const active = document.querySelector(`.filter-chip[data-target="${id}"]`);
-          if (active) {
-            active.classList.add('filter-chip--active');
-            active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-          }
+    const sectionEls = Array.from(document.querySelectorAll('[id^="section-"]'));
+    const chipBar = document.querySelector('.filter-chips-wrap');
+    function updateActiveChip() {
+      const chipBarH = chipBar ? chipBar.offsetHeight : 0;
+      const scrollY = window.scrollY + chipBarH + 10;
+      let current = sectionEls[0];
+      for (const sec of sectionEls) {
+        if (sec.offsetTop <= scrollY) current = sec;
+      }
+      if (current) {
+        chips.forEach(c => c.classList.remove('filter-chip--active'));
+        const active = document.querySelector(`.filter-chip[data-target="${current.id}"]`);
+        if (active) {
+          active.classList.add('filter-chip--active');
+          active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
-      });
-    }, { rootMargin: '-20% 0px -70% 0px' });
-    sections.forEach(s => io.observe(s));
+      }
+    }
+    window.addEventListener('scroll', updateActiveChip, { passive: true });
 
-    // 参加者アイコン → プロフィール画面へ遷移
-    document.querySelectorAll('.participant-teams .img-placeholder').forEach(el => {
-      el.style.cursor = 'pointer';
-      el.addEventListener('click', () => { location.href = '21_user-profile.html'; });
+    // 参加者アバターにユーザーパラメータを付与
+    const userMap = {
+      '旭俊成': 'asahi', '高杉優作': 'takasugi', '棚橋七海': 'tanahashi', '赤岩駿斗': 'akaiwa',
+      '栗田茉奈': 'kurita', '手塚光': 'tezuka', '向井猛': 'mukai', '吉村優一': 'yoshimura',
+      '黒川優喜': 'kurokawa', '國分椋太': 'kokubun', '小林新': 'kobayashi', '長島明子': 'nagashima'
+    };
+    document.querySelectorAll('.participant-avatar').forEach(link => {
+      const img = link.querySelector('img');
+      if (!img) return;
+      const userId = userMap[img.alt];
+      if (userId) link.href = '21_user-profile.html?user=' + userId;
     });
+
   </script>
 
   <script src="prototype-map.js"></script>

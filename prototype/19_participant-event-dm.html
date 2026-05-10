@@ -12,7 +12,8 @@
   <style>
     body {
       color: var(--color-neutral-solid-gray-800);
-      padding-bottom: 160px; /* ローカルナビ(66px) + 入力バー(84px) + 余白 */
+      background: var(--color-neutral-white);
+      padding-bottom: 94px; /* 入力バー(84px) + 余白 */
     }
 
     /* ── DM メッセージ一覧 ── */
@@ -74,7 +75,7 @@
     /* ── メッセージ入力バー ── */
     .dm-input-bar {
       position: fixed;
-      bottom: 66px; /* ローカルナビ高さ分 */
+      bottom: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
@@ -132,7 +133,7 @@
 
   <!-- ナビバー -->
   <div class="nav-bar">
-    <a class="nav-back" href="09_reservation-complete.html" aria-label="戻る">
+    <a class="nav-back" href="javascript:history.back();" aria-label="戻る">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <polyline points="15 18 9 12 15 6"/>
       </svg>
@@ -178,24 +179,6 @@
     </button>
   </div>
 
-  <!-- ローカルナビ -->
-  <nav class="local-nav" aria-label="ページ切り替え">
-    <a class="local-nav__item" href="14_participant-event.html">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-      </svg>
-      基本情報
-    </a>
-    <a class="local-nav__item local-nav__item--active" href="19_participant-event-dm.html" aria-current="page">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-      </svg>
-      DM
-    </a>
-  </nav>
 
   <script src="prototype-map.js"></script>
 </body>

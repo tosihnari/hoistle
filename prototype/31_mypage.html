@@ -26,6 +26,7 @@
       overflow: hidden;
       background: var(--color-neutral-solid-gray-100);
     }
+
     .profile-hero__bg {
       width: 390px;
       height: 390px;
@@ -34,6 +35,7 @@
       left: 0;
       top: 0;
     }
+
     .profile-hero__gradient {
       width: 100%;
       height: 130px;
@@ -42,6 +44,7 @@
       top: 260px;
       background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.50) 100%);
     }
+
     .profile-hero__name {
       position: absolute;
       left: 21px;
@@ -51,6 +54,7 @@
       align-items: flex-start;
       gap: 4px;
     }
+
     .profile-hero__name-text {
       color: white;
       font-size: 36px;
@@ -58,12 +62,15 @@
       line-height: 1.2;
       margin: 0;
     }
+
     .profile-hero__connections {
       color: white;
       font-size: 14px;
       font-weight: 700;
       margin: 0;
     }
+
+    /* ─ ステッカーボタン ─ */
     .sticker-btn {
       position: absolute;
       background: transparent;
@@ -72,7 +79,11 @@
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
-    .sticker-btn img { display: block; }
+
+    .sticker-btn img {
+      display: block;
+    }
+
     .sticker-tooltip {
       display: none;
       position: absolute;
@@ -89,9 +100,26 @@
       z-index: 10;
       font-family: 'Noto Sans JP', sans-serif;
     }
-    .sticker-btn--active .sticker-tooltip { display: block; }
-    .sticker-btn--1 .sticker-tooltip { right: 110%; top: 0; transform: rotate(-12deg); }
-    .sticker-btn--2 .sticker-tooltip { left: 90%; top: 90%; transform: rotate(19deg); }
+
+    .sticker-btn--active .sticker-tooltip {
+      display: block;
+    }
+
+    /* ステッカー1（右側）のツールチップ: 左上方向 */
+    .sticker-btn--1 .sticker-tooltip {
+      right: 110%;
+      top: 0;
+      transform: rotate(-12deg);
+    }
+
+    /* ステッカー2（左上）のツールチップ: 右下方向 */
+    .sticker-btn--2 .sticker-tooltip {
+      left: 90%;
+      top: 90%;
+      transform: rotate(19deg);
+    }
+
+    /* ─ プロフィール詳細セクション ─ */
     .profile-detail {
       background: var(--color-neutral-white);
       border-bottom: 1px solid var(--color-neutral-solid-gray-100);
@@ -503,7 +531,6 @@
 
   <!-- ヘッダー -->
   <header class="nav-bar">
-  
     <p class="nav-title">プロフィール</p>
     <button class="icon-btn dads-button" type="button" aria-label="QRコード">
       <img src="../material/icon/qr_code.svg" width="24" height="24" alt="" aria-hidden="true">
@@ -512,25 +539,42 @@
 
   <!-- ヒーロー画像 -->
   <section class="profile-hero" aria-label="プロフィール画像">
-    <img class="profile-hero__bg" src="assets/members/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
+    <img class="profile-hero__bg" src="../material/screen/マイページ_かな.png" alt="かな">
+
     <div class="profile-hero__gradient" aria-hidden="true"></div>
-    <button type="button" class="sticker-btn sticker-btn--1" style="width:113px;height:113px;left:277px;top:243px;transform:rotate(12deg);transform-origin:top left;" aria-label="ステッカー1を見る">
+
+    <!-- ステッカー1（右下エリア、回転+12deg） -->
+    <button
+      type="button"
+      class="sticker-btn sticker-btn--1"
+      style="width: 113px; height: 113px; left: 277px; top: 243px; transform: rotate(12deg); transform-origin: top left;"
+      aria-label="ステッカー1を見る"
+    >
       <img src="../material/screen/ステッカー１.png" width="113" height="113" alt="ステッカー1">
-      <div class="sticker-tooltip">ENFP：自由な冒険家🏃‍♀️</div>
+      <div class="sticker-tooltip">初参加達成！はじめてのイベントに参加した記念</div>
     </button>
-    <button type="button" class="sticker-btn sticker-btn--2" style="width:110px;height:110px;left:0px;top:41px;transform:rotate(-19deg);transform-origin:top left;" aria-label="ステッカー2を見る">
+
+    <!-- ステッカー2（左上エリア、回転-19deg） -->
+    <button
+      type="button"
+      class="sticker-btn sticker-btn--2"
+      style="width: 110px; height: 110px; left: 0px; top: 41px; transform: rotate(-19deg); transform-origin: top left;"
+      aria-label="ステッカー2を見る"
+    >
       <img src="../material/screen/ステッカー２.png" width="110" height="110" alt="ステッカー2">
-      <div class="sticker-tooltip">バスケMVP！圧倒的なパフォーマンス🏀</div>
+      <div class="sticker-tooltip">つながり名人！友達が100人を超えたよ</div>
     </button>
-    <div class="profile-hero__name" aria-label="旭俊成、128 つながり">
-      <p class="profile-hero__name-text">旭俊成</p>
+
+    <!-- 名前・つながり数 -->
+    <div class="profile-hero__name" aria-label="かな、128 つながり">
+      <p class="profile-hero__name-text">かな</p>
       <p class="profile-hero__connections">128 つながり</p>
     </div>
   </section>
 
   <!-- プロフィール詳細 -->
   <section class="profile-detail" aria-label="プロフィール詳細">
-    <p class="bio-card">主に週末、都内でバスケをしています。楽しく真剣にプレイできる仲間を募集中です！よろしくお願いします！</p>
+    <p class="bio-card">「主に週末、都内でテニスをしています。楽しく真剣にプレイできる仲間を募集中です！ダブルスの試合形式が得意ですが、シングルスの練習も歓迎です。よろしくお願いします！」</p>
 
     <a href="#" class="edit-profile-link">
       <img src="../material/icon/edit.svg" width="20" height="20" alt="" aria-hidden="true">
@@ -700,7 +744,7 @@
 
     <div class="qr-card">
       <img class="qr-image" src="../material/screen/QR-code.jpg" alt="プロフィール共有用QRコード">
-      <p class="qr-name">田中 健太</p>
+      <p class="qr-name">かな</p>
     </div>
 
     <button class="qr-scan-btn" type="button">
@@ -711,7 +755,7 @@
 
   <!-- グローバルナビゲーション -->
   <nav class="local-nav" aria-label="主要ナビゲーション">
-    <a class="local-nav__item" href="#">
+    <a class="local-nav__item" href="23_home.html">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/>
         <path d="M21 21l-4.35-4.35"/>
@@ -728,7 +772,7 @@
       </svg>
       予約
     </a>
-    <a class="local-nav__item local-nav__item--active" href="20_mypage.html" aria-current="page">
+    <a class="local-nav__item local-nav__item--active" href="31_mypage.html" aria-current="page">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
         <circle cx="12" cy="7" r="4"/>
@@ -738,6 +782,7 @@
   </nav>
 
   <script>
+    // QRコードダイアログ
     const qrBtn = document.querySelector('[aria-label="QRコード"]');
     const qrDialog = document.getElementById('qr-dialog');
     document.getElementById('qr-close').addEventListener('click', () => qrDialog.close());
