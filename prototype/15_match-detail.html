@@ -22,66 +22,198 @@
     }
 
 
-    .schedule-row {
+    .match-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .match-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .match-item__heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .match-item__number {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+      color: var(--color-neutral-solid-gray-500);
+    }
+
+    .match-item__time {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      color: var(--color-neutral-solid-gray-500);
+    }
+
+    .match-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .match-card__top {
       padding: 16px;
-      border-radius: 12px;
-      border: 1px solid var(--color-neutral-solid-gray-200);
       background: var(--color-neutral-white);
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .match-card__top--expanded {
+      border-radius: 12px 12px 0 0;
+      border-bottom: none;
+    }
+
+    .match-card__teams {
+      flex: 1;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .schedule-row--done {
-      background: rgba(243, 244, 246, 0.5);
-      opacity: 0.6;
-    }
-
-    .schedule-row--active {
-      background: var(--color-primitive-blue-50);
-      border: 2px solid var(--color-primitive-blue-200);
-    }
-
-    .schedule-row__match {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-600);
-      min-width: 48px;
-    }
-
-    .schedule-row__teams {
+    .match-team-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 16px;
-      font-weight: 500;
-      font-style: italic;
+      font-weight: 700;
+      color: var(--color-neutral-white);
+      flex-shrink: 0;
+    }
+
+    .match-team-icon--dark  { background: var(--color-neutral-solid-gray-700); }
+    .match-team-icon--mid   { background: var(--color-neutral-solid-gray-400); }
+    .match-team-icon--light { background: var(--color-neutral-solid-gray-300); }
+
+    .match-card__score {
+      font-size: 29px;
+      font-weight: 700;
+      line-height: 29px;
+      color: var(--color-neutral-solid-gray-500);
+    }
+
+    .match-card__score--empty {
+      opacity: 0.5;
+    }
+
+    .match-card__chevron {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .match-card__chevron img {
+      transform: rotate(180deg);
+      display: block;
+    }
+
+    .match-card__top--expanded .match-card__chevron img {
+      transform: rotate(0deg);
+    }
+
+    .match-card__body {
+      padding: 16px;
+      background: var(--color-neutral-white);
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      border-radius: 0 0 12px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .match-section-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 16px;
       color: var(--color-neutral-solid-gray-900);
     }
 
-    .schedule-row--done .schedule-row__teams {
-      color: var(--color-neutral-solid-gray-600);
+    .match-score-detail {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
-    .schedule-row__result {
+    .match-score-detail img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .match-box-score {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .match-box-score__team {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .match-box-score__team-name {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 14px;
+      color: var(--color-neutral-solid-gray-900);
+    }
+
+    .match-box-score__scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .match-box-score__scroll img {
+      height: 128px;
+      width: auto;
+      max-width: none;
+      display: block;
+    }
+
+    .match-empty-state {
+      width: 100%;
+      padding: 16px 0;
+      opacity: 0.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .match-empty-state__title {
       font-size: 12px;
-      font-style: italic;
-      color: var(--color-neutral-solid-gray-600);
-      min-width: 40px;
-      text-align: right;
+      font-weight: 700;
+      line-height: 12px;
+      color: var(--color-neutral-solid-gray-900);
     }
 
-    .schedule-row__active-label {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--color-primitive-blue-900);
-      min-width: 48px;
-      text-align: right;
-    }
-
-    .schedule-row__time {
+    .match-empty-state__desc {
       font-size: 12px;
-      font-style: italic;
-      color: var(--color-neutral-solid-gray-600);
-      min-width: 48px;
-      text-align: right;
+      font-weight: 400;
+      line-height: 12px;
+      color: var(--color-neutral-solid-gray-900);
     }
   </style>
 </head>
@@ -132,34 +264,124 @@
         <div class="schedule-heading__line"></div>
       </div>
 
-      <div class="schedule-rows">
+      <div class="match-list">
 
-        <!-- 第1試合（終了） -->
-        <div class="schedule-row schedule-row--done">
-          <span class="schedule-row__match">第1試合</span>
-          <span class="schedule-row__teams">A vs B</span>
-          <span class="schedule-row__result">3 : 1</span>
+        <!-- 第1試合（スコアあり・展開） -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第1試合</span>
+            <span class="match-item__time">09:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top match-card__top--expanded">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">58 : 94</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- 第2試合（進行中） -->
-        <div class="schedule-row schedule-row--active">
-          <span class="schedule-row__match">第2試合</span>
-          <span class="schedule-row__teams">A vs C</span>
-          <span class="schedule-row__active-label">進行中</span>
+        <!-- 第2試合（スコアあり・折り畳み） -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第2試合</span>
+            <span class="match-item__time">10:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">83 : 80</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- 第3試合（未定） -->
-        <div class="schedule-row">
-          <span class="schedule-row__match">第3試合</span>
-          <span class="schedule-row__teams">B vs C</span>
-          <span class="schedule-row__time">15:00〜</span>
-        </div>
-
-        <!-- 決勝（未定） -->
-        <div class="schedule-row">
-          <span class="schedule-row__match">決勝</span>
-          <span class="schedule-row__teams">−</span>
-          <span class="schedule-row__time">15:40〜</span>
+        <!-- 第3試合（スコアなし・展開・空状態） -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第3試合</span>
+            <span class="match-item__time">11:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top match-card__top--expanded">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--mid">B</div>
+                <span class="match-card__score match-card__score--empty">00 : 00</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <div class="match-empty-state">
+                  <span class="match-empty-state__title">スコアがありません</span>
+                  <span class="match-empty-state__desc">試合が開始されると表示されます</span>
+                </div>
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-empty-state">
+                  <span class="match-empty-state__title">スコアがありません</span>
+                  <span class="match-empty-state__desc">試合が開始されると表示されます</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -167,6 +389,24 @@
 
   </main>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.match-card__body').forEach(function(body) {
+        body.style.display = 'none';
+      });
+      document.querySelectorAll('.match-card__top').forEach(function(top) {
+        top.classList.remove('match-card__top--expanded');
+        top.style.cursor = 'pointer';
+        top.addEventListener('click', function() {
+          var body = top.nextElementSibling;
+          if (!body || !body.classList.contains('match-card__body')) return;
+          var isOpen = body.style.display !== 'none';
+          body.style.display = isOpen ? 'none' : '';
+          top.classList.toggle('match-card__top--expanded', !isOpen);
+        });
+      });
+    });
+  </script>
   <script src="prototype-map.js"></script>
 </body>
 </html>

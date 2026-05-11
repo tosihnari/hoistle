@@ -404,7 +404,7 @@ body {
   background: #fff;
   border-bottom: 1px solid var(--color-neutral-solid-gray-200);
   position: sticky;
-  top: 49px;
+  top: 0;
   z-index: 9;
 }
 .filter-chips-scroll {
@@ -524,13 +524,12 @@ body {
 }
 .facility-chip svg { flex-shrink: 0; }
 .facility-chip--available {
-  background: var(--color-neutral-solid-gray-200);
-  color: var(--color-neutral-solid-gray-800);
+  background: var(--color-neutral-solid-gray-800);
+  color: #fff;
 }
 .facility-chip--unavailable {
   background: var(--color-neutral-solid-gray-50);
   color: var(--color-neutral-solid-gray-400);
-  border: 1px solid var(--color-neutral-solid-gray-200);
 }
 .facility-list {
   border: 1px solid var(--color-neutral-solid-gray-200);
@@ -1240,7 +1239,10 @@ margin: 18 0 6px;}
 }
 .practice-menu__label {
   margin: 0;
-  font-size: 14px;
+  display: inline-block;
+  border-left: 4px solid var(--color-neutral-solid-gray-800);
+  padding-left: 8px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 20px;
   letter-spacing: 0.05em;
@@ -1248,7 +1250,7 @@ margin: 18 0 6px;}
 }
 .practice-menu__desc {
   margin: 0;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 24px;
   color: var(--color-neutral-solid-gray-700);
@@ -1260,8 +1262,19 @@ margin: 18 0 6px;}
 .event-hero__bg[data-category="スクール"]  { background: #0369a1; } /* Tailwind Light Blue 700 */
 
 .event-hero__bg[data-category]::before {
-  content: attr(data-category);
-  display: inline-block;
+  display: none;
+}
+
+/* ── イベントヒーロー ラベル行 ── */
+.event-hero__labels {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.event-hero__badge {
+  display: inline-flex;
+  align-items: center;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: #fff;
@@ -1269,5 +1282,104 @@ margin: 18 0 6px;}
   font-weight: 700;
   border-radius: 9999px;
   padding: 2px 10px;
+}
+
+/* ── イベントヒーロー 戻るボタン ── */
+.event-hero__bg {
+  position: relative;
+}
+.event-hero__back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ── 当日の流れ 注釈 ── */
+.section-note {
+  font-size: 12px;
+  color: var(--color-neutral-solid-gray-500);
+  margin: 16px 0 0;
+  line-height: 1.6;
+}
+#section-prize .section-group {
   margin-bottom: 8px;
+}
+#section-prize .section-sub {
+  margin: 0 0 4px;
+}
+#section-prize .section-group p {
+  margin: 0;
+}
+#section-prize .section-note {
+  margin: 8px 0 0;
+}
+
+/* App download fixed footer */
+.app-download-footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 390px;
+  padding: 12px 16px;
+  background: #fff;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.app-download-footer__badge {
+  position: relative;
+  padding: 2px 32px;
+  background: var(--color-neutral-solid-gray-900);
+  border-radius: 30px;
+  outline-offset: -2px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 25.6px;
+  white-space: nowrap;
+}
+.app-download-footer__badge strong { font-weight: 700; }
+.app-download-footer__badge::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--color-neutral-solid-gray-900);
+}
+.app-download-footer__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 32px;
+  background: var(--color-neutral-solid-gray-700);
+  box-shadow: 0 4px 0 var(--color-neutral-solid-gray-900);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  text-decoration: none;
+  text-align: center;
 }

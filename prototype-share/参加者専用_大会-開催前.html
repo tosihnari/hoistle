@@ -14,13 +14,13 @@
   <style>
     body {
       color: var(--color-neutral-solid-gray-800);
-      padding-bottom: 72px;
+      padding-bottom: 120px;
     }
 
     /* ── ヒーローセクション ── */
     .event-hero__bg {
       background: var(--color-neutral-solid-gray-800);
-      padding: 20px;
+      padding: 64px 20px 20px;
     }
     .event-hero__title {
       font-size: 22px;
@@ -90,33 +90,22 @@
 </head>
 <body>
 
-  <!-- ナビバー -->
-  <div class="nav-bar">
-    <a class="nav-back" href="#" aria-label="戻る" onclick="history.back(); return false;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </a>
-    <p class="nav-title">参加者専用ページ</p>
-    <div class="nav-spacer"></div>
-  </div>
 
   <!-- ヒーロー -->
   <div class="event-hero">
     <div class="event-hero__bg" data-category="大会">
+      <a class="event-hero__back" href="#" aria-label="戻る" onclick="history.back(); return false;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </a>
+      <div class="event-hero__labels">
+        <span class="event-hero__badge">大会</span>
+        <span class="event-hero__badge">球技大会レベル</span>
+      </div>
       <p class="event-hero__title">第１回 ビギナーズ ホイッスルカップ</p>
     </div>
   </div>
-  <a href="DM.html" class="notice-banner">
-    <img src="../material/icon/faq.svg" width="24" height="24" aria-hidden="true" style="flex-shrink:0">
-    <div class="notice-banner__body">
-      <p class="notice-banner__label">運営へのお問合せはこちら</p>
-      <p class="notice-banner__text" style="white-space: normal; overflow: visible; text-overflow: clip;">イベントについての質問や遅刻の連絡はこちら</p>
-    </div>
-    <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="10" fill="var(--color-neutral-solid-gray-400)" aria-hidden="true" style="flex-shrink:0">
-      <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
-    </svg>
-  </a>
 
   <!-- フィルターチップ -->
   <div class="filter-chips-wrap">
@@ -125,8 +114,10 @@
       <button class="filter-chip" data-target="section-venue">開催時間・場所</button>
       <button class="filter-chip" data-target="section-equipment">設備・持ち物</button>
       <button class="filter-chip" data-target="section-schedule">当日の流れ</button>
+      <button class="filter-chip" data-target="section-prize">景品情報</button>
+      <button class="filter-chip" data-target="section-trend">参加者の傾向</button>
       <button class="filter-chip" data-target="section-organizer">主催者情報</button>
-      <button class="filter-chip" data-target="section-cancel">キャンセル</button>
+      <button class="filter-chip" data-target="section-faq">よくある質問</button>
     </div>
   </div>
 
@@ -191,7 +182,7 @@
         <p class="section-sub">住所</p>
         <p style="font-size:14px;color:var(--color-neutral-solid-gray-800);margin:0 0 10px;">神奈川県藤沢市本藤沢４丁目２−１ スポーツセンター</p>
         <div class="venue-map" style="padding:0;overflow:hidden;">
-          <img src="../material/screen/地図の画像.png" alt="スポーツセンター外観" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="../material/screen/外観.png" alt="スポーツセンター外観" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
       </div>
 
@@ -401,26 +392,25 @@
           </div>
         </li>
       </ol>
-      <!-- 景品情報 -->
-      <div class="practice-menu">
-        <h2 class="practice-menu__title">嬉しい景品をご用意！</h2>
-        <div class="practice-menu__section">
-          <p class="practice-menu__label"></p>
-          <p class="practice-menu__desc">順位だけでなく、初心者でももらえる特別賞をご用意しています！</p>
-        </div>
-        <div class="practice-menu__section">
-          <p class="practice-menu__label">🏆 優勝チーム：優勝カップ＆次回使える1000pt</p>
-          <p class="practice-menu__desc"></p>
-        </div>
-        <div class="practice-menu__section">
-          <p class="practice-menu__label">🎁 参加賞：スポーツドリンク＆次回使える500pt</p>
-          <p class="practice-menu__desc"></p>
-        </div>
+      <p class="section-note">※内容は参加者や運営状況によって変更になるケースがございます</p>
+    </section>
+
+    <!-- 景品情報 -->
+    <section id="section-prize" class="section">
+      <h2 class="section-title">景品情報</h2>
+      <div class="section-group">
+        <p class="section-sub">🏆 優勝チーム</p>
+        <p>優勝カップ＆次回使える1000pt</p>
       </div>
+      <div class="section-group">
+        <p class="section-sub">🎁 参加賞</p>
+        <p>スポーツドリンク＆次回使える500pt</p>
+      </div>
+      <p class="section-note">順位だけでなく、初心者でももらえる特別賞をご用意しています！</p>
     </section>
 
     <!-- 参加者の傾向 -->
-    <section class="section">
+    <section id="section-trend" class="section">
       <h2 class="section-title">参加者の傾向</h2>
       <div id="participant-trend-container">
         <img src="../material/screen/参加者傾向.png" alt="参加者の傾向" style="width: 100%; display: block; height: auto;">
@@ -438,9 +428,7 @@
               <img src="../material/user-icon/運営_男性2.png" alt="Whistle公式">
             </div>
             <div class="organizer-profile-card__badge" aria-label="公式認定">
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M3 7L5.5 9.5L11 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <img src="../material/icon/batch.svg" width="17" height="17" aria-hidden="true">
             </div>
           </div>
           <div class="organizer-profile-card__body">
@@ -475,9 +463,7 @@
               <img src="../material/user-icon/運営_男性1.png" alt="田中 誠">
             </div>
             <div class="organizer-profile-card__badge" aria-label="公式認定">
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M3 7L5.5 9.5L11 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <img src="../material/icon/batch.svg" width="17" height="17" aria-hidden="true">
             </div>
           </div>
           <div class="organizer-profile-card__body">
@@ -504,42 +490,6 @@
           </div>
         </div>
       </div>
-      <div class="organizer-profile-card">
-        <div class="organizer-profile-card__main">
-          <div class="organizer-profile-card__avatar-wrap">
-            <div class="organizer-profile-card__avatar">
-              <img src="../material/user-icon/運営_女性1.png" alt="鈴木 花子">
-            </div>
-            <div class="organizer-profile-card__badge" aria-label="公式認定">
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M3 7L5.5 9.5L11 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-          <div class="organizer-profile-card__body">
-            <p class="organizer-profile-card__name">鈴木 花子</p>
-            <p class="organizer-profile-card__description">対戦表の管理・結果集計を担当します。大会をスムーズに進行できるようサポートします。</p>
-          </div>
-        </div>
-        <div class="organizer-profile-card__stats">
-          <div class="organizer-profile-card__stat">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            <span class="organizer-profile-card__stat-text">スタッフ歴3年</span>
-          </div>
-          <div class="organizer-profile-card__stat">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="18" rx="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-            <span class="organizer-profile-card__stat-text">参加者対応500名以上</span>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- キャンセル -->
@@ -560,11 +510,11 @@
           <span class="facility-row__desc">参加費の100%</span>
         </div>
       </div>
-      <button class="dads-button dads-button--danger" data-type="outline" data-size="md" style="width:100%;justify-content:center;" type="button">キャンセルを申請する</button>
+      <a href="#" style="display:block;text-align:center;font-size:14px;color:var(--color-neutral-solid-gray-600);text-decoration:underline;text-underline-offset:3px;padding:12px 0;">キャンセルを申請する</a>
     </section>
 
     <!-- よくある質問 -->
-    <section class="section">
+    <section id="section-faq" class="section">
       <h2 class="section-title">よくある質問</h2>
       <div style="display:flex;flex-direction:column;gap:8px; --color-primitive-blue-1000: var(--color-neutral-solid-gray-800); --color-primitive-blue-900: var(--color-neutral-solid-gray-700);">
         <details class="dads-accordion">
@@ -644,6 +594,16 @@
           </div>
         </details>
       </div>
+      <a href="グループチャット.html" class="notice-banner" style="margin-top:16px;margin-left:0;margin-right:0;margin-bottom:0;">
+        <img src="../material/icon/faq.svg" width="24" height="24" aria-hidden="true" style="flex-shrink:0">
+        <div class="notice-banner__body">
+          <p class="notice-banner__label">運営へのお問合せはこちら</p>
+          <p class="notice-banner__text" style="white-space: normal; overflow: visible; text-overflow: clip;">イベントについての質問や遅刻の連絡はこちら</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="10" fill="var(--color-neutral-solid-gray-400)" aria-hidden="true" style="flex-shrink:0">
+          <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+        </svg>
+      </a>
     </section>
 
     <!-- アプリDL -->
@@ -710,7 +670,7 @@
     participantsSheet.addEventListener('click', e => { if (e.target === participantsSheet) participantsSheet.close(); });
 
     // スクロール位置に連動してチップをアクティブ化
-    const sections = document.querySelectorAll('section[id]');
+    const sectionEls = Array.from(chips).map(c => document.getElementById(c.dataset.target)).filter(Boolean);
     const io = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -719,12 +679,16 @@
           const active = document.querySelector(`.filter-chip[data-target="${id}"]`);
           if (active) {
             active.classList.add('filter-chip--active');
-            active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            const chipsScroll = document.querySelector('.filter-chips-scroll');
+            if (chipsScroll) {
+              const left = active.offsetLeft - (chipsScroll.clientWidth - active.offsetWidth) / 2;
+              chipsScroll.scrollTo({ left, behavior: 'smooth' });
+            }
           }
         }
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
-    sections.forEach(s => io.observe(s));
+    sectionEls.forEach(s => io.observe(s));
 
     // 参加者アイコン → プロフィール画面へ遷移
     document.querySelectorAll('.participant-teams .img-placeholder').forEach(el => {
@@ -734,5 +698,9 @@
   </script>
 
   <script src="prototype-map.js"></script>
+<footer class="app-download-footer">
+  <div class="app-download-footer__badge">初回ダウンロードで<strong>500ポイント</strong>GET！</div>
+  <a href="#" class="app-download-footer__btn">今すぐアプリをダウンロード！</a>
+</footer>
 </body>
 </html>

@@ -17,80 +17,52 @@
       padding-bottom: 32px;
     }
 
+    /* ── ヒーロー ── */
     .profile-hero {
       width: 100%;
       max-width: 390px;
-      height: 390px;
+      height: 240px;
       position: relative;
       overflow: hidden;
-      background: var(--color-neutral-solid-gray-100);
+      background: var(--color-neutral-solid-gray-500);
     }
-    .profile-hero__bg {
-      width: 390px;
-      height: 390px;
+
+    .profile-hero__deco {
+      position: absolute;
+      display: block;
       object-fit: cover;
-      position: absolute;
-      left: 0;
-      top: 0;
     }
-    .profile-hero__gradient {
-      width: 100%;
-      height: 130px;
+
+    .profile-hero__center {
       position: absolute;
-      left: 0;
-      top: 260px;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.50) 100%);
-    }
-    .profile-hero__name {
-      position: absolute;
-      left: 21px;
-      top: 295px;
-      display: inline-flex;
+      left: 50%;
+      top: 36px;
+      transform: translateX(-50%);
+      display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
+      align-items: center;
+      gap: 16px;
+      width: 152px;
     }
+
+    .profile-hero__avatar {
+      width: 128px;
+      height: 128px;
+      border-radius: 9999px;
+      object-fit: cover;
+      display: block;
+    }
+
     .profile-hero__name-text {
       color: white;
-      font-size: 36px;
+      font-size: 24px;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1;
+      text-align: center;
       margin: 0;
     }
-    .profile-hero__connections {
-      color: white;
-      font-size: 14px;
-      font-weight: 700;
-      margin: 0;
-    }
-    .sticker-btn {
-      position: absolute;
-      background: transparent;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .sticker-btn img { display: block; }
-    .sticker-tooltip {
-      display: none;
-      position: absolute;
-      background: rgba(0, 0, 0, 0.70);
-      color: white;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 1.5;
-      padding: 8px 12px;
-      border-radius: 8px;
-      width: 152px;
-      white-space: normal;
-      pointer-events: none;
-      z-index: 10;
-      font-family: 'Noto Sans JP', sans-serif;
-    }
-    .sticker-btn--active .sticker-tooltip { display: block; }
-    .sticker-btn--1 .sticker-tooltip { right: 110%; top: 0; transform: rotate(-12deg); }
-    .sticker-btn--2 .sticker-tooltip { left: 90%; top: 90%; transform: rotate(19deg); }
+
+    /* ── プロフィール詳細 ── */
     .profile-detail {
       background: var(--color-neutral-white);
       border-bottom: 1px solid var(--color-neutral-solid-gray-100);
@@ -98,13 +70,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
-    }
-
-    .section-header-link img {
-      width: 14px;
-      height: 14px;
-      opacity: 0.45;
+      gap: 12px;
     }
 
     .bio-card {
@@ -113,7 +79,7 @@
       border-radius: 12px;
       outline: 1px solid var(--color-neutral-solid-gray-100);
       outline-offset: -1px;
-      padding: 16px;
+      padding: 17px 16px;
       font-size: 14px;
       font-weight: 400;
       color: var(--color-neutral-solid-gray-700);
@@ -121,62 +87,37 @@
       margin: 0;
     }
 
-    /* ─ 共通つながりカード ─ */
-    .mutual-card {
+    .event-history-card {
       align-self: stretch;
       background: var(--color-neutral-solid-gray-50);
       border-radius: 12px;
       outline: 1px solid var(--color-neutral-solid-gray-100);
       outline-offset: -1px;
-      padding: 16px;
+      padding: 11px 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
 
-    .mutual-avatars {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .mutual-avatar {
+    .event-history-card__icon {
       width: 32px;
       height: 32px;
-      border-radius: 9999px;
-      border: 2px solid var(--color-neutral-white);
-      margin-left: -8px;
-      object-fit: cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       flex-shrink: 0;
-    }
-
-    .mutual-avatars .mutual-avatar:first-child {
-      margin-left: 0;
-    }
-
-    .mutual-avatar-more {
-      background: var(--color-neutral-solid-gray-200);
-      font-size: 10px;
-      font-weight: 700;
       color: var(--color-neutral-solid-gray-900);
-      font-family: inherit;
-      outline: 2px solid var(--color-neutral-white);
-      outline-offset: -2px;
-      border: none;
     }
 
-    .mutual-text {
+    .event-history-card__text {
       font-size: 14px;
-      font-weight: 500;
       color: var(--color-neutral-solid-gray-900);
-      margin: 0;
       line-height: 1.43;
+      margin: 0;
     }
 
-    /* ─ スタッツ・最近のイベントセクション ─ */
+    .event-history-card__text strong {
+      font-weight: 700;
+    }
+
+    /* ── スタッツ・最近のイベント ── */
     .stats-events-section {
       background: var(--color-neutral-white);
       border-top: 1px solid var(--color-neutral-solid-gray-100);
@@ -184,16 +125,22 @@
       padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
     }
 
-    .section-label {
-      font-size: 14px;
+    .section-title {
+      font-size: 18px;
       font-weight: 700;
-      color: var(--color-neutral-solid-gray-400);
+      color: var(--color-neutral-solid-gray-900);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.088em;
       margin: 0;
+    }
+
+    .stats-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .stats-grid {
@@ -242,26 +189,32 @@
       color: var(--color-neutral-solid-gray-600);
     }
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 16px;
-    }
-
-    /* ─ イベントリスト ─ */
-    .events-list {
+    /* ── イベントリスト ── */
+    .events-block {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 16px;
+    }
+
+    .events-sub-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .event-sub-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-900);
+      text-transform: uppercase;
+      letter-spacing: 0.088em;
+      margin: 0;
     }
 
     .event-row {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 12px;
-      border-radius: 8px;
+      gap: 12px;
     }
 
     .event-icon-box {
@@ -280,33 +233,31 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 6px;
       min-width: 0;
     }
 
-    .event-title-row {
+    .event-chips {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .event-title-row .dads-chip-label {
+    .event-chips .dads-chip-label {
       font-size: 10px;
       padding: 0 6px;
-      min-height: 24px;
-      height: 24px;
-      line-height: 24px;
+      min-height: 22px;
+      height: 22px;
+      line-height: 22px;
     }
-    .event-title-row .dads-chip-label__icon { display: none; }
+    .event-chips .dads-chip-label__icon { display: none; }
 
     .event-title {
       font-size: 14px;
       font-weight: 700;
       color: var(--color-neutral-solid-gray-900);
       margin: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1.4;
     }
 
     .event-meta {
@@ -327,172 +278,175 @@
 
   <!-- ヘッダー -->
   <header class="nav-bar">
-    <button class="icon-btn dads-button" type="button" aria-label="閉じる" onclick="history.back()">
-      <svg width="24" height="24" viewBox="0 -960 960 960" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" fill="currentColor"/>
+    <button class="icon-btn dads-button" type="button" aria-label="戻る" onclick="history.back()">
+      <svg width="24" height="24" viewBox="0 -960 960 960" aria-hidden="true">
+        <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" fill="currentColor"/>
       </svg>
     </button>
     <p class="nav-title">プロフィール</p>
     <div class="nav-spacer"></div>
   </header>
 
-  <!-- ヒーロー画像 -->
+  <!-- ヒーロー -->
   <section class="profile-hero" aria-label="プロフィール画像">
-    <img class="profile-hero__bg" src="../material/user-icon/Yusaku.Takasugi_高杉優作.png" alt="高杉優作">
-    <div class="profile-hero__gradient" aria-hidden="true"></div>
-    <button type="button" class="sticker-btn sticker-btn--1" style="width:113px;height:113px;left:277px;top:243px;transform:rotate(12deg);transform-origin:top left;" aria-label="ステッカー1を見る">
-      <img src="../material/screen/ステッカー１.png" width="113" height="113" alt="ステッカー1">
-      <div class="sticker-tooltip">部活レベル🏀</div>
-    </button>
-    <button type="button" class="sticker-btn sticker-btn--2" style="width:110px;height:110px;left:0px;top:41px;transform:rotate(-19deg);transform-origin:top left;" aria-label="ステッカー2を見る">
-      <img src="../material/screen/ステッカー２.png" width="110" height="110" alt="ステッカー2">
-      <div class="sticker-tooltip">バスケMVP！圧倒的なパフォーマンス🏀</div>
-    </button>
-    <div class="profile-hero__name" aria-label="高杉優作、84 つながり">
+    <img class="profile-hero__deco"
+         src="../material/screen/ステッカー２.png"
+         alt=""
+         aria-hidden="true"
+         style="width:110px;height:110px;left:-16px;top:33px;transform:rotate(-19deg);transform-origin:top left;">
+    <img class="profile-hero__deco"
+         src="../material/screen/ステッカー１.png"
+         alt=""
+         aria-hidden="true"
+         style="width:113px;height:113px;left:277px;top:124px;transform:rotate(12deg);transform-origin:top left;">
+    <div class="profile-hero__center">
+      <img class="profile-hero__avatar"
+           src="../material/user-icon/Yusaku.Takasugi_高杉優作.png"
+           alt="高杉優作">
       <p class="profile-hero__name-text">高杉優作</p>
-      <p class="profile-hero__connections">84 つながり</p>
     </div>
   </section>
 
   <!-- プロフィール詳細 -->
   <section class="profile-detail" aria-label="プロフィール詳細">
-    <div class="mutual-card">
-      <div class="mutual-avatars">
-        <img class="mutual-avatar" src="../material/user-icon/Nanami.Tanahashi_棚橋七海.png" alt="" aria-hidden="true" style="object-fit:cover;">
-        <img class="mutual-avatar" src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="" aria-hidden="true" style="object-fit:cover;">
-        <div class="mutual-avatar mutual-avatar-more" aria-hidden="true">+1</div>
-      </div>
-      <p class="mutual-text">3人の共通のつながりがいます</p>
-    </div>
+    <p class="bio-card">「バスケとランニングが好きです。週2〜3回活動しています。試合になると本気出します。初めての方も気軽に声かけてください！」</p>
 
-    <p class="bio-card">「バスケとランニングが好きです。週2〜3回活動しています。ガチ勢ではないですが、試合になると本気出します。初めての方も気軽に声かけてください！」</p>
+    <div class="event-history-card">
+      <img class="event-history-card__icon"
+           src="../material/icon/handshake.svg"
+           alt=""
+           aria-hidden="true">
+      <p class="event-history-card__text">これまで<strong> 2回</strong>、同じイベントに<br>参加しています！</p>
+    </div>
   </section>
 
   <!-- スタッツ・最近のイベント -->
   <section class="stats-events-section" aria-label="スタッツと最近のイベント">
-    <p class="section-label">スタッツ</p>
 
-    <div class="stats-grid">
-      <div class="stat-item">
-        <span class="stat-label">通算参加回数</span>
-        <div class="stat-value-row">
-          <span class="stat-value">32</span>
-          <span class="stat-unit">回</span>
+    <div class="stats-block">
+      <p class="section-title">スタッツ</p>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">通算参加回数</span>
+          <div class="stat-value-row">
+            <span class="stat-value">32</span>
+            <span class="stat-unit">回</span>
+          </div>
         </div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">MVP獲得数</span>
-        <div class="stat-value-row">
-          <span class="stat-value">3</span>
-          <span class="stat-unit">回</span>
+        <div class="stat-item">
+          <span class="stat-label">チーム勝利数</span>
+          <div class="stat-value-row">
+            <span class="stat-value">10</span>
+            <span class="stat-unit">回</span>
+          </div>
         </div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">消費カロリー</span>
-        <div class="stat-value-row">
-          <span class="stat-value">8,210</span>
-          <span class="stat-unit">kcal</span>
+        <div class="stat-item">
+          <span class="stat-label">MVP獲得数</span>
+          <div class="stat-value-row">
+            <span class="stat-value">3</span>
+            <span class="stat-unit">回</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="section-header">
-      <p class="section-label" style="padding-top: 0;">最近のイベント参加</p>
+    <div class="events-block">
+      <p class="section-title">最近のイベント参加</p>
+
+      <!-- 参加予定 -->
+      <div class="events-sub-section">
+        <p class="event-sub-label">参加予定</p>
+        <div class="event-row">
+          <div class="event-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div class="event-info">
+            <div class="event-chips">
+              <span class="dads-chip-label" data-style="outline" data-color="gray">大会</span>
+              <span class="dads-chip-label" data-style="outline" data-color="gray">部活レベル</span>
+            </div>
+            <p class="event-title">第１回 ビギナーズ ホイッスルカップ</p>
+            <p class="event-meta">2025年5月10日・東京エリア</p>
+          </div>
+          <img class="event-row-arrow" src="../material/icon/arrow_right.svg" alt="" aria-hidden="true">
+        </div>
+      </div>
+
+      <!-- 参加済み -->
+      <div class="events-sub-section">
+        <p class="event-sub-label">参加済み</p>
+        <div class="event-row">
+          <div class="event-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div class="event-info">
+            <div class="event-chips">
+              <span class="dads-chip-label" data-style="outline" data-color="gray">スクール</span>
+              <span class="dads-chip-label" data-style="outline" data-color="gray">部活レベル</span>
+            </div>
+            <p class="event-title">フットサル基礎練習</p>
+            <p class="event-meta">2025年5月3日・東京エリア</p>
+          </div>
+          <img class="event-row-arrow" src="../material/icon/arrow_right.svg" alt="" aria-hidden="true">
+        </div>
+        <div class="event-row">
+          <div class="event-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <div class="event-info">
+            <div class="event-chips">
+              <span class="dads-chip-label" data-style="outline" data-color="gray">エンジョイ</span>
+              <span class="dads-chip-label" data-style="outline" data-color="gray">部活レベル</span>
+            </div>
+            <p class="event-title">バスケ第１回 ビギナーズ ホイッスルカップ</p>
+            <p class="event-meta">2025年4月24日・東京エリア</p>
+          </div>
+          <img class="event-row-arrow" src="../material/icon/arrow_right.svg" alt="" aria-hidden="true">
+        </div>
+      </div>
     </div>
 
-    <div class="events-list">
-      <div class="event-row">
-        <div class="event-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
-        </div>
-        <div class="event-info">
-          <div class="event-title-row">
-            <p class="event-title">モーニングラン</p>
-            <span class="dads-chip-label" data-style="outline" data-color="gray">エンジョイ</span>
-          </div>
-          <p class="event-meta">2023年11月10日 · ランニング</p>
-        </div>
-        <img class="event-row-arrow" src="../material/icon/arrow_right.svg" alt="" aria-hidden="true">
-      </div>
-
-      <div class="event-row">
-        <div class="event-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
-        </div>
-        <div class="event-info">
-          <div class="event-title-row">
-            <p class="event-title">深夜の3on3マッチ</p>
-            <span class="dads-chip-label" data-style="outline" data-color="gray">ガチ</span>
-          </div>
-          <p class="event-meta">2023年11月08日 · バスケットボール</p>
-        </div>
-        <img class="event-row-arrow" src="../material/icon/arrow_right.svg" alt="" aria-hidden="true">
-      </div>
-
-      <div class="event-row">
-        <div class="event-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-          </svg>
-        </div>
-        <div class="event-info">
-          <div class="event-title-row">
-            <p class="event-title">週末ダブルス練習会</p>
-            <span class="dads-chip-label" data-style="outline" data-color="gray">エンジョイ</span>
-          </div>
-          <p class="event-meta">2023年11月05日 · テニス</p>
-        </div>
-        <img class="event-row-arrow" src="../material/icon/arrow_right.svg" alt="" aria-hidden="true">
-      </div>
-    </div>
   </section>
+
   <script>
-    // メンバーデータ
     const members = {
-      asahi:     { name: '旭俊成',   photo: '../material/user-icon/Toshinari.Asahi_旭俊成.png',     connections: 128, bio: '主に週末、都内でバスケをしています。楽しく真剣にプレイできる仲間を募集中です！よろしくお願いします！' },
-      takasugi:  { name: '高杉優作', photo: '../material/user-icon/Yusaku.Takasugi_高杉優作.png',   connections: 84,  bio: 'バスケとランニングが好きです。週2〜3回活動しています。試合になると本気出します。初めての方も気軽に声かけてください！' },
-      tanahashi: { name: '棚橋七海', photo: '../material/user-icon/Nanami.Tanahashi_棚橋七海.png',  connections: 56,  bio: 'バレーとバスケが好きです。初心者の方も大歓迎！みんなで楽しく体を動かしましょう。' },
-      akaiwa:    { name: '赤岩駿斗', photo: '../material/user-icon/Hayato.Akaiwa_赤岩駿斗.png',     connections: 45,  bio: 'スポーツ全般好きです。仕事終わりに軽く動けるイベントをよく探しています！よろしく！' },
-      kurita:    { name: '栗田茉奈', photo: '../material/user-icon/Mana.Kurita_栗田茉奈.png',        connections: 72,  bio: 'テニスとランニングが好きです。健康のために体を動かせる仲間を探しています！' },
-      tezuka:    { name: '手塚光',   photo: '../material/user-icon/Hikaru.Tezuka_手塚光.png',        connections: 38,  bio: '週末は必ずスポーツしています。バスケのスリーポイントが得意です！' },
-      mukai:     { name: '向井猛',   photo: '../material/user-icon/Takeru .Mukai_向井猛.png',        connections: 61,  bio: 'サッカーメインですが、最近バスケにもハマってます。フットワーク得意です。' },
-      yoshimura: { name: '吉村優一', photo: '../material/user-icon/Yuichi.Yoshimura_吉村優一.png',  connections: 47,  bio: '週1〜2回活動しています。仕事帰りに気軽に参加できるイベントが好きです。' },
-      kurokawa:  { name: '黒川優喜', photo: '../material/user-icon/Yuki.Kurokawa_黒川優喜.png',     connections: 33,  bio: 'バスケ歴5年です。楽しく動けるイベントをいつも探しています！' },
-      kokubun:   { name: '國分椋太', photo: '../material/user-icon/Ryota.Kokubun_國分椋太.png',     connections: 29,  bio: '運動不足解消のために始めました。みなさんよろしくお願いします！' },
-      kobayashi: { name: '小林新',   photo: '../material/user-icon/Arata.Kobayashi_小林新.png',     connections: 52,  bio: 'ランニングが好きです。マラソン大会にも出ています。スポーツ全般OK！' },
-      nagashima: { name: '長島明子', photo: '../material/user-icon/Akiko.Nagashima_長島明子.png',   connections: 41,  bio: '体を動かすのが好きです。スポーツで新しい友達を作りたいです！' },
+      asahi:     { name: '旭俊成',   photo: '../material/user-icon/Toshinari.Asahi_旭俊成.png',     bio: '主に週末、都内でバスケをしています。楽しく真剣にプレイできる仲間を募集中です！よろしくお願いします！' },
+      takasugi:  { name: '高杉優作', photo: '../material/user-icon/Yusaku.Takasugi_高杉優作.png',   bio: 'バスケとランニングが好きです。週2〜3回活動しています。試合になると本気出します。初めての方も気軽に声かけてください！' },
+      tanahashi: { name: '棚橋七海', photo: '../material/user-icon/Nanami.Tanahashi_棚橋七海.png',  bio: 'バレーとバスケが好きです。初心者の方も大歓迎！みんなで楽しく体を動かしましょう。' },
+      akaiwa:    { name: '赤岩駿斗', photo: '../material/user-icon/Hayato.Akaiwa_赤岩駿斗.png',     bio: 'スポーツ全般好きです。仕事終わりに軽く動けるイベントをよく探しています！よろしく！' },
+      kurita:    { name: '栗田茉奈', photo: '../material/user-icon/Mana.Kurita_栗田茉奈.png',        bio: 'テニスとランニングが好きです。健康のために体を動かせる仲間を探しています！' },
+      tezuka:    { name: '手塚光',   photo: '../material/user-icon/Hikaru.Tezuka_手塚光.png',        bio: '週末は必ずスポーツしています。バスケのスリーポイントが得意です！' },
+      mukai:     { name: '向井猛',   photo: '../material/user-icon/Takeru .Mukai_向井猛.png',        bio: 'サッカーメインですが、最近バスケにもハマってます。フットワーク得意です。' },
+      yoshimura: { name: '吉村優一', photo: '../material/user-icon/Yuichi.Yoshimura_吉村優一.png',  bio: '週1〜2回活動しています。仕事帰りに気軽に参加できるイベントが好きです。' },
+      kurokawa:  { name: '黒川優喜', photo: '../material/user-icon/Yuki.Kurokawa_黒川優喜.png',     bio: 'バスケ歴5年です。楽しく動けるイベントをいつも探しています！' },
+      kokubun:   { name: '國分椋太', photo: '../material/user-icon/Ryota.Kokubun_國分椋太.png',     bio: '運動不足解消のために始めました。みなさんよろしくお願いします！' },
+      kobayashi: { name: '小林新',   photo: '../material/user-icon/Arata.Kobayashi_小林新.png',     bio: 'ランニングが好きです。マラソン大会にも出ています。スポーツ全般OK！' },
+      nagashima: { name: '長島明子', photo: '../material/user-icon/Akiko.Nagashima_長島明子.png',   bio: '体を動かすのが好きです。スポーツで新しい友達を作りたいです！' },
     };
     const params = new URLSearchParams(location.search);
     const userId = params.get('user') || 'takasugi';
     const member = members[userId] || members['takasugi'];
-    // ヒーロー画像・名前
-    const heroImg = document.querySelector('.profile-hero__bg');
-    heroImg.src = member.photo;
-    heroImg.alt = member.name;
+
+    const avatar = document.querySelector('.profile-hero__avatar');
+    avatar.src = member.photo;
+    avatar.alt = member.name;
     document.querySelector('.profile-hero__name-text').textContent = member.name;
-    document.querySelector('.profile-hero__connections').textContent = member.connections + ' つながり';
-    document.querySelector('.profile-hero__name').setAttribute('aria-label', member.name + '、' + member.connections + ' つながり');
     document.querySelector('.bio-card').textContent = '「' + member.bio + '」';
-  </script>
-  <script>
-    document.querySelectorAll('.sticker-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        const isActive = btn.classList.contains('sticker-btn--active');
-        document.querySelectorAll('.sticker-btn').forEach(b => b.classList.remove('sticker-btn--active'));
-        if (!isActive) btn.classList.add('sticker-btn--active');
-      });
-    });
-    document.addEventListener('click', () => {
-      document.querySelectorAll('.sticker-btn').forEach(b => b.classList.remove('sticker-btn--active'));
-    });
   </script>
   <script src="prototype-map.js"></script>
 

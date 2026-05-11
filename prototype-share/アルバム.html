@@ -10,8 +10,13 @@
   <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/global.css">
   <link rel="stylesheet" href="prototype.css">
   <style>
+    html, body { height: 100%; }
     body {
       background: var(--color-neutral-solid-gray-100);
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      overflow: hidden;
     }
 
     /* nav-title の上書き（このページだけ 20px / 500） */
@@ -20,17 +25,38 @@
       font-weight: 500;
     }
 
-    .album-list {
+
+    .album-wrapper {
+      flex: 1;
+      min-height: 0;
       display: flex;
       flex-direction: column;
-      gap: 0;
     }
-
+    .album-list {
+      flex: 1;
+      min-height: 0;
+    }
     .album-photo {
       width: 100%;
+      height: 100%;
       display: block;
-      aspect-ratio: 390 / 715;
       object-fit: cover;
+    }
+    .album-cta {
+      flex-shrink: 0;
+      padding: 16px 24px 24px;
+    }
+    .album-cta-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--color-neutral-solid-gray-900);
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
     }
     .lightbox {
       position: fixed;
@@ -74,32 +100,42 @@
       color: #fff;
       padding: 0;
     }
-    .lightbox__share { display: flex; gap: 8px; flex: 1; min-width: 0; }
     .lightbox__share-btn {
       flex: 1;
-      min-width: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 8px 10px;
+      padding: 8px 16px;
       border-radius: 8px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
       font-size: 13px;
       font-weight: 700;
-      text-decoration: none;
-      white-space: nowrap;
-      overflow: hidden;
+      cursor: pointer;
+      font-family: inherit;
     }
-    .lightbox__share-btn--x   { background: #000; color: #fff; }
-    .lightbox__share-btn--line { background: #06C755; color: #fff; }
+    .lightbox__footer {
+      flex-shrink: 0;
+      display: flex;
+      gap: 16px;
+      padding: 10px 16px;
+      background: rgba(0,0,0,0.6);
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+    .lightbox__footer img {
+      filter: invert(1);
+    }
     .lightbox__scroll {
       flex: 1;
-      overflow-y: auto;
+      min-height: 0;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    .lightbox__scroll-item { height: 100%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-    .lightbox__scroll-img { width: 100%; display: block; object-fit: contain; }
+    .lightbox__scroll-img { width: 100%; max-height: 100%; display: block; object-fit: contain; }
     .share-bar {
       padding: 16px;
       display: flex;
@@ -157,6 +193,100 @@
       border-color: #fff;
       opacity: 1;
     }
+
+    /* === アプリDLモーダル === */
+    .app-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 48px);
+      max-width: 342px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+    .app-modal::backdrop { background: rgba(0,0,0,0.5); }
+    .app-modal:not([open]) { display: none; }
+    .app-modal__img-wrap {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    .app-modal__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .app-modal__img-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, #fff 0%, rgba(255,255,255,0) 50%);
+    }
+    .app-modal__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.35);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 0;
+    }
+    .app-modal__body {
+      padding: 16px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .app-modal__title {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.4;
+      text-align: center;
+      color: var(--color-neutral-solid-gray-900);
+    }
+    .app-modal__desc {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.6;
+      text-align: center;
+      color: var(--color-neutral-solid-gray-600);
+    }
+    .app-modal__badge {
+      padding: 5px 5px;
+      color:var(--color-neutral-solid-gray-700);;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      text-align: center;
+    }
+    .app-modal__dl-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--color-neutral-solid-gray-900);
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
   </style>
 </head>
 <body>
@@ -173,9 +303,31 @@
   </div>
 
   <!-- アルバム -->
-  <div class="album-list">
-    <img class="album-photo" src="../material/screen/写真.png" alt="カメラロール">
+  <div class="album-wrapper">
+    <div class="album-list">
+      <img class="album-photo" src="../material/screen/写真.png" alt="写真1">
+    </div>
+    <div class="album-cta">
+      <button class="album-cta-btn" id="open-app-modal" type="button">写真をもっと見る</button>
+    </div>
   </div>
+
+  <!-- アプリDLモーダル -->
+  <dialog class="app-modal" id="app-modal">
+    <div class="app-modal__img-wrap">
+      <img class="app-modal__img" src="../material/screen/モーダル_アプリ-DL.png" alt="">
+      <div class="app-modal__img-fade"></div>
+      <button class="app-modal__close" id="app-modal-close" type="button" aria-label="閉じる">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
+      </button>
+    </div>
+    <div class="app-modal__body">
+      <p class="app-modal__title">アプリなら、<br>すべての写真が見れる！</p>
+      <p class="app-modal__desc">アプリを無料ダウンロードして、<br>続きの写真をチェック！</p>
+      <div class="app-modal__badge">\ 初回ダウンロードで<strong>500ポイント</strong>GET！ /</div>
+      <button class="app-modal__dl-btn" type="button">今すぐアプリをダウンロード！</button>
+    </div>
+  </dialog>
 
   <!-- lightbox -->
   <dialog class="lightbox" id="lightbox" aria-label="写真拡大表示">
@@ -184,55 +336,40 @@
         <button class="lightbox__close" id="lightbox-close" type="button" aria-label="閉じる">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
         </button>
-        <div class="lightbox__share">
-          <a class="lightbox__share-btn lightbox__share-btn--x" href="https://twitter.com/intent/tweet?text=ホイッスルのイベント写真%F0%9F%8F%80" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.731-8.835L1.254 2.25H8.08l4.26 5.632 5.905-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            X でシェア
-          </a>
-          <a class="lightbox__share-btn lightbox__share-btn--line" href="https://line.me/R/msg/text/?ホイッスルのイベント写真%F0%9F%8F%80" target="_blank" rel="noopener">
-            LINE でシェア
-          </a>
-        </div>
       </div>
       <div class="lightbox__scroll" id="lightbox-scroll"></div>
       <div class="lightbox__thumbs" id="lightbox-thumbs"></div>
+      <div class="lightbox__footer">
+        <button class="lightbox__share-btn" type="button">
+          <img src="../material/icon/share.svg" alt="" width="20" height="20" aria-hidden="true">
+          画像を共有
+        </button>
+        <button class="lightbox__share-btn" type="button">
+          <img src="../material/icon/instagram_739244.svg" alt="" width="20" height="20" aria-hidden="true">
+          Instagramで共有
+        </button>
+      </div>
     </div>
   </dialog>
 
-  <!-- SNSシェア -->
-  <div class="share-bar">
-    <a class="share-btn share-btn--x" href="https://twitter.com/intent/tweet?text=ホイッスルのイベント写真%F0%9F%8F%80" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.731-8.835L1.254 2.25H8.08l4.26 5.632 5.905-5.632Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      X でシェア
-    </a>
-    <a class="share-btn share-btn--line" href="https://line.me/R/msg/text/?ホイッスルのイベント写真%F0%9F%8F%80" target="_blank" rel="noopener">
-      LINE でシェア
-    </a>
-  </div>
 
   <script>
     const lightbox       = document.getElementById('lightbox');
     const lightboxScroll = document.getElementById('lightbox-scroll');
     const lightboxThumbs = document.getElementById('lightbox-thumbs');
+    const albumPhotos    = Array.from(document.querySelectorAll('.album-photo'));
 
-    const albumSrcs = [
-      '../material/screen/アルバム1.png',
-      '../material/screen/アルバム2.png',
-      '../material/screen/アルバム3.png',
-      '../material/screen/アルバム4.png'
-    ];
-    const dummySrcs = Array.from({ length: 11 }, (_, i) => albumSrcs[i % albumSrcs.length]);
+    const albumSrcs = ['../material/screen/アルバム1.png','../material/screen/アルバム2.png','../material/screen/アルバム3.png','../material/screen/アルバム4.png'];
+    const dummySrcs = Array.from({ length: 8 }, (_, i) => albumSrcs[i % albumSrcs.length]);
     const thumbSrcs = [...albumSrcs, ...dummySrcs];
 
     albumSrcs.forEach((src, i) => {
-      const item = document.createElement('div');
-      item.className = 'lightbox__scroll-item';
       const el = document.createElement('img');
-      el.src = src; el.alt = `写真${i + 1}`;
+      el.src = src; el.alt = `写真 ${i + 1}`;
       el.className = 'lightbox__scroll-img';
       el.dataset.index = i;
-      item.appendChild(el);
-      lightboxScroll.appendChild(item);
+      el.style.display = i === 0 ? 'block' : 'none';
+      lightboxScroll.appendChild(el);
     });
 
     thumbSrcs.forEach((src, i) => {
@@ -246,6 +383,13 @@
       lightboxThumbs.appendChild(btn);
     });
 
+    function showImage(index) {
+      const clamped = Math.min(index, lightboxScroll.children.length - 1);
+      Array.from(lightboxScroll.children).forEach((el, i) => {
+        el.style.display = i === clamped ? 'block' : 'none';
+      });
+    }
+
     function setActiveThumb(index) {
       Array.from(lightboxThumbs.children).forEach((btn, i) => {
         btn.classList.toggle('lightbox__thumb--active', i === index);
@@ -255,21 +399,28 @@
 
     Array.from(lightboxThumbs.children).forEach((btn, i) => {
       btn.addEventListener('click', () => {
-        const target = Math.min(i, lightboxScroll.children.length - 1);
-        lightboxScroll.children[target]?.scrollIntoView({ behavior: 'smooth' });
+        showImage(i);
         setActiveThumb(i);
       });
     });
 
-    document.querySelector('.album-photo').addEventListener('click', () => {
-      lightbox.showModal();
-      requestAnimationFrame(() => {
-        lightboxScroll.children[0]?.scrollIntoView({ behavior: 'instant' });
-        setActiveThumb(0);
+    albumPhotos.forEach((img, i) => {
+      img.addEventListener('click', () => {
+        lightbox.showModal();
+        requestAnimationFrame(() => {
+          showImage(i < albumSrcs.length ? i : 0);
+          setActiveThumb(i < albumSrcs.length ? i : 0);
+        });
       });
     });
 
     document.getElementById('lightbox-close').addEventListener('click', () => lightbox.close());
+
+    // アプリDLモーダル
+    const appModal = document.getElementById('app-modal');
+    document.getElementById('open-app-modal').addEventListener('click', () => appModal.showModal());
+    document.getElementById('app-modal-close').addEventListener('click', () => appModal.close());
+    appModal.addEventListener('click', e => { if (e.target === appModal) appModal.close(); });
   </script>
 
   <script src="prototype-map.js"></script>

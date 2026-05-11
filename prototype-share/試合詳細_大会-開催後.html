@@ -55,21 +55,37 @@
 
     /* MVP バッジ */
     .mvp-badge {
+      align-self: stretch;
       background: var(--color-neutral-white);
       border-radius: 12px;
       border: 2px solid var(--color-neutral-solid-gray-200);
-      padding: 12px 16px;
+      padding: 6px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mvp-badge__label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-neutral-solid-gray-500);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .mvp-badge__row {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
 
     .mvp-badge__avatar {
-      width: 56px;
-      height: 56px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       overflow: hidden;
-      border: 2px solid var(--color-neutral-solid-gray-100);
+      border: 1.25px solid var(--color-neutral-solid-gray-100);
       flex-shrink: 0;
     }
 
@@ -80,68 +96,178 @@
       display: block;
     }
 
-    .mvp-badge__info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .mvp-badge__label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-500);
-    }
-
     .mvp-badge__name {
       font-size: 16px;
       font-weight: 500;
       color: var(--color-neutral-solid-gray-800);
-      line-height: 1.5;
+      line-height: 1.75;
     }
 
-    .mvp-badge__stat {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-500);
-      line-height: 1.4;
+    /* 試合カード */
+    .match-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .mvp-badge__note {
+    .match-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .match-item__heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .match-item__number {
       font-size: 14px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-700);
-      line-height: 1.4;
+      font-weight: 700;
+      line-height: 20px;
+      color: var(--color-neutral-solid-gray-500);
     }
 
-    /* 全試合結果 行 */
-    .result-row {
+    .match-item__time {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      color: var(--color-neutral-solid-gray-500);
+    }
+
+    .match-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .match-card__top {
       padding: 16px;
-      border-radius: 12px;
-      border: 1px solid var(--color-neutral-solid-gray-200);
       background: var(--color-neutral-white);
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      border-radius: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      gap: 16px;
     }
 
-    .result-row--highlight {
-      background: var(--color-neutral-solid-gray-50);
+    .match-card__top--expanded {
+      border-radius: 12px 12px 0 0;
+      border-bottom: none;
     }
 
-    .result-row__teams {
+    .match-card__teams {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .match-team-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 16px;
-      font-weight: 500;
-      font-style: italic;
-      color: var(--color-neutral-solid-gray-600);
+      font-weight: 700;
+      color: var(--color-neutral-white);
+      flex-shrink: 0;
     }
 
-    .result-row__score {
-      font-size: 20px;
-      font-weight: 900;
-      font-style: italic;
+    .match-team-icon--dark  { background: var(--color-neutral-solid-gray-700); }
+    .match-team-icon--mid   { background: var(--color-neutral-solid-gray-400); }
+    .match-team-icon--light { background: var(--color-neutral-solid-gray-300); }
+
+    .match-card__score {
+      font-size: 29px;
+      font-weight: 700;
+      line-height: 29px;
+      color: var(--color-neutral-solid-gray-500);
+    }
+
+    .match-card__chevron {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .match-card__chevron img {
+      transform: rotate(180deg);
+      display: block;
+    }
+
+    .match-card__top--expanded .match-card__chevron img {
+      transform: rotate(0deg);
+    }
+
+    .match-card__body {
+      padding: 16px;
+      background: var(--color-neutral-white);
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      border-radius: 0 0 12px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .match-section-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 16px;
       color: var(--color-neutral-solid-gray-900);
-      letter-spacing: 0.04em;
+    }
+
+    .match-score-detail {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .match-score-detail img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .match-box-score {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .match-box-score__team {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .match-box-score__team-name {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 14px;
+      color: var(--color-neutral-solid-gray-900);
+    }
+
+    .match-box-score__scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .match-box-score__scroll img {
+      height: 128px;
+      width: auto;
+      max-width: none;
+      display: block;
     }
 
     /* 写真ベントーグリッド */
@@ -209,14 +335,12 @@
         <p class="award-message__subtitle">全3試合 · 12名参加 最高の戦いでした</p>
       </div>
       <div class="mvp-badge">
-        <div class="mvp-badge__avatar">
-          <img src="https://placehold.co/56x56" alt="">
-        </div>
-        <div class="mvp-badge__info">
-          <span class="mvp-badge__label">本日のMVP</span>
-          <span class="mvp-badge__name">あなた（山田 太郎）</span>
-          <span class="mvp-badge__stat">3ゴール・チームA最多得点</span>
-          <span class="mvp-badge__note">今日の主役でした ✨</span>
+        <span class="mvp-badge__label">本日のMVP</span>
+        <div class="mvp-badge__row">
+          <div class="mvp-badge__avatar">
+            <img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
+          </div>
+          <span class="mvp-badge__name">あなた（旭俊成）</span>
         </div>
       </div>
     </div>
@@ -227,25 +351,152 @@
         <span class="schedule-heading__text">全試合結果</span>
         <div class="schedule-heading__line"></div>
       </div>
-      <div class="schedule-rows">
-        <div class="result-row result-row--highlight">
-          <span class="result-row__teams">A vs B</span>
-          <span class="result-row__score">3 : 1</span>
+      <div class="match-list">
+
+        <!-- 第1試合（スコアあり・折り畳み） -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第1試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">58 : 94</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="result-row result-row--highlight">
-          <span class="result-row__teams">A vs C</span>
-          <span class="result-row__score">2 : 2</span>
+
+        <!-- 第2試合（スコアあり・折り畳み） -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第2試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">83 : 80</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="result-row">
-          <span class="result-row__teams">B vs C</span>
-          <span class="result-row__score">1 : 3</span>
+
+        <!-- 第3試合（スコアあり・折り畳み） -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第3試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--mid">B</div>
+                <span class="match-card__score">58 : 94</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </section>
 
 
   </main>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.match-card__body').forEach(function(body) {
+        body.style.display = 'none';
+      });
+      document.querySelectorAll('.match-card__top').forEach(function(top) {
+        top.classList.remove('match-card__top--expanded');
+        top.style.cursor = 'pointer';
+        top.addEventListener('click', function() {
+          var body = top.nextElementSibling;
+          if (!body || !body.classList.contains('match-card__body')) return;
+          var isOpen = body.style.display !== 'none';
+          body.style.display = isOpen ? 'none' : '';
+          top.classList.toggle('match-card__top--expanded', !isOpen);
+        });
+      });
+    });
+  </script>
   <script src="prototype-map.js"></script>
 </body>
 </html>
