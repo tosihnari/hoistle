@@ -315,11 +315,108 @@
       text-align: center;
       text-decoration: none;
       box-sizing: border-box;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
     }
 
     /* フィルターチップ クリック時スクロール位置補正 */
     #section-participants, #section-matches, #section-photos {
       scroll-margin-top: 44px;
+    }
+
+    /* === アプリDLモーダル === */
+    .app-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 48px);
+      max-width: 342px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+    .app-modal::backdrop { background: rgba(0,0,0,0.5); }
+    .app-modal:not([open]) { display: none; }
+    .app-modal__img-wrap {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    .app-modal__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .app-modal__img-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, #fff 0%, rgba(255,255,255,0) 50%);
+    }
+    .app-modal__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.35);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 0;
+    }
+    .app-modal__body {
+      padding: 16px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .app-modal__title {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.4;
+      text-align: center;
+      color: var(--color-neutral-solid-gray-900);
+    }
+    .app-modal__desc {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.6;
+      text-align: center;
+      color: var(--color-neutral-solid-gray-600);
+    }
+    .app-modal__badge {
+      padding: 5px 5px;
+      color:var(--color-neutral-solid-gray-700);;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      text-align: center;
+    }
+    .app-modal__dl-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--color-neutral-solid-gray-900);
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
     }
   </style>
 </head>
@@ -542,7 +639,7 @@
     <section class="section" id="section-photos">
       <h2 class="section-title">本日の写真</h2>
       <img class="album-preview__img" src="../material/screen/写真.png" alt="本日の写真">
-      <a href="アルバム.html" class="photo-more-btn">もっと見る</a>
+      <button type="button" class="photo-more-btn" id="open-app-modal">もっと見る</button>
     </section>
 
     <!-- 次回予約 -->
@@ -604,7 +701,33 @@
     }, { rootMargin: '-10% 0px -80% 0px' });
 
     sectionEls.forEach(s => io.observe(s));
+
+    // アプリDLモーダル
+    const appModal = document.getElementById('app-modal');
+    document.getElementById('open-app-modal').addEventListener('click', () => appModal.showModal());
+    document.getElementById('app-modal-close').addEventListener('click', () => appModal.close());
+    appModal.addEventListener('click', e => { if (e.target === appModal) appModal.close(); });
   </script>
   <script src="prototype-map.js"></script>
+  <!-- アプリDLモーダル -->
+  <dialog class="app-modal" id="app-modal">
+    <div class="app-modal__img-wrap">
+      <img class="app-modal__img" src="../material/screen/モーダル_アプリ-DL.png" alt="">
+      <div class="app-modal__img-fade"></div>
+      <button class="app-modal__close" id="app-modal-close" type="button" aria-label="閉じる">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
+      </button>
+    </div>
+    <div class="app-modal__body">
+      <p class="app-modal__title">アプリなら、<br>すべての写真が見れる！</p>
+      <p class="app-modal__desc">アプリを無料ダウンロードして、<br>続きの写真をチェック！</p>
+      <div class="app-modal__badge">\ 初回ダウンロードで<strong>500ポイント</strong>GET！ /</div>
+      <button class="app-modal__dl-btn" type="button">今すぐアプリをダウンロード！</button>
+    </div>
+  </dialog>
+<footer class="app-download-footer">
+  <div class="app-download-footer__badge">初回ダウンロードで<strong>500ポイント</strong>GET！</div>
+  <a href="#" class="app-download-footer__btn">今すぐアプリをダウンロード！</a>
+</footer>
 </body>
 </html>
