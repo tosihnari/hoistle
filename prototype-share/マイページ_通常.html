@@ -550,6 +550,27 @@
     }
     .qr-scan-btn img { filter: brightness(0) invert(1); }
     .qr-scan-btn:hover { background: rgba(255,255,255,0.1); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-text-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: transparent;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-neutral-solid-gray-700);
+      cursor: pointer;
+    }
+    .nav-text-btn:hover {
+      background: var(--color-neutral-solid-gray-50);
+    }
   </style>
 </head>
 <body>
@@ -557,9 +578,15 @@
   <!-- ヘッダー -->
   <header class="nav-bar">
     <p class="nav-title">プロフィール</p>
-    <button class="icon-btn dads-button" type="button" aria-label="QRコード">
-      <img src="../material/icon/qr_code.svg" width="24" height="24" alt="" aria-hidden="true">
-    </button>
+    <div class="nav-actions">
+      <a href="#" class="nav-text-btn">
+        <img src="../material/icon/edit_24.svg" width="24" height="24" alt="" aria-hidden="true">
+        <span>編集</span>
+      </a>
+      <button class="icon-btn dads-button" type="button" aria-label="QRコード">
+        <img src="../material/icon/qr_code.svg" width="24" height="24" alt="" aria-hidden="true">
+      </button>
+    </div>
   </header>
 
   <!-- ヒーロー -->
@@ -586,11 +613,6 @@
   <section class="profile-detail" aria-label="プロフィール詳細">
     <div class="profile-detail__inner">
       <p class="bio-card">「主に週末、都内でテニスをしています。楽しく真剣にプレイできる仲間を募集中です！ダブルスの試合形式が得意ですが、シングルスの練習も歓迎です。よろしくお願いします！」</p>
-
-      <a href="#" class="edit-profile-link">
-        <img src="../material/icon/edit.svg" width="20" height="20" alt="" aria-hidden="true">
-        プロフィール編集
-      </a>
     </div>
 
     <div class="points-wrapper" style="padding: 0 16px;">

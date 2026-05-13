@@ -958,6 +958,29 @@ body {
   border-radius: 50%;
   flex-shrink: 0;
 }
+.live-dot--pulse {
+  position: relative;
+}
+.live-dot--pulse::before,
+.live-dot--pulse::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-semantic-error-1);
+  transform: translate(-50%, -50%);
+  animation: liveRipple 1.6s ease-out infinite;
+}
+.live-dot--pulse::after {
+  animation-delay: 0.8s;
+}
+@keyframes liveRipple {
+  0%   { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+}
 .live-text {
   font-style: italic;
   font-weight: 600;
