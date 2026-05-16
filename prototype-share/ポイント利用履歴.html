@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ポイント利用履歴</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/global.css">
+  <link rel="stylesheet" href="prototype.css">
+  <style>
+    body {
+      background: var(--color-neutral-solid-gray-50);
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 16px 16px 48px;
+    }
+
+    .history-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .history-date {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-neutral-solid-gray-600);
+      padding-bottom: 16px;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--color-neutral-solid-gray-200);
+      gap: 0;
+    }
+
+    .history-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 9999px;
+      background: var(--color-neutral-solid-gray-200);
+      outline: 1px solid var(--color-neutral-solid-gray-200);
+      outline-offset: -1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-right: 16px;
+    }
+
+    .history-avatar__icon {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) saturate(100%) invert(37%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(96%) contrast(90%);
+    }
+
+    .history-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding-right: 8px;
+      min-width: 0;
+    }
+
+    .history-title {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-neutral-solid-gray-900);
+    }
+
+    .history-subtitle {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--color-neutral-solid-gray-600);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .history-points {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .history-points__num {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--color-neutral-solid-gray-900);
+      text-align: right;
+    }
+
+    .history-points__unit {
+      font-size: 11px;
+      line-height: 14px;
+      color: var(--color-neutral-solid-gray-900);
+      padding-left: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav-bar">
+    <a class="nav-back" href="マイページ_通常.html" aria-label="戻る">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </a>
+    <h1 class="nav-title">履歴</h1>
+    <div class="nav-spacer"></div>
+  </nav>
+
+  <main>
+    <div class="history-list">
+
+      <!-- 2026/5/16 -->
+      <div class="history-group">
+        <div class="history-date">2026/5/16</div>
+        <div class="history-item">
+          <div class="history-avatar">
+            <img class="history-avatar__icon" src="../material/icon/coupon.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="history-info">
+            <span class="history-title">友達を招待する</span>
+            <span class="history-subtitle">招待コードによるボーナス</span>
+          </div>
+          <div class="history-points">
+            <span class="history-points__num">+500</span>
+            <span class="history-points__unit">ポイント</span>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-avatar">
+            <img class="history-avatar__icon" src="../material/icon/basketball.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="history-info">
+            <span class="history-title">イベント参加</span>
+            <span class="history-subtitle">イベント名：バスケ エンジョイ交流戦 初心者・未経験者歓迎</span>
+          </div>
+          <div class="history-points">
+            <span class="history-points__num">−500</span>
+            <span class="history-points__unit">ポイント</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026/5/15 -->
+      <div class="history-group">
+        <div class="history-date">2026/5/15</div>
+        <div class="history-item">
+          <div class="history-avatar">
+            <img class="history-avatar__icon" src="../material/icon/coupon.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="history-info">
+            <span class="history-title">クーポンコード使用</span>
+            <span class="history-subtitle">スプリングキャンペーン2026</span>
+          </div>
+          <div class="history-points">
+            <span class="history-points__num">+100</span>
+            <span class="history-points__unit">ポイント</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026/5/14 -->
+      <div class="history-group">
+        <div class="history-date">2026/5/14</div>
+        <div class="history-item">
+          <div class="history-avatar">
+            <img class="history-avatar__icon" src="../material/icon/login.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="history-info">
+            <span class="history-title">デイリーログイン</span>
+            <span class="history-subtitle">毎日ボーナス</span>
+          </div>
+          <div class="history-points">
+            <span class="history-points__num">+10</span>
+            <span class="history-points__unit">ポイント</span>
+          </div>
+        </div>
+        <div class="history-item">
+          <div class="history-avatar">
+            <img class="history-avatar__icon" src="../material/icon/questionnaire.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="history-info">
+            <span class="history-title">アンケート回答</span>
+            <span class="history-subtitle">サービス改善アンケート</span>
+          </div>
+          <div class="history-points">
+            <span class="history-points__num">+50</span>
+            <span class="history-points__unit">ポイント</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2026/5/13 -->
+      <div class="history-group">
+        <div class="history-date">2026/5/13</div>
+        <div class="history-item">
+          <div class="history-avatar">
+            <img class="history-avatar__icon" src="../material/icon/login.svg" alt="" aria-hidden="true">
+          </div>
+          <div class="history-info">
+            <span class="history-title">デイリーログイン</span>
+            <span class="history-subtitle">毎日ボーナス</span>
+          </div>
+          <div class="history-points">
+            <span class="history-points__num">+10</span>
+            <span class="history-points__unit">ポイント</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>

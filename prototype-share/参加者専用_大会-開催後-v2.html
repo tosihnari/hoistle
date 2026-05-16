@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/global.css">
+  <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/button/button.css">
   <link rel="stylesheet" href="prototype.css">
   <style>
     body {
@@ -18,7 +19,7 @@
     /* ── ヒーローセクション（開催後バリアント）── */
     .event-hero__bg {
       background: var(--color-neutral-solid-gray-700);
-      padding: 64px 20px 56px;
+      padding: 64px 20px 24px;
     }
     .event-hero__title {
       font-size: 24px;
@@ -28,11 +29,10 @@
       line-height: 1.4;
     }
     .event-hero__card {
-      margin: -40px 16px 0;
-      margin-bottom: 16px;
+      margin: 16px 0 0;
       position: relative;
       z-index: 1;
-      background: var(--color-neutral-solid-gray-800);
+      background: var(--color-neutral-white);
       border-radius: 24px;
       padding: 32px;
       box-shadow: 0 8px 10px -6px rgba(0,0,0,0.10), 0 20px 25px -5px rgba(0,0,0,0.10);
@@ -57,7 +57,7 @@
     .post-event-message__title {
       font-size: 24px;
       font-weight: 500;
-      color: var(--color-neutral-white);
+      color: var(--color-neutral-solid-gray-900);
       line-height: 1.4;
       margin: 0;
       text-align: center;
@@ -65,41 +65,64 @@
     .post-event-message__subtitle {
       font-size: 12px;
       font-weight: 500;
-      color: var(--color-neutral-solid-gray-300);
+      color: var(--color-neutral-solid-gray-500);
       line-height: 1.625;
       margin: 0;
       text-align: center;
     }
     .mvp-badge {
       align-self: stretch;
-      background: var(--color-neutral-white);
+      background: var(--color-neutral-solid-gray-50);
       border-radius: 12px;
-      border: 2px solid var(--color-neutral-solid-gray-200);
-      padding: 6px 20px;
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      padding: 16px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      gap: 4px;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
     }
-    .mvp-badge__label {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-500);
-      line-height: 1.4;
-      text-align: center;
+    .mvp-badge__bg-icon {
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 80px;
+      height: 80px;
+      opacity: 0.12;
+      pointer-events: none;
+      filter: brightness(0);
     }
-    .mvp-badge__row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .mvp-badge__bg-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
-    .mvp-badge__avatar {
-      width: 40px;
-      height: 40px;
+    .event-card-divider {
+      border: none;
+      border-top: 1px solid var(--color-neutral-solid-gray-200);
+      margin: 0;
+      align-self: stretch;
+    }
+    .mvp-badge__avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .mvp-badge__avatar-link {
+      display: block;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       overflow: hidden;
-      border: 1.25px solid var(--color-neutral-solid-gray-100);
-      flex-shrink: 0;
+      outline: 2px solid var(--color-neutral-solid-gray-900);
+      outline-offset: -2px;
+    }
+    .mvp-badge__avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
     }
     .mvp-badge__avatar img {
       width: 100%;
@@ -107,11 +130,113 @@
       object-fit: cover;
       display: block;
     }
+    .mvp-badge__crown {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--color-neutral-solid-gray-900);
+      border-radius: 50%;
+      border: 1px solid var(--color-neutral-white);
+      color: var(--color-neutral-white);
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mvp-badge__info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .mvp-badge__label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-900);
+      background: var(--color-neutral-solid-gray-900);
+      color: var(--color-neutral-white);
+      padding: 2px 8px;
+      border-radius: 9999px;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
     .mvp-badge__name {
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 400;
+      color: var(--color-neutral-solid-gray-900);
+      line-height: 1.5;
+    }
+    .mvp-badge__score {
+      font-size: 14px;
+      color: var(--color-neutral-solid-gray-500);
+      line-height: 1.5;
+    }
+
+    /* 表彰台 */
+    .podium {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .podium__place {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+    .podium__rank {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-500);
+      line-height: 1.4;
+    }
+    .podium__avatar-link {
+      display: block;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .podium__avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      outline: 1px solid var(--color-neutral-solid-gray-300);
+      outline-offset: -1px;
+    }
+    .podium__avatar--1st {
+      width: 96px;
+      height: 96px;
+      outline: 3px solid var(--color-neutral-solid-gray-900);
+    }
+    .podium__avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .podium__name {
+      font-size: 12px;
+      font-weight: 700;
       color: var(--color-neutral-solid-gray-800);
-      line-height: 1.75;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .podium__score {
+      font-size: 14px;
+      color: var(--color-neutral-solid-gray-500);
+      text-align: center;
+      line-height: 1.4;
+    }
+    .podium__place--1st .podium__name {
+      font-size: 16px;
+    }
+    .podium__place--1st .podium__score {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-900);
     }
 
     /* イベント詳細ナビゲーション */
@@ -157,7 +282,7 @@
       flex-direction: column;
     }
     .match-card__top {
-      padding: 16px;
+      padding: 10px 12px;
       background: var(--color-neutral-white);
       border: 1px solid var(--color-neutral-solid-gray-200);
       border-radius: 12px;
@@ -177,25 +302,21 @@
       align-items: center;
     }
     .match-team-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
-      color: var(--color-neutral-white);
+      min-width: 20px;
       flex-shrink: 0;
     }
-    .match-team-icon--dark  { background: var(--color-neutral-solid-gray-700); }
-    .match-team-icon--mid   { background: var(--color-neutral-solid-gray-400); }
-    .match-team-icon--light { background: var(--color-neutral-solid-gray-300); }
+    .match-team-icon--dark  { color: var(--color-neutral-solid-gray-900); }
+    .match-team-icon--mid   { color: var(--color-neutral-solid-gray-600); }
+    .match-team-icon--light { color: var(--color-neutral-solid-gray-400); }
     .match-card__score {
-      font-size: 29px;
+      font-size: 20px;
       font-weight: 700;
-      line-height: 29px;
+      line-height: 20px;
       color: var(--color-neutral-solid-gray-500);
     }
     .match-card__chevron {
@@ -268,13 +389,164 @@
       display: block;
     }
 
-    /* アルバムプレビュー */
-    .album-preview__img {
+    /* 写真ギャラリー */
+    .photo-section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .photo-section-heading .section-title {
+      margin: 0;
+    }
+    .photo-section-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .photo-selected-count {
+      display: none;
+      padding: 6px 10px;
+      border-radius: 9999px;
+      background: var(--color-neutral-solid-gray-900);
+      color: var(--color-neutral-white);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .photo-selected-count.is-visible {
+      display: inline-flex;
+    }
+    .photo-select-btn.dads-button {
+      --button-color: var(--color-neutral-solid-gray-800);
+      --button-hover-color: var(--color-neutral-solid-gray-900);
+      --button-active-color: var(--color-neutral-black);
+      --button-outline-hover-bg-color: var(--color-neutral-solid-gray-50);
+      --button-outline-active-bg-color: var(--color-neutral-solid-gray-100);
+      min-width: 72px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .photo-grid__item {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      padding: 0;
+      border: none;
+      background: var(--color-neutral-solid-gray-100);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .photo-grid__item::before,
+    .photo-grid__item::after {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .photo-grid--selecting .photo-grid__item::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--color-neutral-white);
+      border-radius: 50%;
+      background: rgba(0,0,0,0.28);
+      box-sizing: border-box;
+      opacity: 1;
+    }
+    .photo-grid--selecting .photo-grid__item.is-selected::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.32);
+      opacity: 1;
+    }
+    .photo-grid--selecting .photo-grid__item.is-selected::after {
+      content: "✓";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-neutral-solid-gray-900);
+      color: var(--color-neutral-white);
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 1;
+    }
+    .photo-grid__item:focus-visible {
+      outline: 3px solid var(--color-neutral-black);
+      outline-offset: 2px;
+    }
+    .photo-grid__item img {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      border-radius: 12px;
-      margin-bottom: 12px;
+    }
+    .photo-more-btn {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--color-neutral-solid-gray-900);
+      color: var(--color-neutral-white);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .photo-selection-footer {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 120;
+      width: 100%;
+      max-width: 390px;
+      padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+      background: var(--color-neutral-white);
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.14);
+      box-sizing: border-box;
+      transform: translate(-50%, 110%);
+      transition: transform 0.28s ease;
+    }
+    .photo-selection-footer.is-visible {
+      transform: translate(-50%, 0);
+    }
+    .photo-selection-footer__actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .photo-selection-footer__btn.dads-button {
+      --button-color: var(--color-neutral-solid-gray-800);
+      --button-hover-color: var(--color-neutral-solid-gray-900);
+      --button-active-color: var(--color-neutral-black);
+      --button-outline-hover-bg-color: var(--color-neutral-solid-gray-50);
+      --button-outline-active-bg-color: var(--color-neutral-solid-gray-100);
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .photo-selection-footer__btn img {
+      width: 18px;
+      height: 18px;
     }
     /* 参加者チーム（prototype.css に未定義） */
     .participant-teams {
@@ -302,27 +574,136 @@
       outline-offset: -1px;
     }
 
-    /* もっと見るボタン */
-    .photo-more-btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      border-radius: 8px;
-      background: var(--color-neutral-solid-gray-900);
-      color: #fff;
-      font-size: 16px;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      box-sizing: border-box;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
     /* フィルターチップ クリック時スクロール位置補正 */
     #section-participants, #section-matches, #section-photos {
       scroll-margin-top: 44px;
+    }
+
+    /* === 写真モーダル === */
+    .photo-modal {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      max-width: none;
+      height: 100dvh;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      overflow: hidden;
+    }
+    .photo-modal::backdrop { background: rgba(0,0,0,0.72); }
+    .photo-modal:not([open]) { display: none; }
+    .photo-modal__media {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 48px);
+      max-width: 342px;
+      background: var(--color-neutral-solid-gray-900);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    }
+    .photo-modal__img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      display: block;
+      background: var(--color-neutral-solid-gray-900);
+    }
+    @media (max-height: 720px) {
+      .photo-modal__media {
+        top: 42%;
+        width: calc(100% - 64px);
+        max-width: 318px;
+      }
+    }
+    .photo-modal__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.35);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-neutral-white);
+      padding: 0;
+    }
+    .photo-modal__body {
+      position: absolute;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 342px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: transparent;
+      z-index: 1;
+    }
+    .photo-modal__actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .photo-modal__action.dads-button {
+      --button-color: var(--color-neutral-solid-gray-800);
+      --button-hover-color: var(--color-neutral-solid-gray-900);
+      --button-active-color: var(--color-neutral-black);
+      --button-outline-hover-bg-color: var(--color-neutral-solid-gray-50);
+      --button-outline-active-bg-color: var(--color-neutral-solid-gray-100);
+      width: 100%;
+      height: 44px;
+      border-radius: 8px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.88);
+    }
+    .photo-modal__action img {
+      width: 18px;
+      height: 18px;
+    }
+    .photo-carousel {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .photo-carousel__thumb {
+      width: 64px;
+      height: 64px;
+      padding: 0;
+      flex: 0 0 auto;
+      border: none;
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--color-neutral-solid-gray-100);
+      cursor: pointer;
+    }
+    .photo-carousel__thumb[aria-current="true"] {
+      outline: 3px solid var(--color-neutral-solid-gray-900);
+      outline-offset: -3px;
+    }
+    .photo-carousel__thumb:focus-visible {
+      outline: 3px solid var(--color-neutral-black);
+      outline-offset: 2px;
+    }
+    .photo-carousel__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     /* === アプリDLモーダル === */
@@ -337,7 +718,7 @@
       padding: 0;
       border: none;
       border-radius: 20px;
-      background: #fff;
+      background: var(--color-neutral-white);
       box-shadow: 0 25px 50px rgba(0,0,0,0.25);
       overflow: hidden;
     }
@@ -357,7 +738,7 @@
     .app-modal__img-fade {
       position: absolute;
       inset: 0;
-      background: linear-gradient(0deg, #fff 0%, rgba(255,255,255,0) 50%);
+      background: linear-gradient(0deg, var(--color-neutral-white) 0%, rgba(255,255,255,0) 50%);
     }
     .app-modal__close {
       position: absolute;
@@ -372,7 +753,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: var(--color-neutral-white);
       padding: 0;
     }
     .app-modal__body {
@@ -399,8 +780,8 @@
       color: var(--color-neutral-solid-gray-600);
     }
     .app-modal__badge {
-      padding: 5px 5px;
-      color:var(--color-neutral-solid-gray-700);;
+      padding: 5px;
+      color: var(--color-neutral-solid-gray-700);
       font-size: 12px;
       font-weight: 500;
       line-height: 1;
@@ -412,7 +793,7 @@
       border-radius: 8px;
       background: var(--color-neutral-solid-gray-900);
       border: none;
-      color: #fff;
+      color: var(--color-neutral-white);
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
@@ -436,22 +817,66 @@
         <span class="event-hero__badge">球技大会レベル</span>
       </div>
       <p class="event-hero__title">第１回 ビギナーズ ホイッスルカップ</p>
-    </div>
-    <div class="event-hero__card">
-      <p class="post-event-trophy">🏆</p>
+      <div class="event-hero__card">
+        <p class="post-event-trophy">🏆</p>
 
-      <div class="post-event-message">
-        <p class="post-event-message__title">チーム優勝おめでとう！</p>
-        <p class="post-event-message__subtitle">全3試合 · 12名参加 最高の戦いでした</p>
-      </div>
+        <div class="post-event-message">
+          <p class="post-event-message__title">チーム優勝おめでとう！</p>
+          <p class="post-event-message__subtitle">全3試合 · 12名参加 最高の戦いでした</p>
+        </div>
 
-      <div class="mvp-badge">
-        <span class="mvp-badge__label">本日のMVP</span>
-        <div class="mvp-badge__row">
-          <div class="mvp-badge__avatar">
-            <img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
+        <hr class="event-card-divider">
+
+        <div class="mvp-badge">
+          <div class="mvp-badge__bg-icon" aria-hidden="true">
+            <img src="../material/icon/stars.svg" alt="">
           </div>
-          <span class="mvp-badge__name">あなた（旭俊成）</span>
+          <div class="mvp-badge__avatar-wrap">
+            <a class="mvp-badge__avatar-link" data-user-id="asahi" href="#">
+              <div class="mvp-badge__avatar">
+                <img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
+              </div>
+            </a>
+            <div class="mvp-badge__crown">★</div>
+          </div>
+          <div class="mvp-badge__info">
+            <span class="mvp-badge__label">本日のMVP</span>
+            <span class="mvp-badge__name">あさひ</span>
+            <span class="mvp-badge__score">スコア: 30</span>
+          </div>
+        </div>
+
+        <div class="podium">
+          <div class="podium__place podium__place--2nd">
+            <span class="podium__rank">2</span>
+            <a class="podium__avatar-link" data-user-id="tanahashi" href="#">
+              <div class="podium__avatar">
+                <img src="../material/user-icon/Nanami.Tanahashi_棚橋七海.png" alt="七海">
+              </div>
+            </a>
+            <span class="podium__name">七海</span>
+            <span class="podium__score">10</span>
+          </div>
+          <div class="podium__place podium__place--1st">
+            <span class="podium__rank">1</span>
+            <a class="podium__avatar-link" data-user-id="asahi" href="#">
+              <div class="podium__avatar podium__avatar--1st">
+                <img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
+              </div>
+            </a>
+            <span class="podium__name">あさひ</span>
+            <span class="podium__score">30</span>
+          </div>
+          <div class="podium__place podium__place--3rd">
+            <span class="podium__rank">3</span>
+            <a class="podium__avatar-link" data-user-id="takasugi" href="#">
+              <div class="podium__avatar">
+                <img src="../material/user-icon/Yusaku.Takasugi_高杉優作.png" alt="優作">
+              </div>
+            </a>
+            <span class="podium__name">優作</span>
+            <span class="podium__score">22</span>
+          </div>
         </div>
       </div>
     </div>
@@ -632,13 +1057,429 @@
           </div>
         </div>
 
+        <!-- 第4試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第4試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">72 : 68</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第5試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第5試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">91 : 77</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第6試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第6試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--mid">B</div>
+                <span class="match-card__score">55 : 80</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第7試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第7試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">65 : 88</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第8試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第8試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">78 : 74</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第9試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第9試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--mid">B</div>
+                <span class="match-card__score">90 : 85</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第10試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第10試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">61 : 75</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第11試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第11試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">82 : 69</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第12試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第12試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--mid">B</div>
+                <span class="match-card__score">70 : 88</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームC</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームCバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第13試合 -->
+        <div class="match-item">
+          <div class="match-item__heading">
+            <span class="match-item__number">第13試合</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score">95 : 91</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
+              </div>
+              <span class="match-card__chevron">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+            <div class="match-card__body">
+              <div class="match-score-detail">
+                <span class="match-section-title">スコア詳細</span>
+                <img src="../material/screen/スコア詳細.png" alt="スコア詳細">
+              </div>
+              <div class="match-box-score">
+                <span class="match-section-title">バックスコア</span>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームA</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームAバックスコア">
+                  </div>
+                </div>
+                <div class="match-box-score__team">
+                  <span class="match-box-score__team-name">チームB</span>
+                  <div class="match-box-score__scroll">
+                    <img src="../material/screen/バックスコア.png" alt="チームBバックスコア">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
     <!-- 本日の写真 -->
     <section class="section" id="section-photos">
-      <h2 class="section-title">本日の写真</h2>
-      <img class="album-preview__img" src="../material/screen/写真.png" alt="本日の写真">
+      <div class="photo-section-heading">
+        <h2 class="section-title">本日の写真</h2>
+        <div class="photo-section-controls">
+          <span class="photo-selected-count" id="photo-selected-count" aria-live="polite"></span>
+          <button type="button" class="dads-button photo-select-btn" id="photo-select-toggle" data-size="md" data-type="outline" aria-pressed="false">選択</button>
+        </div>
+      </div>
+      <div class="photo-grid" aria-label="本日の写真一覧">
+        <button type="button" class="photo-grid__item" data-photo-index="0" aria-pressed="false"><img src="../material/screen/アルバム1.png" alt="本日の写真 1"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="1" aria-pressed="false"><img src="../material/screen/アルバム2.png" alt="本日の写真 2"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="2" aria-pressed="false"><img src="../material/screen/アルバム3.png" alt="本日の写真 3"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="3" aria-pressed="false"><img src="../material/screen/アルバム4.png" alt="本日の写真 4"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="4" aria-pressed="false"><img src="../material/screen/アルバム1.png" alt="本日の写真 5"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="5" aria-pressed="false"><img src="../material/screen/アルバム2.png" alt="本日の写真 6"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="6" aria-pressed="false"><img src="../material/screen/アルバム3.png" alt="本日の写真 7"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="7" aria-pressed="false"><img src="../material/screen/アルバム4.png" alt="本日の写真 8"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="8" aria-pressed="false"><img src="../material/screen/アルバム1.png" alt="本日の写真 9"></button>
+      </div>
       <button type="button" class="photo-more-btn" id="open-app-modal">もっと見る</button>
     </section>
 
@@ -656,6 +1497,17 @@
   </main>
 
   <script>
+    // カード内アバターのルーティング（ログイン中ユーザー → マイページ、他者 → プロフィール）
+    (function() {
+      var CURRENT_USER = 'asahi';
+      document.querySelectorAll('.mvp-badge__avatar-link, .podium__avatar-link').forEach(function(el) {
+        var userId = el.dataset.userId;
+        el.href = (userId === CURRENT_USER)
+          ? 'マイページ_通常.html'
+          : 'ユーザープロフィール.html?user=' + userId;
+      });
+    })();
+
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.match-card__body').forEach(function(body) {
         body.style.display = 'none';
@@ -673,6 +1525,47 @@
       });
     });
   </script>
+  <!-- 写真モーダル -->
+  <dialog class="photo-modal" id="photo-modal" aria-label="写真プレビュー">
+    <div class="photo-modal__media">
+      <img class="photo-modal__img" id="photo-modal-img" src="../material/screen/アルバム1.png" alt="本日の写真 1">
+      <button class="photo-modal__close" id="photo-modal-close" type="button" aria-label="閉じる">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
+      </button>
+    </div>
+    <footer class="photo-modal__body">
+      <div class="photo-modal__actions" aria-label="写真アクション">
+        <button class="dads-button photo-modal__action" data-size="md" data-type="outline" type="button">
+          <img src="../material/icon/download.svg" alt="" aria-hidden="true">ダウンロード
+        </button>
+        <button class="dads-button photo-modal__action" data-size="md" data-type="outline" type="button">
+          <img src="../material/icon/share.svg" alt="" aria-hidden="true">シェア
+        </button>
+      </div>
+      <div class="photo-carousel" aria-label="アルバム写真のプレビュー">
+        <button type="button" class="photo-carousel__thumb" data-photo-index="0" aria-current="true"><img src="../material/screen/アルバム1.png" alt="本日の写真 1"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="1"><img src="../material/screen/アルバム2.png" alt="本日の写真 2"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="2"><img src="../material/screen/アルバム3.png" alt="本日の写真 3"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="3"><img src="../material/screen/アルバム4.png" alt="本日の写真 4"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="4"><img src="../material/screen/アルバム1.png" alt="本日の写真 5"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="5"><img src="../material/screen/アルバム2.png" alt="本日の写真 6"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="6"><img src="../material/screen/アルバム3.png" alt="本日の写真 7"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="7"><img src="../material/screen/アルバム4.png" alt="本日の写真 8"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="8"><img src="../material/screen/アルバム1.png" alt="本日の写真 9"></button>
+      </div>
+    </footer>
+  </dialog>
+  <!-- 写真選択フッター -->
+  <footer class="photo-selection-footer" id="photo-selection-footer" aria-hidden="true">
+    <div class="photo-selection-footer__actions">
+      <button class="dads-button photo-selection-footer__btn" data-size="md" data-type="outline" type="button">
+        <img src="../material/icon/download.svg" alt="" aria-hidden="true">ダウンロード
+      </button>
+      <button class="dads-button photo-selection-footer__btn" data-size="md" data-type="outline" type="button">
+        <img src="../material/icon/share.svg" alt="" aria-hidden="true">シェア
+      </button>
+    </div>
+  </footer>
   <!-- アプリDLモーダル -->
   <dialog class="app-modal" id="app-modal">
     <div class="app-modal__img-wrap">
@@ -717,6 +1610,83 @@
     }, { rootMargin: '-10% 0px -80% 0px' });
 
     sectionEls.forEach(s => io.observe(s));
+
+    // 写真モーダル
+    const photoModal = document.getElementById('photo-modal');
+    const photoModalImg = document.getElementById('photo-modal-img');
+    const photoItems = Array.from(document.querySelectorAll('.photo-grid__item'));
+    const photoThumbs = Array.from(document.querySelectorAll('.photo-carousel__thumb'));
+    const photoGrid = document.querySelector('.photo-grid');
+    const photoSelectToggle = document.getElementById('photo-select-toggle');
+    const photoSelectedCount = document.getElementById('photo-selected-count');
+    const photoSelectionFooter = document.getElementById('photo-selection-footer');
+    const selectedPhotos = new Set();
+    let isPhotoSelectMode = false;
+
+    function setActivePhoto(index) {
+      const item = photoItems[index];
+      if (!item) return;
+      const img = item.querySelector('img');
+      photoModalImg.src = img.src;
+      photoModalImg.alt = img.alt;
+      photoThumbs.forEach(thumb => {
+        thumb.setAttribute('aria-current', thumb.dataset.photoIndex === String(index));
+      });
+      photoThumbs[index]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    function updatePhotoSelectionUI() {
+      const selectedCount = selectedPhotos.size;
+      photoGrid.classList.toggle('photo-grid--selecting', isPhotoSelectMode);
+      photoSelectToggle.textContent = isPhotoSelectMode ? 'キャンセル' : '選択';
+      photoSelectToggle.setAttribute('aria-pressed', String(isPhotoSelectMode));
+      photoSelectedCount.textContent = selectedCount + '枚選択中';
+      photoSelectedCount.classList.toggle('is-visible', selectedCount > 0);
+      photoSelectionFooter.classList.toggle('is-visible', isPhotoSelectMode && selectedCount > 0);
+      photoSelectionFooter.setAttribute('aria-hidden', String(!(isPhotoSelectMode && selectedCount > 0)));
+      photoItems.forEach(item => {
+        const isSelected = selectedPhotos.has(item.dataset.photoIndex);
+        item.classList.toggle('is-selected', isSelected);
+        item.setAttribute('aria-pressed', String(isSelected));
+      });
+    }
+
+    function clearPhotoSelection() {
+      selectedPhotos.clear();
+      updatePhotoSelectionUI();
+    }
+
+    photoSelectToggle.addEventListener('click', () => {
+      isPhotoSelectMode = !isPhotoSelectMode;
+      if (!isPhotoSelectMode) clearPhotoSelection();
+      updatePhotoSelectionUI();
+    });
+
+    photoItems.forEach(item => {
+      item.addEventListener('click', () => {
+        if (isPhotoSelectMode) {
+          const index = item.dataset.photoIndex;
+          if (selectedPhotos.has(index)) {
+            selectedPhotos.delete(index);
+          } else {
+            selectedPhotos.add(index);
+          }
+          updatePhotoSelectionUI();
+          return;
+        }
+        setActivePhoto(Number(item.dataset.photoIndex));
+        photoModal.showModal();
+      });
+    });
+
+    photoThumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        setActivePhoto(Number(thumb.dataset.photoIndex));
+      });
+    });
+
+    document.getElementById('photo-modal-close').addEventListener('click', () => photoModal.close());
+    photoModal.addEventListener('click', e => { if (e.target === photoModal) photoModal.close(); });
 
     // アプリDLモーダル
     const appModal = document.getElementById('app-modal');

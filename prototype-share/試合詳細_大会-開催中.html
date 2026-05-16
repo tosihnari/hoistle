@@ -25,13 +25,13 @@
     .match-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 8px;
     }
 
     .match-item {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
     }
 
     .match-item__heading {
@@ -41,7 +41,7 @@
     }
 
     .match-item__number {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 700;
       line-height: 20px;
       color: var(--color-neutral-solid-gray-500);
@@ -60,7 +60,7 @@
     }
 
     .match-card__top {
-      padding: 16px;
+      padding: 10px 12px;
       background: var(--color-neutral-white);
       border: 1px solid var(--color-neutral-solid-gray-200);
       border-radius: 12px;
@@ -83,27 +83,23 @@
     }
 
     .match-team-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
-      color: var(--color-neutral-white);
+      min-width: 20px;
       flex-shrink: 0;
     }
 
-    .match-team-icon--dark  { background: var(--color-neutral-solid-gray-700); }
-    .match-team-icon--mid   { background: var(--color-neutral-solid-gray-400); }
-    .match-team-icon--light { background: var(--color-neutral-solid-gray-300); }
+    .match-team-icon--dark  { color: var(--color-neutral-solid-gray-900); }
+    .match-team-icon--mid   { color: var(--color-neutral-solid-gray-600); }
+    .match-team-icon--light { color: var(--color-neutral-solid-gray-400); }
 
     .match-card__score {
-      font-size: 29px;
+      font-size: 20px;
       font-weight: 700;
-      line-height: 29px;
+      line-height: 20px;
       color: var(--color-neutral-solid-gray-500);
     }
 
@@ -215,6 +211,62 @@
       line-height: 12px;
       color: var(--color-neutral-solid-gray-900);
     }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+
+    .match-card__chevron--disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .match-anchor-nav {
+      position: sticky;
+      top: 48px;
+      z-index: 10;
+      background: var(--color-neutral-solid-gray-50);
+      padding: 8px 0;
+      margin: 0 -16px;
+    }
+
+    .match-anchor-nav__scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 16px;
+      scrollbar-width: none;
+    }
+    .match-anchor-nav__scroll::-webkit-scrollbar { display: none; }
+
+    .match-anchor-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      text-decoration: none;
+      background: var(--color-neutral-solid-gray-200);
+      color: var(--color-neutral-solid-gray-900);
+      flex-shrink: 0;
+    }
+
+    .match-anchor-live-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-900);
+    }
+
+    .match-anchor-btn--disabled {
+      color: var(--color-neutral-solid-gray-400);
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -264,10 +316,25 @@
         <div class="schedule-heading__line"></div>
       </div>
 
+      <nav class="match-anchor-nav">
+        <div class="match-anchor-nav__scroll">
+          <a class="match-anchor-btn" href="#match-1">第1試合</a>
+          <a class="match-anchor-btn match-anchor-btn--live" href="#match-2"><span class="match-anchor-live-badge">試合中 |</span>第2試合</a>
+          <a class="match-anchor-btn match-anchor-btn--disabled" href="#match-3" tabindex="-1" aria-disabled="true">第3試合</a>
+          <a class="match-anchor-btn match-anchor-btn--disabled" href="#match-4" tabindex="-1" aria-disabled="true">第4試合</a>
+          <a class="match-anchor-btn match-anchor-btn--disabled" href="#match-5" tabindex="-1" aria-disabled="true">第5試合</a>
+          <a class="match-anchor-btn match-anchor-btn--disabled" href="#match-6" tabindex="-1" aria-disabled="true">第6試合</a>
+          <a class="match-anchor-btn match-anchor-btn--disabled" href="#match-7" tabindex="-1" aria-disabled="true">第7試合</a>
+          <a class="match-anchor-btn match-anchor-btn--disabled" href="#match-8" tabindex="-1" aria-disabled="true">第8試合</a>
+          <a class="match-anchor-btn match-anchor-btn--disabled" href="#match-9" tabindex="-1" aria-disabled="true">第9試合</a>
+          <a class="match-anchor-btn match-anchor-btn--disabled" href="#match-10" tabindex="-1" aria-disabled="true">第10試合</a>
+        </div>
+      </nav>
+
       <div class="match-list">
 
         <!-- 第1試合（スコアあり・展開） -->
-        <div class="match-item">
+        <div class="match-item" id="match-1">
           <div class="match-item__heading">
             <span class="match-item__number">第1試合</span>
             <span class="match-item__time">09:00〜</span>
@@ -308,7 +375,7 @@
         </div>
 
         <!-- 第2試合（スコアあり・折り畳み） -->
-        <div class="match-item">
+        <div class="match-item" id="match-2">
           <div class="match-item__heading">
             <span class="match-item__number">第2試合</span>
             <span class="live-badge">
@@ -352,38 +419,155 @@
           </div>
         </div>
 
-        <!-- 第3試合（スコアなし・展開・空状態） -->
-        <div class="match-item">
+        <!-- 第3〜第10試合（未開始・折り畳みのみ） -->
+        <div class="match-item" id="match-3">
           <div class="match-item__heading">
             <span class="match-item__number">第3試合</span>
             <span class="match-item__time">11:00〜</span>
           </div>
           <div class="match-card">
-            <div class="match-card__top match-card__top--expanded">
+            <div class="match-card__top">
               <div class="match-card__teams">
                 <div class="match-team-icon match-team-icon--mid">B</div>
                 <span class="match-card__score match-card__score--empty">00 : 00</span>
                 <div class="match-team-icon match-team-icon--light">C</div>
               </div>
-              <span class="match-card__chevron">
+              <span class="match-card__chevron match-card__chevron--disabled">
                 <img src="../material/icon/up.svg" width="24" height="24" alt="">
               </span>
             </div>
-            <div class="match-card__body">
-              <div class="match-score-detail">
-                <span class="match-section-title">スコア詳細</span>
-                <div class="match-empty-state">
-                  <span class="match-empty-state__title">スコアがありません</span>
-                  <span class="match-empty-state__desc">試合が開始されると表示されます</span>
-                </div>
+          </div>
+        </div>
+
+        <div class="match-item" id="match-4">
+          <div class="match-item__heading">
+            <span class="match-item__number">第4試合</span>
+            <span class="match-item__time">12:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score match-card__score--empty">00 : 00</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
               </div>
-              <div class="match-box-score">
-                <span class="match-section-title">バックスコア</span>
-                <div class="match-empty-state">
-                  <span class="match-empty-state__title">スコアがありません</span>
-                  <span class="match-empty-state__desc">試合が開始されると表示されます</span>
-                </div>
+              <span class="match-card__chevron match-card__chevron--disabled">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" id="match-5">
+          <div class="match-item__heading">
+            <span class="match-item__number">第5試合</span>
+            <span class="match-item__time">13:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score match-card__score--empty">00 : 00</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
               </div>
+              <span class="match-card__chevron match-card__chevron--disabled">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" id="match-6">
+          <div class="match-item__heading">
+            <span class="match-item__number">第6試合</span>
+            <span class="match-item__time">14:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--mid">B</div>
+                <span class="match-card__score match-card__score--empty">00 : 00</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron match-card__chevron--disabled">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" id="match-7">
+          <div class="match-item__heading">
+            <span class="match-item__number">第7試合</span>
+            <span class="match-item__time">15:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score match-card__score--empty">00 : 00</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
+              </div>
+              <span class="match-card__chevron match-card__chevron--disabled">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" id="match-8">
+          <div class="match-item__heading">
+            <span class="match-item__number">第8試合</span>
+            <span class="match-item__time">16:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score match-card__score--empty">00 : 00</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron match-card__chevron--disabled">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" id="match-9">
+          <div class="match-item__heading">
+            <span class="match-item__number">第9試合</span>
+            <span class="match-item__time">17:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--mid">B</div>
+                <span class="match-card__score match-card__score--empty">00 : 00</span>
+                <div class="match-team-icon match-team-icon--light">C</div>
+              </div>
+              <span class="match-card__chevron match-card__chevron--disabled">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-item" id="match-10">
+          <div class="match-item__heading">
+            <span class="match-item__number">第10試合</span>
+            <span class="match-item__time">18:00〜</span>
+          </div>
+          <div class="match-card">
+            <div class="match-card__top">
+              <div class="match-card__teams">
+                <div class="match-team-icon match-team-icon--dark">A</div>
+                <span class="match-card__score match-card__score--empty">00 : 00</span>
+                <div class="match-team-icon match-team-icon--mid">B</div>
+              </div>
+              <span class="match-card__chevron match-card__chevron--disabled">
+                <img src="../material/icon/up.svg" width="24" height="24" alt="">
+              </span>
             </div>
           </div>
         </div>
@@ -395,15 +579,12 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.match-card__body').forEach(function(body) {
-        body.style.display = '';
-      });
       document.querySelectorAll('.match-card__top').forEach(function(top) {
+        var body = top.nextElementSibling;
+        if (!body || !body.classList.contains('match-card__body')) return;
         top.classList.add('match-card__top--expanded');
         top.style.cursor = 'pointer';
         top.addEventListener('click', function() {
-          var body = top.nextElementSibling;
-          if (!body || !body.classList.contains('match-card__body')) return;
           var isOpen = body.style.display !== 'none';
           body.style.display = isOpen ? 'none' : '';
           top.classList.toggle('match-card__top--expanded', !isOpen);

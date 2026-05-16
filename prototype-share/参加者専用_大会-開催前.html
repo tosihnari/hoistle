@@ -11,7 +11,11 @@
   <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/button/button.css">
   <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/accordion/accordion.css">
   <link rel="stylesheet" href="prototype.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
     body {
       color: var(--color-neutral-solid-gray-800);
       padding-bottom: 120px;
@@ -86,6 +90,171 @@
       outline: 1px solid var(--color-neutral-solid-gray-200);
       outline-offset: -1px;
     }
+
+    /* ── 友達を招待するモーダル ── */
+    .invite-modal {
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      width: calc(100% - 48px);
+      max-width: 342px;
+      max-height: calc(100dvh - 48px);
+      border: none;
+      border-radius: 12px;
+      padding: 0;
+      background: #fff;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      overflow-y: auto;
+    }
+    .invite-modal::backdrop {
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+    }
+    .invite-modal__header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 8px 12px 0;
+    }
+    .invite-modal__close-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: none;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--color-neutral-solid-gray-600);
+    }
+    .invite-modal__close-icon:hover { background: var(--color-neutral-solid-gray-100); }
+    .invite-modal__hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 16px 20px;
+    }
+    .invite-modal__icon-wrap {
+      width: 80px;
+      height: 80px;
+      background: var(--color-neutral-solid-gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .invite-modal__icon-wrap .material-symbols-outlined {
+      font-size: 44px;
+      color: var(--color-neutral-solid-gray-800);
+    }
+    .invite-modal__headline {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--color-neutral-solid-gray-800);
+      margin: 0;
+    }
+    .invite-modal__url-section {
+      padding: 0 16px 20px;
+    }
+    .invite-modal__url-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-neutral-solid-gray-600);
+      margin-bottom: 6px;
+    }
+    .invite-modal__url-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-neutral-solid-gray-100);
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--color-neutral-solid-gray-200);
+    }
+    .invite-modal__url-text {
+      flex: 1;
+      font-size: 13px;
+      color: var(--color-neutral-solid-gray-800);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .invite-modal__copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 14px;
+      background: var(--color-neutral-solid-gray-800);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity 0.15s;
+    }
+    .invite-modal__copy-btn:hover { opacity: 0.85; }
+    .invite-modal__copy-btn .material-symbols-outlined { font-size: 16px; }
+    .invite-modal__footer {
+      padding: 0 16px 16px;
+    }
+    .invite-modal__banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: var(--color-neutral-solid-gray-50, #fafafa);
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .invite-modal__banner:hover { background: var(--color-neutral-solid-gray-100); }
+    .invite-modal__banner-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--color-neutral-solid-gray-800);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .invite-modal__banner-icon .material-symbols-outlined {
+      font-size: 24px;
+      color: #fff;
+    }
+    .invite-modal__banner-body {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-neutral-solid-gray-800);
+      line-height: 1.5;
+    }
+    .invite-modal__banner-arrow .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--color-neutral-solid-gray-600);
+    }
+    .invite-modal__dismiss {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      background: none;
+      border: 1.5px solid var(--color-neutral-solid-gray-300);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-neutral-solid-gray-800);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .invite-modal__dismiss:hover { background: var(--color-neutral-solid-gray-100); }
   </style>
 </head>
 <body>
@@ -174,7 +343,7 @@
       <h2 class="section-title">開催時間・場所</h2>
 
       <div class="section-group">
-        <p class="section-sub">集合・受付時間</p>
+        <p class="section-sub">受付時間</p>
         <p style="font-size:14px;color:var(--color-neutral-solid-gray-800);margin:0;">4/12(土) 09:55 受付開始</p>
       </div>
 
@@ -184,6 +353,10 @@
         <div class="venue-map" style="padding:0;overflow:hidden;">
           <img src="../material/screen/外観.png" alt="スポーツセンター外観" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
+        <a href="https://maps.google.com/maps?q=神奈川県藤沢市本藤沢４丁目２−１+スポーツセンター" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:12px;background:#fff;color:var(--color-neutral-solid-gray-900);border:1.5px solid var(--color-neutral-solid-gray-300);border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          地図アプリを開く
+        </a>
       </div>
 
       <div class="section-group">
@@ -425,14 +598,14 @@
         <div class="organizer-profile-card__main">
           <div class="organizer-profile-card__avatar-wrap">
             <div class="organizer-profile-card__avatar">
-              <img src="../material/user-icon/運営_男性2.png" alt="Whistle公式">
+              <img src="../material/user-icon/運営_男性2.png" alt="Hoistle公式">
             </div>
             <div class="organizer-profile-card__badge" aria-label="公式認定">
               <img src="../material/icon/batch.svg" width="17" height="17" aria-hidden="true">
             </div>
           </div>
           <div class="organizer-profile-card__body">
-            <p class="organizer-profile-card__name">Whistle【公式】</p>
+            <p class="organizer-profile-card__name">Hoistle【公式】</p>
             <p class="organizer-profile-card__description">ホイッスル公式です。初心者の方でも安心して参加できる、ゆるく楽しめるスポーツイベントを開催しています。1人参加や久しぶりの運動でも気軽にご参加いただけます。</p>
           </div>
         </div>
@@ -628,6 +801,41 @@
   </main>
 
 
+  <!-- ── 友達を招待するモーダル ── -->
+  <dialog id="invite-modal" class="invite-modal" aria-labelledby="invite-modal-title">
+    <header class="invite-modal__header">
+      <button type="button" class="invite-modal__close-icon" id="invite-close" aria-label="閉じる">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </header>
+    <section class="invite-modal__hero">
+      <div class="invite-modal__icon-wrap">
+        <span class="material-symbols-outlined">group</span>
+      </div>
+      <h2 class="invite-modal__headline" id="invite-modal-title">友達を招待して、<br>一緒に最高の時間を楽しもう！</h2>
+    </section>
+    <section class="invite-modal__url-section">
+      <label class="invite-modal__url-label">イベントURL</label>
+      <div class="invite-modal__url-row">
+        <span class="invite-modal__url-text">https://example.com/event/12345</span>
+        <button type="button" class="invite-modal__copy-btn" id="invite-copy">
+          <span class="material-symbols-outlined">content_copy</span>
+          コピー
+        </button>
+      </div>
+    </section>
+    <section class="invite-modal__footer">
+      <div class="invite-modal__banner">
+        <div class="invite-modal__banner-icon">
+          <span class="material-symbols-outlined">redeem</span>
+        </div>
+        <p class="invite-modal__banner-body">【特典】友達招待でさらに<br>500ポイントプレゼント！</p>
+        <span class="invite-modal__banner-arrow"><span class="material-symbols-outlined">chevron_right</span></span>
+      </div>
+      <button type="button" class="invite-modal__dismiss" id="invite-dismiss">閉じる</button>
+    </section>
+  </dialog>
+
   <!-- ── 参加予定の人 シート ── -->
   <dialog id="participants-sheet" class="bottom-sheet" aria-labelledby="participants-sheet-title">
     <div class="sheet-handle" aria-hidden="true"></div>
@@ -662,6 +870,29 @@
         const target = document.getElementById(chip.dataset.target);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
+    });
+
+    // 友達を招待するモーダル
+    const inviteModal = document.getElementById('invite-modal');
+    document.querySelectorAll('.participants-invite-btn').forEach(btn => {
+      btn.addEventListener('click', () => inviteModal.showModal());
+    });
+    ['invite-close', 'invite-dismiss'].forEach(id => {
+      document.getElementById(id).addEventListener('click', () => inviteModal.close());
+    });
+    inviteModal.addEventListener('click', e => { if (e.target === inviteModal) inviteModal.close(); });
+    document.getElementById('invite-copy').addEventListener('click', function() {
+      navigator.clipboard.writeText('https://example.com/event/12345').catch(() => {});
+      const label = this.querySelector('.material-symbols-outlined');
+      const original = this.textContent.trim();
+      this.textContent = '';
+      this.appendChild(label);
+      this.append(' コピーしました！');
+      setTimeout(() => {
+        this.textContent = '';
+        this.appendChild(label);
+        this.append(' コピー');
+      }, 2000);
     });
 
     // 参加予定シート

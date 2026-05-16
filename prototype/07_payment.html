@@ -508,23 +508,23 @@
         <div class="point-option-card point-option-card--with-balance">
           <label class="dads-radio" data-size="md">
             <span class="dads-radio__radio">
-              <input class="dads-radio__input" type="radio" name="point-type" value="whistle">
+              <input class="dads-radio__input" type="radio" name="point-type" value="hoistle">
             </span>
             <span class="dads-radio__label">ホイッスルポイント</span>
           </label>
           <span class="point-balance">1,200 pt</span>
         </div>
-        <div id="whistle-sub" class="point-sub-panel hidden">
+        <div id="hoistle-sub" class="point-sub-panel hidden">
           <label class="dads-radio" data-size="md">
             <span class="dads-radio__radio">
-              <input class="dads-radio__input" type="radio" name="whistle-amount" value="all" checked>
+              <input class="dads-radio__input" type="radio" name="hoistle-amount" value="all" checked>
             </span>
             <span class="dads-radio__label">全て使う</span>
           </label>
           <div>
             <label class="dads-radio" data-size="md">
               <span class="dads-radio__radio">
-                <input class="dads-radio__input" type="radio" name="whistle-amount" value="partial">
+                <input class="dads-radio__input" type="radio" name="hoistle-amount" value="partial">
               </span>
               <span class="dads-radio__label">一部使う</span>
             </label>
@@ -598,8 +598,8 @@
     pointSheet.addEventListener('click', e => { if (e.target === pointSheet) pointSheet.close(); });
 
     const pointTypeRadios = pointSheet.querySelectorAll('input[name="point-type"]');
-    const whistleAmountRadios = pointSheet.querySelectorAll('input[name="whistle-amount"]');
-    const whistleSub = document.getElementById('whistle-sub');
+    const hoistleAmountRadios = pointSheet.querySelectorAll('input[name="hoistle-amount"]');
+    const hoistleSub = document.getElementById('hoistle-sub');
     const paypaySub = document.getElementById('paypay-sub');
     const tpointSub = document.getElementById('tpoint-sub');
     const dpointSub = document.getElementById('dpoint-sub');
@@ -607,23 +607,23 @@
 
     function updatePointUI() {
       const val = pointSheet.querySelector('input[name="point-type"]:checked')?.value;
-      whistleSub.classList.toggle('hidden', val !== 'whistle');
+      hoistleSub.classList.toggle('hidden', val !== 'hoistle');
       paypaySub.classList.toggle('hidden', val !== 'paypay');
       tpointSub.classList.toggle('hidden', val !== 'tpoint');
       dpointSub.classList.toggle('hidden', val !== 'dpoint');
-      if (val !== 'whistle') {
-        pointSheet.querySelector('input[name="whistle-amount"][value="all"]').checked = true;
+      if (val !== 'hoistle') {
+        pointSheet.querySelector('input[name="hoistle-amount"][value="all"]').checked = true;
         partialInputArea.classList.add('hidden');
       }
     }
 
-    function updateWhistleUI() {
-      const amtVal = pointSheet.querySelector('input[name="whistle-amount"]:checked')?.value;
+    function updateHoistleUI() {
+      const amtVal = pointSheet.querySelector('input[name="hoistle-amount"]:checked')?.value;
       partialInputArea.classList.toggle('hidden', amtVal !== 'partial');
     }
 
     pointTypeRadios.forEach(r => r.addEventListener('change', updatePointUI));
-    whistleAmountRadios.forEach(r => r.addEventListener('change', updateWhistleUI));
+    hoistleAmountRadios.forEach(r => r.addEventListener('change', updateHoistleUI));
 
     if (window.location.hash === '#paypay') {
       pointSheet.querySelector('input[name="point-type"][value="paypay"]').checked = true;

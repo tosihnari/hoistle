@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>参加者専用ページ（開催前）</title>
+  <title>イベント詳細情報（開催後）</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
@@ -11,25 +11,22 @@
   <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/button/button.css">
   <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/accordion/accordion.css">
   <link rel="stylesheet" href="prototype.css">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   <style>
     body {
       color: var(--color-neutral-solid-gray-800);
       padding-bottom: 120px;
     }
 
-    /* ── ヒーローセクション ── */
-    .event-hero__bg {
-      background: var(--color-neutral-solid-gray-800);
-      padding: 64px 20px 20px;
+    /* nav-bar 高さ（padding 14px×2 + line-height 約 24px = 52px）分下げて追従 */
+    .filter-chips-wrap {
+      top: 52px;
     }
-    .event-hero__title {
-      font-size: 22px;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      line-height: 1.4;
+
+    /* nav-bar（52px）+ filter-chips-wrap（44px）= 96px 補正 */
+    .section {
+      scroll-margin-top: 96px;
     }
+
     .notice-banner {
       display: flex;
       align-items: center;
@@ -42,223 +39,28 @@
       text-decoration: none;
       cursor: pointer;
     }
-    .notice-banner__body {
-      flex: 1;
-      min-width: 0;
-    }
-    .notice-banner__label {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-800);
-      margin: 0 0 4px;
-      line-height: 1.2;
-    }
-    .notice-banner__text {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-600);
-      margin: 0;
-      line-height: 1.6;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
-    .participant-teams .participant-avatars { flex-wrap: nowrap; overflow-x: auto; gap: 8px; }
-    .participant-teams .participant-avatar { width: 40px; height: 40px; box-shadow: none; outline: 1px solid var(--color-neutral-solid-gray-200); outline-offset: -1px; }
-
-    /* ── 友達を招待するモーダル ── */
-    .invite-modal {
-      position: fixed;
-      inset: 0;
-      margin: auto;
-      width: calc(100% - 48px);
-      max-width: 342px;
-      max-height: calc(100dvh - 48px);
-      border: none;
-      border-radius: 12px;
-      padding: 0;
-      background: #fff;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-      overflow-y: auto;
-    }
-    .invite-modal::backdrop {
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-    }
-    .invite-modal__header {
-      display: flex;
-      justify-content: flex-end;
-      padding: 8px 12px 0;
-    }
-    .invite-modal__close-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border: none;
-      background: none;
-      border-radius: 50%;
-      cursor: pointer;
-      color: var(--color-neutral-solid-gray-600);
-    }
-    .invite-modal__close-icon:hover { background: var(--color-neutral-solid-gray-100); }
-    .invite-modal__hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 0 16px 20px;
-    }
-    .invite-modal__icon-wrap {
-      width: 80px;
-      height: 80px;
-      background: var(--color-neutral-solid-gray-100);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 12px;
-    }
-    .invite-modal__icon-wrap .material-symbols-outlined {
-      font-size: 44px;
-      color: var(--color-neutral-solid-gray-800);
-    }
-    .invite-modal__headline {
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.5;
-      color: var(--color-neutral-solid-gray-800);
-      margin: 0;
-    }
-    .invite-modal__url-section {
-      padding: 0 16px 20px;
-    }
-    .invite-modal__url-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-600);
-      margin-bottom: 6px;
-    }
-    .invite-modal__url-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--color-neutral-solid-gray-100);
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--color-neutral-solid-gray-200);
-    }
-    .invite-modal__url-text {
-      flex: 1;
-      font-size: 13px;
-      color: var(--color-neutral-solid-gray-800);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .invite-modal__copy-btn {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 14px;
-      background: var(--color-neutral-solid-gray-800);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 500;
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: opacity 0.15s;
-    }
-    .invite-modal__copy-btn:hover { opacity: 0.85; }
-    .invite-modal__copy-btn .material-symbols-outlined { font-size: 16px; }
-    .invite-modal__footer {
-      padding: 0 16px 16px;
-    }
-    .invite-modal__banner {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px;
-      background: var(--color-neutral-solid-gray-50, #fafafa);
-      border: 1px solid var(--color-neutral-solid-gray-200);
-      border-radius: 12px;
-      cursor: pointer;
-    }
-    .invite-modal__banner:hover { background: var(--color-neutral-solid-gray-100); }
-    .invite-modal__banner-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--color-neutral-solid-gray-800);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .invite-modal__banner-icon .material-symbols-outlined {
-      font-size: 24px;
-      color: #fff;
-    }
-    .invite-modal__banner-body {
-      flex: 1;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-800);
-      line-height: 1.5;
-    }
-    .invite-modal__banner-arrow .material-symbols-outlined {
-      font-size: 20px;
-      color: var(--color-neutral-solid-gray-600);
-    }
-    .invite-modal__dismiss {
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-      padding: 12px;
-      background: none;
-      border: 1.5px solid var(--color-neutral-solid-gray-300);
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-800);
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .invite-modal__dismiss:hover { background: var(--color-neutral-solid-gray-100); }
+    .notice-banner__body { flex: 1; min-width: 0; }
+    .notice-banner__label { font-size: 14px; font-weight: 500; color: var(--color-neutral-solid-gray-800); margin: 0 0 4px; line-height: 1.2; }
+    .notice-banner__text { font-size: 14px; font-weight: 500; color: var(--color-neutral-solid-gray-600); margin: 0; line-height: 1.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   </style>
 </head>
 <body>
 
 
-  <!-- ヒーロー -->
-  <div class="event-hero">
-    <div class="event-hero__bg" data-category="エンジョイ">
-      <a class="event-hero__back" href="#" aria-label="戻る" onclick="history.back(); return false;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-      </a>
-      <div class="event-hero__labels">
-        <span class="event-hero__badge">エンジョイ</span>
-        <span class="event-hero__badge">全員参加レベル</span>
-      </div>
-      <p class="event-hero__title">バスケ エンジョイ交流戦 初心者・未経験者歓迎</p>
-    </div>
-  </div>
+  <nav class="nav-bar">
+    <a class="nav-back" href="参加者専用_スクール-開催後.html" aria-label="戻る">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </a>
+    <h1 class="nav-title">詳細情報</h1>
+    <div class="nav-spacer"></div>
+  </nav>
 
   <!-- フィルターチップ -->
   <div class="filter-chips-wrap">
     <div class="filter-chips-scroll" role="navigation" aria-label="セクション">
-      <button class="filter-chip filter-chip--active" data-target="section-participants">参加者</button>
-      <button class="filter-chip" data-target="section-venue">開催時間・場所</button>
+      <button class="filter-chip filter-chip--active" data-target="section-venue">開催時間・場所</button>
       <button class="filter-chip" data-target="section-equipment">設備・持ち物</button>
       <button class="filter-chip" data-target="section-schedule">当日の流れ</button>
       <button class="filter-chip" data-target="section-trend">参加者の傾向</button>
@@ -270,44 +72,12 @@
   <!-- コンテンツ -->
   <main class="content">
 
-    <!-- 参加者エリア -->
-    <div class="participant-section" id="section-participants">
-      <div class="participant-header">
-        <div class="participant-header__left">
-          <p class="participant-header__title">参加者</p>
-          <p class="participant-header__count">(12名)</p>
-        </div>
-        <button type="button" class="participants-invite-btn" aria-label="友達を誘う">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          友達を誘う
-        </button>
-      </div>
-      <div class="participant-teams" aria-label="参加者一覧">
-        <div class="participant-avatars">
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yusaku.Takasugi_高杉優作.png" alt="高杉優作" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Nanami.Tanahashi_棚橋七海.png" alt="棚橋七海" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Hayato.Akaiwa_赤岩駿斗.png" alt="赤岩駿斗" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Mana.Kurita_栗田茉奈.png" alt="栗田茉奈" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Hikaru.Tezuka_手塚光.png" alt="手塚光" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Takeru .Mukai_向井猛.png" alt="向井猛" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yuichi.Yoshimura_吉村優一.png" alt="吉村優一" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yuki.Kurokawa_黒川優喜.png" alt="黒川優喜" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Ryota.Kokubun_國分椋太.png" alt="國分椋太" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Arata.Kobayashi_小林新.png" alt="小林新" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Akiko.Nagashima_長島明子.png" alt="長島明子" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-        </div>
-      </div>
-    </div>
-
     <!-- 開催時間・場所 -->
     <section id="section-venue" class="section">
       <h2 class="section-title">開催時間・場所</h2>
 
       <div class="section-group">
-        <p class="section-sub">受付時間</p>
+        <p class="section-sub">集合・受付時間</p>
         <p style="font-size:14px;color:var(--color-neutral-solid-gray-800);margin:0;">4/12(土) 09:55 受付開始</p>
       </div>
 
@@ -317,10 +87,6 @@
         <div class="venue-map" style="padding:0;overflow:hidden;">
           <img src="../material/screen/外観.png" alt="スポーツセンター外観" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
-        <a href="https://maps.google.com/maps?q=神奈川県藤沢市本藤沢４丁目２−１+スポーツセンター" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:12px;background:#fff;color:var(--color-neutral-solid-gray-900);border:1.5px solid var(--color-neutral-solid-gray-300);border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          地図アプリを開く
-        </a>
       </div>
 
       <div class="section-group">
@@ -466,14 +232,40 @@
           <div class="timeline__dot" aria-hidden="true">3</div>
           <div class="timeline__body">
             <div class="timeline__header">
-              <p class="timeline__title">ゲーム形式で楽しむ</p>
-              <span class="timeline__duration">約50分</span>
+              <p class="timeline__title">練習</p>
+              <span class="timeline__duration">約20分</span>
             </div>
-            <p class="timeline__desc">チームに分かれてバスケを楽しみます。</p>
+            <p class="timeline__desc">ボールを使ったパスやドリブルなど練習をします。</p>
+            <div class="practice-menu">
+              <div class="practice-menu__section">
+                <p class="practice-menu__label">基礎練習</p>
+                <p class="practice-menu__desc">パス、トラップ、ドリブルなどの基本動作。足の裏を使ったコントロールを意識します。</p>
+              </div>
+              <div class="practice-menu__section">
+                <p class="practice-menu__label">対人練習・シュート</p>
+                <p class="practice-menu__desc">1on1や、実践的なシュート練習。相手を背負った状態からの反転シュートなど。</p>
+              </div>
+            </div>
           </div>
         </li>
         <li class="timeline__item">
           <div class="timeline__dot" aria-hidden="true">4</div>
+          <div class="timeline__body">
+            <div class="timeline__header">
+              <p class="timeline__title">ゲーム形式で楽しむ</p>
+              <span class="timeline__duration">約30分</span>
+            </div>
+            <p class="timeline__desc">チームに分かれてフットサルをします。</p>
+            <div class="practice-menu">
+              <div class="practice-menu__section">
+                <p class="practice-menu__label">ミニゲーム</p>
+                <p class="practice-menu__desc">チームに分かれてフットサルの試合を楽しみます。本日の練習テーマを意識してプレーしましょう。</p>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="timeline__item">
+          <div class="timeline__dot" aria-hidden="true">5</div>
           <div class="timeline__body">
             <div class="timeline__header">
               <p class="timeline__title">片付け・解散</p>
@@ -545,7 +337,7 @@
           </div>
           <div class="organizer-profile-card__body">
             <p class="organizer-profile-card__name">田中 誠</p>
-            <p class="organizer-profile-card__description">参加者の安全管理と円滑な進行をサポートします。初めての方も安心してご参加いただけるよう丁寧にお声がけします。</p>
+            <p class="organizer-profile-card__description">大会の審判・進行を担当します。フェアプレー精神のもとスムーズな試合運営を心がけます。</p>
           </div>
         </div>
         <div class="organizer-profile-card__stats">
@@ -555,7 +347,7 @@
               <circle cx="9" cy="7" r="4"/>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
-            <span class="organizer-profile-card__stat-text">当日スタッフ歴3年</span>
+            <span class="organizer-profile-card__stat-text">審判歴5年</span>
           </div>
           <div class="organizer-profile-card__stat">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -563,7 +355,7 @@
               <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
               <line x1="3" y1="10" x2="21" y2="10"/>
             </svg>
-            <span class="organizer-profile-card__stat-text">イベント50回以上サポート</span>
+            <span class="organizer-profile-card__stat-text">大会運営30回以上</span>
           </div>
         </div>
       </div>
@@ -587,7 +379,6 @@
           <span class="facility-row__desc">参加費の100%</span>
         </div>
       </div>
-      <a href="#" style="display:block;text-align:center;font-size:14px;color:var(--color-neutral-solid-gray-600);text-decoration:underline;text-underline-offset:3px;padding:12px 0;">キャンセルを申請する</a>
     </section>
 
     <!-- よくある質問 -->
@@ -705,41 +496,6 @@
   </main>
 
 
-  <!-- ── 友達を招待するモーダル ── -->
-  <dialog id="invite-modal" class="invite-modal" aria-labelledby="invite-modal-title">
-    <header class="invite-modal__header">
-      <button type="button" class="invite-modal__close-icon" id="invite-close" aria-label="閉じる">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </header>
-    <section class="invite-modal__hero">
-      <div class="invite-modal__icon-wrap">
-        <span class="material-symbols-outlined">group</span>
-      </div>
-      <h2 class="invite-modal__headline" id="invite-modal-title">友達を招待して、<br>一緒に最高の時間を楽しもう！</h2>
-    </section>
-    <section class="invite-modal__url-section">
-      <label class="invite-modal__url-label">イベントURL</label>
-      <div class="invite-modal__url-row">
-        <span class="invite-modal__url-text">https://example.com/event/12345</span>
-        <button type="button" class="invite-modal__copy-btn" id="invite-copy">
-          <span class="material-symbols-outlined">content_copy</span>
-          コピー
-        </button>
-      </div>
-    </section>
-    <section class="invite-modal__footer">
-      <div class="invite-modal__banner">
-        <div class="invite-modal__banner-icon">
-          <span class="material-symbols-outlined">redeem</span>
-        </div>
-        <p class="invite-modal__banner-body">【特典】友達招待でさらに<br>500ポイントプレゼント！</p>
-        <span class="invite-modal__banner-arrow"><span class="material-symbols-outlined">chevron_right</span></span>
-      </div>
-      <button type="button" class="invite-modal__dismiss" id="invite-dismiss">閉じる</button>
-    </section>
-  </dialog>
-
   <!-- ── 参加予定の人 シート ── -->
   <dialog id="participants-sheet" class="bottom-sheet" aria-labelledby="participants-sheet-title">
     <div class="sheet-handle" aria-hidden="true"></div>
@@ -763,7 +519,7 @@
 
       <!-- 参加予定ユーザー一覧 -->
       <div class="participant-list">
-        <a href="ユーザープロフィール.html" class="participant-item">
+        <div class="participant-item">
           <div class="participant-avatar">R</div>
           <div class="participant-info">
             <div class="participant-name-row">
@@ -772,8 +528,8 @@
             </div>
             <p class="participant-relation">前回のイベントで一緒</p>
           </div>
-        </a>
-        <a href="ユーザープロフィール.html" class="participant-item">
+        </div>
+        <div class="participant-item">
           <div class="participant-avatar">H</div>
           <div class="participant-info">
             <div class="participant-name-row">
@@ -782,8 +538,8 @@
             </div>
             <p class="participant-relation">前回のイベントで一緒</p>
           </div>
-        </a>
-        <a href="ユーザープロフィール.html" class="participant-item">
+        </div>
+        <div class="participant-item">
           <div class="participant-avatar">Y</div>
           <div class="participant-info">
             <div class="participant-name-row">
@@ -792,8 +548,8 @@
             </div>
             <p class="participant-relation">3回同じイベントに参加しています</p>
           </div>
-        </a>
-        <a href="ユーザープロフィール.html" class="participant-item">
+        </div>
+        <div class="participant-item">
           <div class="participant-avatar">M</div>
           <div class="participant-info">
             <div class="participant-name-row">
@@ -802,7 +558,7 @@
             </div>
             <p class="participant-relation">3回同じイベントに参加しています</p>
           </div>
-        </a>
+        </div>
       </div>
 
       <!-- 参加傾向 -->
@@ -864,23 +620,6 @@
   </dialog>
 
   <script>
-    // カウントダウン
-    const nums = document.querySelectorAll('.countdown__num');
-    if (nums.length >= 3) {
-      let total = 12 * 3600 + 34 * 60 + 56;
-      const tick = () => {
-        const h = Math.floor(total / 3600);
-        const m = Math.floor((total % 3600) / 60);
-        const s = total % 60;
-        nums[0].textContent = String(h).padStart(2, '0');
-        nums[1].textContent = String(m).padStart(2, '0');
-        nums[2].textContent = String(s).padStart(2, '0');
-        if (total > 0) total--;
-      };
-      tick();
-      setInterval(tick, 1000);
-    }
-
     // フィルターチップのクリック → スクロール
     const chips = document.querySelectorAll('.filter-chip');
     chips.forEach(chip => {
@@ -890,28 +629,6 @@
         const target = document.getElementById(chip.dataset.target);
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
-    });
-
-    // 友達を招待するモーダル
-    const inviteModal = document.getElementById('invite-modal');
-    document.querySelectorAll('.participants-invite-btn').forEach(btn => {
-      btn.addEventListener('click', () => inviteModal.showModal());
-    });
-    ['invite-close', 'invite-dismiss'].forEach(id => {
-      document.getElementById(id).addEventListener('click', () => inviteModal.close());
-    });
-    inviteModal.addEventListener('click', e => { if (e.target === inviteModal) inviteModal.close(); });
-    document.getElementById('invite-copy').addEventListener('click', function() {
-      navigator.clipboard.writeText('https://example.com/event/12345').catch(() => {});
-      const label = this.querySelector('.material-symbols-outlined');
-      this.textContent = '';
-      this.appendChild(label);
-      this.append(' コピーしました！');
-      setTimeout(() => {
-        this.textContent = '';
-        this.appendChild(label);
-        this.append(' コピー');
-      }, 2000);
     });
 
     // 参加予定シート
@@ -939,20 +656,6 @@
       });
     }, { rootMargin: '-20% 0px -70% 0px' });
     sectionEls.forEach(s => io.observe(s));
-
-    // 参加者アバターにユーザーパラメータを付与
-    const userMap = {
-      '旭俊成': 'asahi', '高杉優作': 'takasugi', '棚橋七海': 'tanahashi', '赤岩駿斗': 'akaiwa',
-      '栗田茉奈': 'kurita', '手塚光': 'tezuka', '向井猛': 'mukai', '吉村優一': 'yoshimura',
-      '黒川優喜': 'kurokawa', '國分椋太': 'kokubun', '小林新': 'kobayashi', '長島明子': 'nagashima'
-    };
-    document.querySelectorAll('.participant-avatar').forEach(link => {
-      const img = link.querySelector('img');
-      if (!img) return;
-      const userId = userMap[img.alt];
-      if (userId) link.href = '21_user-profile.html?user=' + userId;
-    });
-
   </script>
 
   <script src="prototype-map.js"></script>

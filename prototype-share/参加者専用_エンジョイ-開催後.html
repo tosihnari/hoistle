@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/global.css">
   <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/button/button.css">
-  <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/accordion/accordion.css">
   <link rel="stylesheet" href="prototype.css">
   <style>
     body {
@@ -20,7 +19,7 @@
     /* ── ヒーローセクション（開催後バリアント）── */
     .event-hero__bg {
       background: var(--color-neutral-solid-gray-700);
-      padding: 64px 20px 56px;
+      padding: 64px 20px 24px;
     }
     .event-hero__title {
       font-size: 24px;
@@ -30,11 +29,10 @@
       line-height: 1.4;
     }
     .event-hero__card {
-      margin: -40px 16px 0;
-      margin-bottom: 16px;
+      margin: 16px 0 0;
       position: relative;
       z-index: 1;
-      background: var(--color-neutral-solid-gray-800);
+      background: var(--color-neutral-white);
       border-radius: 24px;
       padding: 32px;
       box-shadow: 0 8px 10px -6px rgba(0,0,0,0.10), 0 20px 25px -5px rgba(0,0,0,0.10);
@@ -59,7 +57,7 @@
     .post-event-message__title {
       font-size: 24px;
       font-weight: 500;
-      color: var(--color-neutral-white);
+      color: var(--color-neutral-solid-gray-900);
       line-height: 1.4;
       margin: 0;
       text-align: center;
@@ -67,41 +65,64 @@
     .post-event-message__subtitle {
       font-size: 12px;
       font-weight: 500;
-      color: var(--color-neutral-solid-gray-300);
+      color: var(--color-neutral-solid-gray-500);
       line-height: 1.625;
       margin: 0;
       text-align: center;
     }
     .mvp-badge {
       align-self: stretch;
-      background: var(--color-neutral-white);
+      background: var(--color-neutral-solid-gray-50);
       border-radius: 12px;
-      border: 2px solid var(--color-neutral-solid-gray-200);
-      padding: 6px 20px;
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      padding: 16px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      gap: 4px;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
     }
-    .mvp-badge__label {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-500);
-      line-height: 1.4;
-      text-align: center;
+    .mvp-badge__bg-icon {
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 80px;
+      height: 80px;
+      opacity: 0.12;
+      pointer-events: none;
+      filter: brightness(0);
     }
-    .mvp-badge__row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .mvp-badge__bg-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
-    .mvp-badge__avatar {
-      width: 40px;
-      height: 40px;
+    .event-card-divider {
+      border: none;
+      border-top: 1px solid var(--color-neutral-solid-gray-200);
+      margin: 0;
+      align-self: stretch;
+    }
+    .mvp-badge__avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .mvp-badge__avatar-link {
+      display: block;
+      width: 64px;
+      height: 64px;
       border-radius: 50%;
       overflow: hidden;
-      border: 1.25px solid var(--color-neutral-solid-gray-100);
-      flex-shrink: 0;
+      outline: 2px solid var(--color-neutral-solid-gray-900);
+      outline-offset: -2px;
+    }
+    .mvp-badge__avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
     }
     .mvp-badge__avatar img {
       width: 100%;
@@ -109,64 +130,440 @@
       object-fit: cover;
       display: block;
     }
-    .mvp-badge__name {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--color-neutral-solid-gray-800);
-      line-height: 1.75;
+    .mvp-badge__crown {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--color-neutral-solid-gray-900);
+      border-radius: 50%;
+      border: 1px solid var(--color-neutral-white);
+      color: var(--color-neutral-white);
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
-    /* 写真カード（横長） */
-    .photo-card {
+    .mvp-badge__info {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 16px;
-      border-radius: 13px;
-      text-decoration: none;
-      background: var(--color-neutral-solid-gray-600);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      gap: 2px;
     }
-    .photo-card__header {
+    .mvp-badge__label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-900);
+      background: var(--color-neutral-solid-gray-900);
+      color: var(--color-neutral-white);
+      padding: 2px 8px;
+      border-radius: 9999px;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .mvp-badge__name {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--color-neutral-solid-gray-900);
+      line-height: 1.5;
+    }
+    .mvp-badge__score {
+      font-size: 14px;
+      color: var(--color-neutral-solid-gray-500);
+      line-height: 1.5;
+    }
+
+    /* 表彰台 */
+    .podium {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .podium__place {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+    .podium__rank {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-500);
+      line-height: 1.4;
+    }
+    .podium__avatar-link {
+      display: block;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .podium__avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      outline: 1px solid var(--color-neutral-solid-gray-300);
+      outline-offset: -1px;
+    }
+    .podium__avatar--1st {
+      width: 96px;
+      height: 96px;
+      outline: 3px solid var(--color-neutral-solid-gray-900);
+    }
+    .podium__avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .podium__name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-800);
+      text-align: center;
+      line-height: 1.4;
+    }
+    .podium__score {
+      font-size: 14px;
+      color: var(--color-neutral-solid-gray-500);
+      text-align: center;
+      line-height: 1.4;
+    }
+    .podium__place--1st .podium__name {
+      font-size: 16px;
+    }
+    .podium__place--1st .podium__score {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-900);
+    }
+
+    /* イベント詳細ナビゲーション */
+    .event-detail-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: var(--color-neutral-white);
+      text-decoration: none;
+      color: var(--color-neutral-solid-gray-800);
+    }
+    .event-detail-nav__label {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-neutral-solid-gray-800);
+    }
+
+    /* 試合カード */
+    .match-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .match-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .match-item__heading {
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .photo-card__icon {
-      width: 20px;
-      height: 20px;
-      filter: brightness(0) invert(1);
-      flex-shrink: 0;
+    .match-item__number {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+      color: var(--color-neutral-solid-gray-500);
     }
-    .photo-card__label {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--color-neutral-white);
-      line-height: 1.5;
-      flex: 1;
-    }
-    .photo-card__arrow {
-      color: var(--color-neutral-white);
-    }
-    .photo-card__thumbnails {
+    .match-card {
       display: flex;
-      gap: 6px;
+      flex-direction: column;
     }
-    .photo-card__thumb {
+    .match-card__top {
+      padding: 10px 12px;
+      background: var(--color-neutral-white);
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .match-card__top--expanded {
+      border-radius: 12px 12px 0 0;
+      border-bottom: none;
+    }
+    .match-card__teams {
       flex: 1;
-      height: 56px;
-      border-radius: 6px;
-      background: var(--color-neutral-solid-gray-500);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .match-team-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--color-neutral-solid-gray-400);
+      font-size: 14px;
+      font-weight: 700;
+      min-width: 20px;
+      flex-shrink: 0;
+    }
+    .match-team-icon--dark  { color: var(--color-neutral-solid-gray-900); }
+    .match-team-icon--mid   { color: var(--color-neutral-solid-gray-600); }
+    .match-team-icon--light { color: var(--color-neutral-solid-gray-400); }
+    .match-card__score {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 20px;
+      color: var(--color-neutral-solid-gray-500);
+    }
+    .match-card__chevron {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .match-card__chevron img {
+      transform: rotate(180deg);
+      display: block;
+    }
+    .match-card__top--expanded .match-card__chevron img {
+      transform: rotate(0deg);
+    }
+    .match-card__body {
+      padding: 16px;
+      background: var(--color-neutral-white);
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      border-radius: 0 0 12px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .match-section-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 16px;
+      color: var(--color-neutral-solid-gray-900);
+    }
+    .match-score-detail {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .match-score-detail img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .match-box-score {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .match-box-score__team {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .match-box-score__team-name {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 14px;
+      color: var(--color-neutral-solid-gray-900);
+    }
+    .match-box-score__scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .match-box-score__scroll img {
+      height: 128px;
+      width: auto;
+      max-width: none;
+      display: block;
     }
 
-    /* 参加者チーム */
+    /* 写真ギャラリー */
+    .photo-section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .photo-section-heading .section-title {
+      margin: 0;
+    }
+    .photo-section-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .photo-selected-count {
+      display: none;
+      padding: 6px 10px;
+      border-radius: 9999px;
+      background: var(--color-neutral-solid-gray-900);
+      color: var(--color-neutral-white);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .photo-selected-count.is-visible {
+      display: inline-flex;
+    }
+    .photo-select-btn.dads-button {
+      --button-color: var(--color-neutral-solid-gray-800);
+      --button-hover-color: var(--color-neutral-solid-gray-900);
+      --button-active-color: var(--color-neutral-black);
+      --button-outline-hover-bg-color: var(--color-neutral-solid-gray-50);
+      --button-outline-active-bg-color: var(--color-neutral-solid-gray-100);
+      min-width: 72px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .photo-grid__item {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      padding: 0;
+      border: none;
+      background: var(--color-neutral-solid-gray-100);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .photo-grid__item::before,
+    .photo-grid__item::after {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .photo-grid--selecting .photo-grid__item::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--color-neutral-white);
+      border-radius: 50%;
+      background: rgba(0,0,0,0.28);
+      box-sizing: border-box;
+      opacity: 1;
+    }
+    .photo-grid--selecting .photo-grid__item.is-selected::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.32);
+      opacity: 1;
+    }
+    .photo-grid--selecting .photo-grid__item.is-selected::after {
+      content: "✓";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-neutral-solid-gray-900);
+      color: var(--color-neutral-white);
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 1;
+    }
+    .photo-grid__item:focus-visible {
+      outline: 3px solid var(--color-neutral-black);
+      outline-offset: 2px;
+    }
+    .photo-grid__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-more-btn {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--color-neutral-solid-gray-900);
+      color: var(--color-neutral-white);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      box-sizing: border-box;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .photo-selection-footer {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 120;
+      width: 100%;
+      max-width: 390px;
+      padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+      background: var(--color-neutral-white);
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.14);
+      box-sizing: border-box;
+      transform: translate(-50%, 110%);
+      transition: transform 0.28s ease;
+    }
+    .photo-selection-footer.is-visible {
+      transform: translate(-50%, 0);
+    }
+    .photo-selection-footer__actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .photo-selection-footer__btn.dads-button {
+      --button-color: var(--color-neutral-solid-gray-800);
+      --button-hover-color: var(--color-neutral-solid-gray-900);
+      --button-active-color: var(--color-neutral-black);
+      --button-outline-hover-bg-color: var(--color-neutral-solid-gray-50);
+      --button-outline-active-bg-color: var(--color-neutral-solid-gray-100);
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .photo-selection-footer__btn img {
+      width: 18px;
+      height: 18px;
+    }
+    /* 参加者チーム（prototype.css に未定義） */
+    .participant-teams {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .participant-team__label {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-neutral-solid-gray-600);
+      margin: 0 0 8px;
+      line-height: 1.5;
+    }
     .participant-teams .participant-avatars {
-      flex-wrap: nowrap;
-      overflow-x: auto;
+      flex-wrap: wrap;
+      overflow-x: visible;
       gap: 8px;
     }
     .participant-teams .participant-avatar {
@@ -176,21 +573,232 @@
       outline: 1px solid var(--color-neutral-solid-gray-200);
       outline-offset: -1px;
     }
-    .notice-banner {
+
+    /* フィルターチップ クリック時スクロール位置補正 */
+    #section-participants, #section-photos {
+      scroll-margin-top: 44px;
+    }
+
+    /* === 写真モーダル === */
+    .photo-modal {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      max-width: none;
+      height: 100dvh;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      overflow: hidden;
+    }
+    .photo-modal::backdrop { background: rgba(0,0,0,0.72); }
+    .photo-modal:not([open]) { display: none; }
+    .photo-modal__media {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 48px);
+      max-width: 342px;
+      background: var(--color-neutral-solid-gray-900);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    }
+    .photo-modal__img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      display: block;
+      background: var(--color-neutral-solid-gray-900);
+    }
+    @media (max-height: 720px) {
+      .photo-modal__media {
+        top: 42%;
+        width: calc(100% - 64px);
+        max-width: 318px;
+      }
+    }
+    .photo-modal__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.35);
+      border: none;
+      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin: 16px;
-      padding: 16px;
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid var(--color-neutral-solid-gray-200);
-      text-decoration: none;
+      justify-content: center;
+      color: var(--color-neutral-white);
+      padding: 0;
+    }
+    .photo-modal__body {
+      position: absolute;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 342px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: transparent;
+      z-index: 1;
+    }
+    .photo-modal__actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .photo-modal__action.dads-button {
+      --button-color: var(--color-neutral-solid-gray-800);
+      --button-hover-color: var(--color-neutral-solid-gray-900);
+      --button-active-color: var(--color-neutral-black);
+      --button-outline-hover-bg-color: var(--color-neutral-solid-gray-50);
+      --button-outline-active-bg-color: var(--color-neutral-solid-gray-100);
+      width: 100%;
+      height: 44px;
+      border-radius: 8px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.88);
+    }
+    .photo-modal__action img {
+      width: 18px;
+      height: 18px;
+    }
+    .photo-carousel {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    .photo-carousel__thumb {
+      width: 64px;
+      height: 64px;
+      padding: 0;
+      flex: 0 0 auto;
+      border: none;
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--color-neutral-solid-gray-100);
       cursor: pointer;
     }
-    .notice-banner__body { flex: 1; min-width: 0; }
-    .notice-banner__label { font-size: 14px; font-weight: 500; color: var(--color-neutral-solid-gray-800); margin: 0 0 4px; line-height: 1.2; }
-    .notice-banner__text { font-size: 14px; font-weight: 500; color: var(--color-neutral-solid-gray-600); margin: 0; line-height: 1.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .photo-carousel__thumb[aria-current="true"] {
+      outline: 3px solid var(--color-neutral-solid-gray-900);
+      outline-offset: -3px;
+    }
+    .photo-carousel__thumb:focus-visible {
+      outline: 3px solid var(--color-neutral-black);
+      outline-offset: 2px;
+    }
+    .photo-carousel__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* === アプリDLモーダル === */
+    .app-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 48px);
+      max-width: 342px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-radius: 20px;
+      background: var(--color-neutral-white);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+    .app-modal::backdrop { background: rgba(0,0,0,0.5); }
+    .app-modal:not([open]) { display: none; }
+    .app-modal__img-wrap {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    .app-modal__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .app-modal__img-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, var(--color-neutral-white) 0%, rgba(255,255,255,0) 50%);
+    }
+    .app-modal__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.35);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-neutral-white);
+      padding: 0;
+    }
+    .app-modal__body {
+      padding: 16px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .app-modal__title {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.4;
+      text-align: center;
+      color: var(--color-neutral-solid-gray-900);
+    }
+    .app-modal__desc {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.6;
+      text-align: center;
+      color: var(--color-neutral-solid-gray-600);
+    }
+    .app-modal__badge {
+      padding: 5px;
+      color: var(--color-neutral-solid-gray-700);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      text-align: center;
+    }
+    .app-modal__dl-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--color-neutral-solid-gray-900);
+      border: none;
+      color: var(--color-neutral-white);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
   </style>
 </head>
 <body>
@@ -209,618 +817,244 @@
         <span class="event-hero__badge">全員参加レベル</span>
       </div>
       <p class="event-hero__title">バスケ エンジョイ交流戦 初心者・未経験者歓迎</p>
-    </div>
-    <div class="event-hero__card">
-      <p class="post-event-trophy">🏀</p>
+      <div class="event-hero__card">
+        <p class="post-event-trophy">🏀</p>
 
-      <div class="post-event-message">
-        <p class="post-event-message__title">初参加！ありがとう！</p>
-        <p class="post-event-message__subtitle">ナイスプレー！またコートでお会いしましょう👋</p>
-      </div>
+        <div class="post-event-message">
+          <p class="post-event-message__title">初参加！ありがとう！</p>
+          <p class="post-event-message__subtitle">ナイスプレー！またコートでお会いしましょう</p>
+        </div>
 
-      <div class="mvp-badge">
-        <span class="mvp-badge__label">本日のMVP</span>
-        <div class="mvp-badge__row">
-          <div class="mvp-badge__avatar">
-            <img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
+        <hr class="event-card-divider">
+
+        <div class="mvp-badge">
+          <div class="mvp-badge__bg-icon" aria-hidden="true">
+            <img src="../material/icon/stars.svg" alt="">
           </div>
-          <span class="mvp-badge__name">あなた（旭俊成）</span>
+          <div class="mvp-badge__avatar-wrap">
+            <a class="mvp-badge__avatar-link" data-user-id="asahi" href="#">
+              <div class="mvp-badge__avatar">
+                <img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
+              </div>
+            </a>
+            <div class="mvp-badge__crown">★</div>
+          </div>
+          <div class="mvp-badge__info">
+            <span class="mvp-badge__label">本日のMVP</span>
+            <span class="mvp-badge__name">あさひ</span>
+            <span class="mvp-badge__score">スコア: 30</span>
+          </div>
+        </div>
+
+        <div class="podium">
+          <div class="podium__place podium__place--2nd">
+            <span class="podium__rank">2</span>
+            <a class="podium__avatar-link" data-user-id="takasugi" href="#">
+              <div class="podium__avatar">
+                <img src="../material/user-icon/Yusaku.Takasugi_高杉優作.png" alt="優作">
+              </div>
+            </a>
+            <span class="podium__name">優作</span>
+            <span class="podium__score">22</span>
+          </div>
+          <div class="podium__place podium__place--1st">
+            <span class="podium__rank">1</span>
+            <a class="podium__avatar-link" data-user-id="asahi" href="#">
+              <div class="podium__avatar podium__avatar--1st">
+                <img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成">
+              </div>
+            </a>
+            <span class="podium__name">あさひ</span>
+            <span class="podium__score">30</span>
+          </div>
+          <div class="podium__place podium__place--3rd">
+            <span class="podium__rank">3</span>
+            <a class="podium__avatar-link" data-user-id="tanahashi" href="#">
+              <div class="podium__avatar">
+                <img src="../material/user-icon/Nanami.Tanahashi_棚橋七海.png" alt="七海">
+              </div>
+            </a>
+            <span class="podium__name">七海</span>
+            <span class="podium__score">10</span>
+          </div>
         </div>
       </div>
-
-      <a href="アルバム.html" class="photo-card">
-        <div class="photo-card__header">
-          <img src="../material/icon/camera.svg" class="photo-card__icon" width="20" height="20" alt="" aria-hidden="true">
-          <span class="photo-card__label">本日の写真（15枚）</span>
-          <svg class="photo-card__arrow" width="8" height="12" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2 2 14 12 2 22"/></svg>
-        </div>
-        <div class="photo-card__thumbnails">
-          <div class="photo-card__thumb" style="overflow:hidden;"><img src="../material/screen/アルバム1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-          <div class="photo-card__thumb" style="overflow:hidden;"><img src="../material/screen/アルバム2.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-          <div class="photo-card__thumb" style="overflow:hidden;"><img src="../material/screen/アルバム3.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-          <div class="photo-card__thumb" style="overflow:hidden;position:relative;"><img src="../material/screen/アルバム4.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-size:16px;font-weight:700;">+11</span></div></div>
-        </div>
-      </a>
     </div>
   </div>
-
-  <img src="../material/screen/次回予告v2.png" alt="次回予約促進" style="display:block;width:calc(100% - 32px);margin:16px;">
 
   <!-- フィルターチップ -->
   <div class="filter-chips-wrap">
     <div class="filter-chips-scroll" role="navigation" aria-label="セクション">
       <button class="filter-chip filter-chip--active" data-target="section-participants">参加者</button>
-      <button class="filter-chip" data-target="section-venue">開催時間・場所</button>
-      <button class="filter-chip" data-target="section-equipment">設備・持ち物</button>
-      <button class="filter-chip" data-target="section-schedule">当日の流れ</button>
-      <button class="filter-chip" data-target="section-trend">参加者の傾向</button>
-      <button class="filter-chip" data-target="section-organizer">主催者情報</button>
-      <button class="filter-chip" data-target="section-faq">よくある質問</button>
+      <button class="filter-chip" data-target="section-photos">本日の写真</button>
     </div>
   </div>
 
-  <!-- コンテンツ -->
   <main class="content">
 
-    <!-- 参加者エリア -->
+    <!-- 参加者 -->
     <div class="participant-section" id="section-participants">
       <div class="participant-header">
         <div class="participant-header__left">
           <p class="participant-header__title">参加者</p>
           <p class="participant-header__count">(12名)</p>
         </div>
-        <button type="button" class="participants-invite-btn" aria-label="友達を誘う">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          友達を誘う
-        </button>
       </div>
-      <div class="participant-teams" aria-label="参加者一覧">
-        <div class="participant-avatars">
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yusaku.Takasugi_高杉優作.png" alt="高杉優作" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Nanami.Tanahashi_棚橋七海.png" alt="棚橋七海" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Hayato.Akaiwa_赤岩駿斗.png" alt="赤岩駿斗" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Mana.Kurita_栗田茉奈.png" alt="栗田茉奈" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Hikaru.Tezuka_手塚光.png" alt="手塚光" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Takeru .Mukai_向井猛.png" alt="向井猛" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yuichi.Yoshimura_吉村優一.png" alt="吉村優一" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Yuki.Kurokawa_黒川優喜.png" alt="黒川優喜" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Ryota.Kokubun_國分椋太.png" alt="國分椋太" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Arata.Kobayashi_小林新.png" alt="小林新" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
-          <a href="ユーザープロフィール.html" class="participant-avatar"><img src="../material/user-icon/Akiko.Nagashima_長島明子.png" alt="長島明子" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+      <div class="participant-teams">
+        <div class="participant-team">
+          <p class="participant-team__label">チームA</p>
+          <div class="participant-avatars">
+            <a href="ユーザープロフィール.html?user=asahi" class="participant-avatar"><img src="../material/user-icon/Toshinari.Asahi_旭俊成.png" alt="旭俊成" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=takasugi" class="participant-avatar"><img src="../material/user-icon/Yusaku.Takasugi_高杉優作.png" alt="高杉優作" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=tanahashi" class="participant-avatar"><img src="../material/user-icon/Nanami.Tanahashi_棚橋七海.png" alt="棚橋七海" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=akaiwa" class="participant-avatar"><img src="../material/user-icon/Hayato.Akaiwa_赤岩駿斗.png" alt="赤岩駿斗" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          </div>
+        </div>
+        <div class="participant-team">
+          <p class="participant-team__label">チームB</p>
+          <div class="participant-avatars">
+            <a href="ユーザープロフィール.html?user=kurita" class="participant-avatar"><img src="../material/user-icon/Mana.Kurita_栗田茉奈.png" alt="栗田茉奈" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=tezuka" class="participant-avatar"><img src="../material/user-icon/Hikaru.Tezuka_手塚光.png" alt="手塚光" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=mukai" class="participant-avatar"><img src="../material/user-icon/Takeru .Mukai_向井猛.png" alt="向井猛" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=yoshimura" class="participant-avatar"><img src="../material/user-icon/Yuichi.Yoshimura_吉村優一.png" alt="吉村優一" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          </div>
+        </div>
+        <div class="participant-team">
+          <p class="participant-team__label">チームC</p>
+          <div class="participant-avatars">
+            <a href="ユーザープロフィール.html?user=kurokawa" class="participant-avatar"><img src="../material/user-icon/Yuki.Kurokawa_黒川優喜.png" alt="黒川優喜" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=kokubun" class="participant-avatar"><img src="../material/user-icon/Ryota.Kokubun_國分椋太.png" alt="國分椋太" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=kobayashi" class="participant-avatar"><img src="../material/user-icon/Arata.Kobayashi_小林新.png" alt="小林新" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+            <a href="ユーザープロフィール.html?user=nagashima" class="participant-avatar"><img src="../material/user-icon/Akiko.Nagashima_長島明子.png" alt="長島明子" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- 開催時間・場所 -->
-    <section id="section-venue" class="section">
-      <h2 class="section-title">開催時間・場所</h2>
-
-      <div class="section-group">
-        <p class="section-sub">集合・受付時間</p>
-        <p style="font-size:14px;color:var(--color-neutral-solid-gray-800);margin:0;">4/12(土) 09:55 受付開始</p>
-      </div>
-
-      <div class="section-group">
-        <p class="section-sub">住所</p>
-        <p style="font-size:14px;color:var(--color-neutral-solid-gray-800);margin:0 0 10px;">神奈川県藤沢市本藤沢４丁目２−１ スポーツセンター</p>
-        <div class="venue-map" style="padding:0;overflow:hidden;">
-          <img src="../material/screen/外観.png" alt="スポーツセンター外観" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-        <a href="https://maps.google.com/maps?q=神奈川県藤沢市本藤沢４丁目２−１+スポーツセンター" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:12px;background:#fff;color:var(--color-neutral-solid-gray-900);border:1.5px solid var(--color-neutral-solid-gray-300);border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          地図で開く
-        </a>
-      </div>
-
-      <div class="section-group">
-        <p class="section-sub">アクセス</p>
-        <div class="venue-access-group">
-          <div>
-            <p class="venue-access-row__type">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect x="5" y="2" width="14" height="20" rx="2"/>
-                <path d="M9 7h6M12 17v0"/>
-              </svg>
-              電車でお越しの方
-            </p>
-            <p class="venue-access-row__detail">小田急江ノ島線「片瀬江ノ島駅」徒歩5分</p>
-          </div>
-          <div>
-            <p class="venue-access-row__type">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-5.4A1 1 0 0 0 12.4 5H5a1 1 0 0 0-.96.68L3 11"/>
-                <circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/>
-              </svg>
-              お車でお越しの方
-            </p>
-            <p class="venue-access-row__detail">専用駐車場あり（30台・先着順）</p>
-          </div>
+    <!-- 本日の写真 -->
+    <section class="section" id="section-photos">
+      <div class="photo-section-heading">
+        <h2 class="section-title">本日の写真</h2>
+        <div class="photo-section-controls">
+          <span class="photo-selected-count" id="photo-selected-count" aria-live="polite"></span>
+          <button type="button" class="dads-button photo-select-btn" id="photo-select-toggle" data-size="md" data-type="outline" aria-pressed="false">選択</button>
         </div>
       </div>
+      <div class="photo-grid" aria-label="本日の写真一覧">
+        <button type="button" class="photo-grid__item" data-photo-index="0" aria-pressed="false"><img src="../material/screen/アルバム1.png" alt="本日の写真 1"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="1" aria-pressed="false"><img src="../material/screen/アルバム2.png" alt="本日の写真 2"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="2" aria-pressed="false"><img src="../material/screen/アルバム3.png" alt="本日の写真 3"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="3" aria-pressed="false"><img src="../material/screen/アルバム4.png" alt="本日の写真 4"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="4" aria-pressed="false"><img src="../material/screen/アルバム1.png" alt="本日の写真 5"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="5" aria-pressed="false"><img src="../material/screen/アルバム2.png" alt="本日の写真 6"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="6" aria-pressed="false"><img src="../material/screen/アルバム3.png" alt="本日の写真 7"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="7" aria-pressed="false"><img src="../material/screen/アルバム4.png" alt="本日の写真 8"></button>
+        <button type="button" class="photo-grid__item" data-photo-index="8" aria-pressed="false"><img src="../material/screen/アルバム1.png" alt="本日の写真 9"></button>
+      </div>
+      <button type="button" class="photo-more-btn" id="open-app-modal">もっと見る</button>
     </section>
 
-    <!-- 設備・持ち物 -->
-    <section id="section-equipment" class="section">
-      <h2 class="section-title">設備・持ち物</h2>
+    <!-- 次回予約 -->
+    <img src="../material/screen/次回予告v2.png" alt="次回予約促進" style="display:block;width:calc(100% - 32px);margin:24px 16px 24px;">
 
-      <div class="section-group">
-        <p class="section-sub">設備</p>
-        <!-- アイコンチップ -->
-        <div class="facility-chips">
-          <div class="facility-chip facility-chip--available">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-5.4A1 1 0 0 0 12.4 5H5a1 1 0 0 0-.96.68L3 11"/>
-              <circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/>
-            </svg>
-            駐車場
-          </div>
-          <div class="facility-chip facility-chip--available">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
-            </svg>
-            更衣室
-          </div>
-          <div class="facility-chip facility-chip--available">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M5 22v-7m0-4V2m7 20v-4m0-7V2m7 20V9m0-7v0"/>
-              <path d="M2 15h6M9 8h6M16 14h6"/>
-            </svg>
-            お手洗い
-          </div>
-          <div class="facility-chip facility-chip--unavailable">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <rect x="4" y="4" width="16" height="16" rx="2"/>
-              <path d="M9 9h6M9 13h4"/>
-            </svg>
-            自販機
-          </div>
-        </div>
-        <!-- 設備詳細テーブル -->
-        <div class="facility-list">
-          <div class="facility-row">
-            <span class="facility-row__name">更衣室</span>
-            <span class="facility-row__desc">教室内でお着替えいただけます。</span>
-          </div>
-          <div class="facility-row">
-            <span class="facility-row__name">お手洗い</span>
-            <span class="facility-row__desc">会場内にあり、自由に利用できます。</span>
-          </div>
-          <div class="facility-row">
-            <span class="facility-row__name">自販機</span>
-            <span class="facility-row__desc">なし（コンビニまで徒歩3分）</span>
-          </div>
-          <div class="facility-row">
-            <span class="facility-row__name">駐車場</span>
-            <span class="facility-row__desc">30台分ご利用いただけます。先着順。</span>
-          </div>
-          <div class="facility-row">
-            <span class="facility-row__name">その他</span>
-            <span class="facility-row__desc">コンビニまで徒歩3分・スーパー徒歩8分</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-group">
-        <p class="section-sub">持ち物</p>
-        <div class="items-category">
-          <p class="items-category__label">必須</p>
-          <ul class="items-checklist">
-            <li class="items-checklist__item">運動できる服装（Tシャツ・短パン等）</li>
-            <li class="items-checklist__item">シューズ</li>
-          </ul>
-        </div>
-        <div class="items-category">
-          <p class="items-category__label">あると便利</p>
-          <ul class="items-checklist">
-            <li class="items-checklist__item">タオル</li>
-            <li class="items-checklist__item">飲み物</li>
-            <li class="items-checklist__item">着替え</li>
-          </ul>
-        </div>
-        <div class="supplement-box">
-          <svg class="supplement-box__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M8 5v3.5M8 10.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
-          <p class="supplement-box__text">ボールやネットなどの用具は主催者が用意します。</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 当日の流れ -->
-    <section id="section-schedule" class="section">
-      <h2 class="section-title">当日の流れ</h2>
-      <ol class="timeline">
-        <li class="timeline__item">
-          <div class="timeline__dot" aria-hidden="true">1</div>
-          <div class="timeline__body">
-            <div class="timeline__header">
-              <p class="timeline__title">集合・受付</p>
-              <span class="timeline__duration">約10分</span>
-            </div>
-            <p class="timeline__desc">会場に集合して受付を行います。</p>
-          </div>
-        </li>
-        <li class="timeline__item">
-          <div class="timeline__dot" aria-hidden="true">2</div>
-          <div class="timeline__body">
-            <div class="timeline__header">
-              <p class="timeline__title">ウォームアップ</p>
-              <span class="timeline__duration">約15分</span>
-            </div>
-            <p class="timeline__desc">準備運動で体を慣らします。</p>
-          </div>
-        </li>
-        <li class="timeline__item">
-          <div class="timeline__dot" aria-hidden="true">3</div>
-          <div class="timeline__body">
-            <div class="timeline__header">
-              <p class="timeline__title">ゲーム形式で楽しむ</p>
-              <span class="timeline__duration">約50分</span>
-            </div>
-            <p class="timeline__desc">チームに分かれてバスケを楽しみます。</p>
-          </div>
-        </li>
-        <li class="timeline__item">
-          <div class="timeline__dot" aria-hidden="true">4</div>
-          <div class="timeline__body">
-            <div class="timeline__header">
-              <p class="timeline__title">片付け・解散</p>
-              <span class="timeline__duration">約10分</span>
-            </div>
-            <p class="timeline__desc">最後はみんなで片付けをして解散します。</p>
-          </div>
-        </li>
-      </ol>
-      <p class="section-note">※内容は参加者や運営状況によって変更になるケースがございます</p>
-    </section>
-
-    <!-- 参加者の傾向 -->
-    <section id="section-trend" class="section">
-      <h2 class="section-title">参加者の傾向</h2>
-      <div id="participant-trend-container">
-        <img src="../material/screen/参加者傾向.png" alt="参加者の傾向" style="width: 100%; display: block; height: auto;">
-      </div>
-    </section>
-
-    <!-- 主催者情報 -->
-    <section id="section-organizer" class="section">
-      <h2 class="section-title">運営者情報</h2>
-      <p class="section-sub">主催者</p>
-      <div class="organizer-profile-card">
-        <div class="organizer-profile-card__main">
-          <div class="organizer-profile-card__avatar-wrap">
-            <div class="organizer-profile-card__avatar">
-              <img src="../material/user-icon/運営_男性2.png" alt="Whistle公式">
-            </div>
-            <div class="organizer-profile-card__badge" aria-label="公式認定">
-              <img src="../material/icon/batch.svg" width="17" height="17" aria-hidden="true">
-            </div>
-          </div>
-          <div class="organizer-profile-card__body">
-            <p class="organizer-profile-card__name">Whistle【公式】</p>
-            <p class="organizer-profile-card__description">ホイッスル公式です。初心者の方でも安心して参加できる、ゆるく楽しめるスポーツイベントを開催しています。1人参加や久しぶりの運動でも気軽にご参加いただけます。</p>
-          </div>
-        </div>
-        <div class="organizer-profile-card__stats">
-          <div class="organizer-profile-card__stat">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            <span class="organizer-profile-card__stat-text">累計500人以上が参加</span>
-          </div>
-          <div class="organizer-profile-card__stat">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="18" rx="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-            <span class="organizer-profile-card__stat-text">50回以上開催</span>
-          </div>
-        </div>
-      </div>
-      <p class="section-sub">当日スタッフ</p>
-      <div class="organizer-profile-card">
-        <div class="organizer-profile-card__main">
-          <div class="organizer-profile-card__avatar-wrap">
-            <div class="organizer-profile-card__avatar">
-              <img src="../material/user-icon/運営_男性1.png" alt="田中 誠">
-            </div>
-            <div class="organizer-profile-card__badge" aria-label="公式認定">
-              <img src="../material/icon/batch.svg" width="17" height="17" aria-hidden="true">
-            </div>
-          </div>
-          <div class="organizer-profile-card__body">
-            <p class="organizer-profile-card__name">田中 誠</p>
-            <p class="organizer-profile-card__description">参加者の安全管理と円滑な進行をサポートします。初めての方も安心してご参加いただけるよう丁寧にお声がけします。</p>
-          </div>
-        </div>
-        <div class="organizer-profile-card__stats">
-          <div class="organizer-profile-card__stat">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-            <span class="organizer-profile-card__stat-text">当日スタッフ歴3年</span>
-          </div>
-          <div class="organizer-profile-card__stat">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="18" rx="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
-            <span class="organizer-profile-card__stat-text">イベント50回以上サポート</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- キャンセル -->
-    <section id="section-cancel" class="section">
-      <h2 class="section-title">キャンセルポリシー</h2>
-      <p style="font-size:13px;color:var(--color-neutral-solid-gray-700);margin:0 0 12px;line-height:1.7;">イベント開始前日・当日のキャンセルはキャンセル料が発生します。お早めのご連絡をお願いします。</p>
-      <div class="facility-list" style="margin-bottom:16px;">
-        <div class="facility-row">
-          <span class="facility-row__name">8日以上前</span>
-          <span class="facility-row__desc">キャンセル料なし（全額返金）</span>
-        </div>
-        <div class="facility-row">
-          <span class="facility-row__name">7日〜前日</span>
-          <span class="facility-row__desc">参加費の50%</span>
-        </div>
-        <div class="facility-row">
-          <span class="facility-row__name">当日</span>
-          <span class="facility-row__desc">参加費の100%</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- よくある質問 -->
-    <section id="section-faq" class="section">
-      <h2 class="section-title">よくある質問</h2>
-      <div style="display:flex;flex-direction:column;gap:8px; --color-primitive-blue-1000: var(--color-neutral-solid-gray-800); --color-primitive-blue-900: var(--color-neutral-solid-gray-700);">
-        <details class="dads-accordion">
-          <summary id="faq-1" class="dads-accordion__summary">
-            <span class="dads-accordion__icon">
-              <svg class="dads-accordion__icon-svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3.3 7.3L12 16L20.7 7.3" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </span>
-            <h3>初めてでも参加できますか？</h3>
-          </summary>
-          <div class="dads-accordion__content">
-            <div style="margin-bottom: 1lh;">もちろんです！このイベントは初心者・未経験者を大歓迎しています。参加者の約7割が初参加です。運営スタッフが丁寧にサポートするのでご安心ください。</div>
-            <a href="#faq-1" class="dads-accordion__back-link">
-              <svg class="dads-accordion__back-link-icon" width="24" height="24" fill="none" aria-hidden="true">
-                <path d="M6 7V14.5C6 16.8 8.2 19 10.5 19C12.8 19 15 16.8 15 14.5V6M10.709 9.7L15 5.414L19.291 9.7" stroke="currentColor" stroke-width="2" />
-              </svg>
-              「初めてでも参加できますか？」の先頭に戻る
-            </a>
-          </div>
-        </details>
-        <details class="dads-accordion">
-          <summary id="faq-2" class="dads-accordion__summary">
-            <span class="dads-accordion__icon">
-              <svg class="dads-accordion__icon-svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3.3 7.3L12 16L20.7 7.3" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </span>
-            <h3>一人で参加しても大丈夫ですか？</h3>
-          </summary>
-          <div class="dads-accordion__content">
-            <div style="margin-bottom: 1lh;">はい、参加者の8割以上が一人参加です。チーム分けは運営が行うので、知り合いがいなくても自然と打ち解けられます。</div>
-            <a href="#faq-2" class="dads-accordion__back-link">
-              <svg class="dads-accordion__back-link-icon" width="24" height="24" fill="none" aria-hidden="true">
-                <path d="M6 7V14.5C6 16.8 8.2 19 10.5 19C12.8 19 15 16.8 15 14.5V6M10.709 9.7L15 5.414L19.291 9.7" stroke="currentColor" stroke-width="2" />
-              </svg>
-              「一人で参加しても大丈夫ですか？」の先頭に戻る
-            </a>
-          </div>
-        </details>
-        <details class="dads-accordion">
-          <summary id="faq-3" class="dads-accordion__summary">
-            <span class="dads-accordion__icon">
-              <svg class="dads-accordion__icon-svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3.3 7.3L12 16L20.7 7.3" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </span>
-            <h3>服装や持ち物は何が必要ですか？</h3>
-          </summary>
-          <div class="dads-accordion__content">
-            <div style="margin-bottom: 1lh;">動きやすい服装と室内シューズをご用意ください。飲み物とタオルも忘れずに。更衣室はありますが、シャワーはありません。</div>
-            <a href="#faq-3" class="dads-accordion__back-link">
-              <svg class="dads-accordion__back-link-icon" width="24" height="24" fill="none" aria-hidden="true">
-                <path d="M6 7V14.5C6 16.8 8.2 19 10.5 19C12.8 19 15 16.8 15 14.5V6M10.709 9.7L15 5.414L19.291 9.7" stroke="currentColor" stroke-width="2" />
-              </svg>
-              「服装や持ち物は何が必要ですか？」の先頭に戻る
-            </a>
-          </div>
-        </details>
-        <details class="dads-accordion">
-          <summary id="faq-4" class="dads-accordion__summary">
-            <span class="dads-accordion__icon">
-              <svg class="dads-accordion__icon-svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3.3 7.3L12 16L20.7 7.3" fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-            </span>
-            <h3>キャンセルはできますか？</h3>
-          </summary>
-          <div class="dads-accordion__content">
-            <div style="margin-bottom: 1lh;">開催3日前まではキャンセル可能です。それ以降のキャンセルはキャンセル料が発生する場合があります。</div>
-            <a href="#faq-4" class="dads-accordion__back-link">
-              <svg class="dads-accordion__back-link-icon" width="24" height="24" fill="none" aria-hidden="true">
-                <path d="M6 7V14.5C6 16.8 8.2 19 10.5 19C12.8 19 15 16.8 15 14.5V6M10.709 9.7L15 5.414L19.291 9.7" stroke="currentColor" stroke-width="2" />
-              </svg>
-              「キャンセルはできますか？」の先頭に戻る
-            </a>
-          </div>
-        </details>
-      </div>
-      <a href="グループチャット.html" class="notice-banner" style="margin-top:16px;margin-left:0;margin-right:0;margin-bottom:0;">
-        <img src="../material/icon/faq.svg" width="24" height="24" aria-hidden="true" style="flex-shrink:0">
-        <div class="notice-banner__body">
-          <p class="notice-banner__label">運営へのお問合せはこちら</p>
-          <p class="notice-banner__text" style="white-space: normal; overflow: visible; text-overflow: clip;">イベントについての質問や遅刻の連絡はこちら</p>
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="10" fill="var(--color-neutral-solid-gray-400)" aria-hidden="true" style="flex-shrink:0">
-          <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
-        </svg>
-      </a>
-    </section>
-
-    <!-- アプリDL -->
-    <section class="section">
-      <div class="app-download-card">
-        <div class="app-download-card__header">
-          <div class="app-download-card__icon">
-            <img src="../material/icon/phone.svg" width="24" height="24" alt="" aria-hidden="true">
-          </div>
-          <div class="app-download-card__text">
-            <p class="app-download-card__title">アプリでもっと便利に！</p>
-            <p class="app-download-card__subtitle">プッシュ通知で最新情報を受け取れます</p>
-          </div>
-        </div>
-        <div class="app-download-card__badges">
-          <a href="#"><img src="../material/screen/apple.png" alt="App Storeからダウンロード" class="app-download-card__badge"></a>
-          <a href="#"><img src="../material/screen/google.png" alt="Google Playで手に入れよう" class="app-download-card__badge"></a>
-        </div>
-      </div>
-    </section>
+    <!-- イベント詳細ナビゲーション -->
+    <a href="イベント詳細_エンジョイ-開催後.html" class="event-detail-nav">
+      <span class="event-detail-nav__label">イベント詳細</span>
+      <svg width="8" height="12" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="2 2 14 12 2 22"/>
+      </svg>
+    </a>
 
   </main>
 
+  <script>
+    // カード内アバターのルーティング（ログイン中ユーザー → マイページ、他者 → プロフィール）
+    (function() {
+      var CURRENT_USER = 'asahi';
+      document.querySelectorAll('.mvp-badge__avatar-link, .podium__avatar-link').forEach(function(el) {
+        var userId = el.dataset.userId;
+        el.href = (userId === CURRENT_USER)
+          ? 'マイページ_通常.html'
+          : 'ユーザープロフィール.html?user=' + userId;
+      });
+    })();
 
-  <!-- ── 参加予定の人 シート ── -->
-  <dialog id="participants-sheet" class="bottom-sheet" aria-labelledby="participants-sheet-title">
-    <div class="sheet-handle" aria-hidden="true"></div>
-    <div class="sheet-header">
-      <p class="sheet-title" id="participants-sheet-title">参加予定</p>
-      <div class="sheet-header__actions">
-        <button type="button" class="participants-invite-btn" aria-label="友達を誘う">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          友達を誘う
-        </button>
-        <button class="sheet-close" id="participants-close" aria-label="閉じる">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.match-card__body').forEach(function(body) {
+        body.style.display = 'none';
+      });
+      document.querySelectorAll('.match-card__top').forEach(function(top) {
+        top.classList.remove('match-card__top--expanded');
+        top.style.cursor = 'pointer';
+        top.addEventListener('click', function() {
+          var body = top.nextElementSibling;
+          if (!body || !body.classList.contains('match-card__body')) return;
+          var isOpen = body.style.display !== 'none';
+          body.style.display = isOpen ? 'none' : '';
+          top.classList.toggle('match-card__top--expanded', !isOpen);
+        });
+      });
+    });
+  </script>
+  <!-- 写真モーダル -->
+  <dialog class="photo-modal" id="photo-modal" aria-label="写真プレビュー">
+    <div class="photo-modal__media">
+      <img class="photo-modal__img" id="photo-modal-img" src="../material/screen/アルバム1.png" alt="本日の写真 1">
+      <button class="photo-modal__close" id="photo-modal-close" type="button" aria-label="閉じる">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
+      </button>
     </div>
-    <div class="sheet-body">
-
-      <!-- 参加予定ユーザー一覧 -->
-      <div class="participant-list">
-        <div class="participant-item">
-          <div class="participant-avatar">R</div>
-          <div class="participant-info">
-            <div class="participant-name-row">
-              <p class="participant-name">りく / rikuto</p>
-              <span class="participant-level">放課後レベル</span>
-            </div>
-            <p class="participant-relation">前回のイベントで一緒</p>
-          </div>
-        </div>
-        <div class="participant-item">
-          <div class="participant-avatar">H</div>
-          <div class="participant-info">
-            <div class="participant-name-row">
-              <p class="participant-name">hina__</p>
-              <span class="participant-level">部活レベル</span>
-            </div>
-            <p class="participant-relation">前回のイベントで一緒</p>
-          </div>
-        </div>
-        <div class="participant-item">
-          <div class="participant-avatar">Y</div>
-          <div class="participant-info">
-            <div class="participant-name-row">
-              <p class="participant-name">ゆうま</p>
-              <span class="participant-level">部活レベル</span>
-            </div>
-            <p class="participant-relation">3回同じイベントに参加しています</p>
-          </div>
-        </div>
-        <div class="participant-item">
-          <div class="participant-avatar">M</div>
-          <div class="participant-info">
-            <div class="participant-name-row">
-              <p class="participant-name">みおん._.</p>
-              <span class="participant-level">放課後レベル</span>
-            </div>
-            <p class="participant-relation">3回同じイベントに参加しています</p>
-          </div>
-        </div>
+    <footer class="photo-modal__body">
+      <div class="photo-modal__actions" aria-label="写真アクション">
+        <button class="dads-button photo-modal__action" data-size="md" data-type="outline" type="button">
+          <img src="../material/icon/download.svg" alt="" aria-hidden="true">ダウンロード
+        </button>
+        <button class="dads-button photo-modal__action" data-size="md" data-type="outline" type="button">
+          <img src="../material/icon/share.svg" alt="" aria-hidden="true">シェア
+        </button>
       </div>
-
-      <!-- 参加傾向 -->
-      <div class="trend-section">
-        <p class="trend-section__title">現在の参加の傾向</p>
-
-        <!-- 年齢層 -->
-        <div class="trend-block">
-          <p class="trend-block__label">年齢層</p>
-          <div class="age-trend">
-            <div class="age-trend__track" aria-hidden="true"></div>
-            <div class="age-trend__items" role="img" aria-label="年齢層の傾向：20代・30代が多い">
-              <div class="age-item">
-                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
-                <span class="age-item__label">10代</span>
-              </div>
-              <div class="age-item">
-                <div class="age-item__dot-wrap"><div class="age-item__dot age-item__dot--active"></div></div>
-                <span class="age-item__label age-item__label--active">20代</span>
-              </div>
-              <div class="age-item">
-                <div class="age-item__dot-wrap"><div class="age-item__dot age-item__dot--active"></div></div>
-                <span class="age-item__label age-item__label--active">30代</span>
-              </div>
-              <div class="age-item">
-                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
-                <span class="age-item__label">40代</span>
-              </div>
-              <div class="age-item">
-                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
-                <span class="age-item__label">50代</span>
-              </div>
-              <div class="age-item">
-                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
-                <span class="age-item__label">60代</span>
-              </div>
-              <div class="age-item">
-                <div class="age-item__dot-wrap"><div class="age-item__dot"></div></div>
-                <span class="age-item__label">70代〜</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 男女比 -->
-        <div class="trend-block">
-          <p class="trend-block__label">男女比</p>
-          <div class="gender-ratio" role="img" aria-label="男女比：男性がやや多い">
-            <span class="gender-ratio__label">男性</span>
-            <div class="gender-ratio__track">
-              <div class="gender-ratio__dot" aria-hidden="true"></div>
-            </div>
-            <span class="gender-ratio__label">女性</span>
-          </div>
-        </div>
+      <div class="photo-carousel" aria-label="アルバム写真のプレビュー">
+        <button type="button" class="photo-carousel__thumb" data-photo-index="0" aria-current="true"><img src="../material/screen/アルバム1.png" alt="本日の写真 1"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="1"><img src="../material/screen/アルバム2.png" alt="本日の写真 2"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="2"><img src="../material/screen/アルバム3.png" alt="本日の写真 3"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="3"><img src="../material/screen/アルバム4.png" alt="本日の写真 4"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="4"><img src="../material/screen/アルバム1.png" alt="本日の写真 5"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="5"><img src="../material/screen/アルバム2.png" alt="本日の写真 6"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="6"><img src="../material/screen/アルバム3.png" alt="本日の写真 7"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="7"><img src="../material/screen/アルバム4.png" alt="本日の写真 8"></button>
+        <button type="button" class="photo-carousel__thumb" data-photo-index="8"><img src="../material/screen/アルバム1.png" alt="本日の写真 9"></button>
       </div>
-
+    </footer>
+  </dialog>
+  <!-- 写真選択フッター -->
+  <footer class="photo-selection-footer" id="photo-selection-footer" aria-hidden="true">
+    <div class="photo-selection-footer__actions">
+      <button class="dads-button photo-selection-footer__btn" data-size="md" data-type="outline" type="button">
+        <img src="../material/icon/download.svg" alt="" aria-hidden="true">ダウンロード
+      </button>
+      <button class="dads-button photo-selection-footer__btn" data-size="md" data-type="outline" type="button">
+        <img src="../material/icon/share.svg" alt="" aria-hidden="true">シェア
+      </button>
+    </div>
+  </footer>
+  <!-- アプリDLモーダル -->
+  <dialog class="app-modal" id="app-modal">
+    <div class="app-modal__img-wrap">
+      <img class="app-modal__img" src="../material/screen/モーダル_アプリ-DL.png" alt="">
+      <div class="app-modal__img-fade"></div>
+      <button class="app-modal__close" id="app-modal-close" type="button" aria-label="閉じる">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6L6 18M6 6L18 18"/></svg>
+      </button>
+    </div>
+    <div class="app-modal__body">
+      <p class="app-modal__title">アプリなら、<br>すべての写真が見れる！</p>
+      <p class="app-modal__desc">アプリを無料ダウンロードして、<br>続きの写真をチェック！</p>
+      <div class="app-modal__badge">\ 初回ダウンロードで<strong>500ポイント</strong>GET！ /</div>
+      <button class="app-modal__dl-btn" type="button">今すぐアプリをダウンロード！</button>
     </div>
   </dialog>
-
   <script>
-    // フィルターチップのクリック → スクロール
+    // フィルターチップ scroll-sync
     const chips = document.querySelectorAll('.filter-chip');
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
@@ -831,51 +1065,106 @@
       });
     });
 
-    // 参加予定シート
-    const participantsSheet = document.getElementById('participants-sheet');
-    document.getElementById('participants-close').addEventListener('click', () => participantsSheet.close());
-    participantsSheet.addEventListener('click', e => { if (e.target === participantsSheet) participantsSheet.close(); });
+    const sectionEls = Array.from(chips)
+      .map(c => document.getElementById(c.dataset.target))
+      .filter(Boolean);
 
-    // スクロール位置に連動してチップをアクティブ化
-    const sectionEls = Array.from(document.querySelectorAll('[id^="section-"]'));
-    const chipBar = document.querySelector('.filter-chips-wrap');
-    function updateActiveChip() {
-      const chipBarH = chipBar ? chipBar.offsetHeight : 0;
-      const scrollY = window.scrollY + chipBarH + 10;
-      let current = sectionEls[0];
-      for (const sec of sectionEls) {
-        if (sec.offsetTop <= scrollY) current = sec;
-      }
-      if (current) {
-        chips.forEach(c => c.classList.remove('filter-chip--active'));
-        const active = document.querySelector(`.filter-chip[data-target="${current.id}"]`);
-        if (active) {
-          active.classList.add('filter-chip--active');
-          const chipsScroll = document.querySelector('.filter-chips-scroll');
-          if (chipsScroll) {
-            const left = active.offsetLeft - (chipsScroll.clientWidth - active.offsetWidth) / 2;
-            chipsScroll.scrollTo({ left, behavior: 'smooth' });
-          }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          chips.forEach(c => c.classList.remove('filter-chip--active'));
+          const active = document.querySelector(`.filter-chip[data-target="${id}"]`);
+          if (active) active.classList.add('filter-chip--active');
         }
-      }
-    }
-    window.addEventListener('scroll', updateActiveChip, { passive: true });
+      });
+    }, { rootMargin: '-10% 0px -80% 0px' });
 
-    // 参加者アバターにユーザーパラメータを付与
-    const userMap = {
-      '旭俊成': 'asahi', '高杉優作': 'takasugi', '棚橋七海': 'tanahashi', '赤岩駿斗': 'akaiwa',
-      '栗田茉奈': 'kurita', '手塚光': 'tezuka', '向井猛': 'mukai', '吉村優一': 'yoshimura',
-      '黒川優喜': 'kurokawa', '國分椋太': 'kokubun', '小林新': 'kobayashi', '長島明子': 'nagashima'
-    };
-    document.querySelectorAll('.participant-avatar').forEach(link => {
-      const img = link.querySelector('img');
-      if (!img) return;
-      const userId = userMap[img.alt];
-      if (userId) link.href = '21_user-profile.html?user=' + userId;
+    sectionEls.forEach(s => io.observe(s));
+
+    // 写真モーダル
+    const photoModal = document.getElementById('photo-modal');
+    const photoModalImg = document.getElementById('photo-modal-img');
+    const photoItems = Array.from(document.querySelectorAll('.photo-grid__item'));
+    const photoThumbs = Array.from(document.querySelectorAll('.photo-carousel__thumb'));
+    const photoGrid = document.querySelector('.photo-grid');
+    const photoSelectToggle = document.getElementById('photo-select-toggle');
+    const photoSelectedCount = document.getElementById('photo-selected-count');
+    const photoSelectionFooter = document.getElementById('photo-selection-footer');
+    const selectedPhotos = new Set();
+    let isPhotoSelectMode = false;
+
+    function setActivePhoto(index) {
+      const item = photoItems[index];
+      if (!item) return;
+      const img = item.querySelector('img');
+      photoModalImg.src = img.src;
+      photoModalImg.alt = img.alt;
+      photoThumbs.forEach(thumb => {
+        thumb.setAttribute('aria-current', thumb.dataset.photoIndex === String(index));
+      });
+      photoThumbs[index]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    function updatePhotoSelectionUI() {
+      const selectedCount = selectedPhotos.size;
+      photoGrid.classList.toggle('photo-grid--selecting', isPhotoSelectMode);
+      photoSelectToggle.textContent = isPhotoSelectMode ? 'キャンセル' : '選択';
+      photoSelectToggle.setAttribute('aria-pressed', String(isPhotoSelectMode));
+      photoSelectedCount.textContent = selectedCount + '枚選択中';
+      photoSelectedCount.classList.toggle('is-visible', selectedCount > 0);
+      photoSelectionFooter.classList.toggle('is-visible', isPhotoSelectMode && selectedCount > 0);
+      photoSelectionFooter.setAttribute('aria-hidden', String(!(isPhotoSelectMode && selectedCount > 0)));
+      photoItems.forEach(item => {
+        const isSelected = selectedPhotos.has(item.dataset.photoIndex);
+        item.classList.toggle('is-selected', isSelected);
+        item.setAttribute('aria-pressed', String(isSelected));
+      });
+    }
+
+    function clearPhotoSelection() {
+      selectedPhotos.clear();
+      updatePhotoSelectionUI();
+    }
+
+    photoSelectToggle.addEventListener('click', () => {
+      isPhotoSelectMode = !isPhotoSelectMode;
+      if (!isPhotoSelectMode) clearPhotoSelection();
+      updatePhotoSelectionUI();
     });
 
-  </script>
+    photoItems.forEach(item => {
+      item.addEventListener('click', () => {
+        if (isPhotoSelectMode) {
+          const index = item.dataset.photoIndex;
+          if (selectedPhotos.has(index)) {
+            selectedPhotos.delete(index);
+          } else {
+            selectedPhotos.add(index);
+          }
+          updatePhotoSelectionUI();
+          return;
+        }
+        setActivePhoto(Number(item.dataset.photoIndex));
+        photoModal.showModal();
+      });
+    });
 
+    photoThumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        setActivePhoto(Number(thumb.dataset.photoIndex));
+      });
+    });
+
+    document.getElementById('photo-modal-close').addEventListener('click', () => photoModal.close());
+    photoModal.addEventListener('click', e => { if (e.target === photoModal) photoModal.close(); });
+
+    // アプリDLモーダル
+    const appModal = document.getElementById('app-modal');
+    document.getElementById('open-app-modal').addEventListener('click', () => appModal.showModal());
+    document.getElementById('app-modal-close').addEventListener('click', () => appModal.close());
+    appModal.addEventListener('click', e => { if (e.target === appModal) appModal.close(); });
+  </script>
   <script src="prototype-map.js"></script>
 <footer class="app-download-footer">
   <div class="app-download-footer__badge">初回ダウンロードで<strong>500ポイント</strong>GET！</div>
