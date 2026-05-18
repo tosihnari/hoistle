@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>チーム詳細</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/global.css">
+  <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/button/button.css">
+  <link rel="stylesheet" href="../design-system/design-system-example-components-html-main/src/components/chip-label/chip-label.css">
+  <link rel="stylesheet" href="prototype.css">
+  <style>
+    body {
+      background: var(--color-neutral-solid-gray-50);
+    }
+
+    .nav-bar {
+      min-height: 56px;
+      padding: 8px 12px;
+    }
+
+    .nav-action {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--color-neutral-solid-gray-800);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .nav-action:hover { background: var(--color-neutral-solid-gray-50); }
+    .nav-action svg { width: 24px; height: 24px; }
+
+    .team-main {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0 0 32px;
+    }
+
+    .panel {
+      background: var(--color-neutral-white);
+      border-top: 1px solid var(--color-neutral-solid-gray-100);
+      border-bottom: 1px solid var(--color-neutral-solid-gray-100);
+      padding: 20px 16px;
+    }
+
+    .team-overview {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-top: 0;
+    }
+
+    .team-profile {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .team-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      background: var(--color-neutral-solid-gray-100);
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      color: var(--color-neutral-solid-gray-500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .team-logo::before,
+    .team-logo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .team-logo::before {
+      background: linear-gradient(to top right, transparent calc(50% - 0.5px), var(--color-neutral-solid-gray-300), transparent calc(50% + 0.5px));
+    }
+    .team-logo::after {
+      background: linear-gradient(to bottom right, transparent calc(50% - 0.5px), var(--color-neutral-solid-gray-300), transparent calc(50% + 0.5px));
+    }
+    .team-logo img {
+      width: 28px;
+      height: 28px;
+      opacity: 0.45;
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-name {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: var(--color-neutral-solid-gray-900);
+      margin: 0 0 8px;
+    }
+
+    .member-link {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-neutral-solid-gray-700);
+      font-family: inherit;
+      cursor: pointer;
+      text-align: left;
+      text-decoration: none;
+    }
+
+    .member-avatars {
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .member-avatar,
+    .member-more {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--color-neutral-white);
+      margin-left: -8px;
+      overflow: hidden;
+      background: var(--color-neutral-solid-gray-100);
+    }
+    .member-avatar:first-child,
+    .member-more:first-child { margin-left: 0; }
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+    }
+    .member-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-neutral-solid-gray-700);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .member-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      min-width: 0;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .member-count svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .team-entry-button {
+      width: 100%;
+      justify-content: center;
+      background: var(--color-neutral-black);
+      border-color: var(--color-neutral-black);
+      color: var(--color-neutral-white);
+    }
+    .team-entry-button:hover {
+      background: var(--color-neutral-solid-gray-800);
+      border-color: var(--color-neutral-solid-gray-800);
+    }
+
+    .stat-item {
+      background: var(--color-neutral-solid-gray-50);
+      border: 1px solid var(--color-neutral-solid-gray-100);
+      border-radius: 8px;
+      padding: 12px 10px;
+      min-width: 0;
+    }
+    .stat-label {
+      display: block;
+      color: var(--color-neutral-solid-gray-600);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      display: block;
+      color: var(--color-neutral-solid-gray-900);
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.5;
+      color: var(--color-neutral-solid-gray-900);
+      margin: 0;
+      padding-left: 10px;
+      border-left: 4px solid var(--color-neutral-solid-gray-900);
+    }
+    .section-title--muted {
+      border-left-color: var(--color-neutral-solid-gray-300);
+    }
+    .next-card,
+    .history-card {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+      background: var(--color-neutral-white);
+      border-radius: 8px;
+    }
+
+    .next-card {
+      border: 2px solid var(--color-neutral-solid-gray-900);
+      padding: 16px;
+      box-shadow: 0 2px 0 var(--color-neutral-solid-gray-900);
+    }
+    .next-card:hover,
+    .history-card:hover { background: var(--color-neutral-solid-gray-50); }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .event-summary {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .event-thumbnail {
+      width: 76px;
+      height: 76px;
+      border-radius: 8px;
+      border: 1px solid var(--color-neutral-solid-gray-100);
+      background: var(--color-neutral-solid-gray-100);
+      overflow: hidden;
+      flex: 0 0 76px;
+    }
+    .event-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .tag-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    .sport-text {
+      color: var(--color-neutral-solid-gray-700);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .level-label {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--color-neutral-solid-gray-300);
+      border-radius: 4px;
+      padding: 2px 5px;
+      background: var(--color-neutral-solid-gray-50);
+      color: var(--color-neutral-solid-gray-700);
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.45;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tournament-title {
+      font-size: 21px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: var(--color-neutral-solid-gray-900);
+      margin: 0;
+    }
+
+    .meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-neutral-solid-gray-700);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .meta-row svg {
+      width: 18px;
+      height: 18px;
+      color: var(--color-neutral-solid-gray-500);
+      flex-shrink: 0;
+    }
+
+    .arrow-icon {
+      width: 22px;
+      height: 22px;
+      color: var(--color-neutral-solid-gray-500);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .next-card .arrow-icon {
+      width: 28px;
+      height: 28px;
+      color: var(--color-neutral-solid-gray-900);
+      align-self: center;
+      margin-top: 0;
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .history-card {
+      border: 1px solid var(--color-neutral-solid-gray-200);
+      overflow: hidden;
+    }
+
+    .history-card .card-top {
+      background: var(--color-neutral-solid-gray-100);
+      padding: 16px;
+    }
+    .history-title {
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.5;
+      color: var(--color-neutral-solid-gray-900);
+      margin: 0;
+    }
+    .history-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      color: var(--color-neutral-solid-gray-600);
+      font-size: 12px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .history-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      color: var(--color-neutral-solid-gray-700);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin: -2px 0 0;
+    }
+    .history-detail p {
+      margin: 0;
+    }
+
+    .result-badge {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      border: 1px solid var(--color-neutral-solid-gray-700);
+      border-radius: 4px;
+      padding: 3px 8px;
+      color: var(--color-neutral-solid-gray-800);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .result-badge--muted {
+      border-color: var(--color-neutral-solid-gray-300);
+      color: var(--color-neutral-solid-gray-700);
+      font-weight: 700;
+    }
+
+    .photo-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 12px 16px 16px;
+      background: var(--color-neutral-white);
+    }
+    .photo-strip::-webkit-scrollbar { display: none; }
+    .photo-thumb,
+    .photo-more {
+      width: 74px;
+      height: 74px;
+      flex: 0 0 74px;
+      border-radius: 6px;
+      border: 1px solid var(--color-neutral-solid-gray-100);
+      background: var(--color-neutral-solid-gray-100);
+      overflow: hidden;
+    }
+    .photo-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+    }
+    .photo-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-neutral-solid-gray-600);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    @media (max-width: 360px) {
+      .team-profile { grid-template-columns: 64px minmax(0, 1fr); }
+      .team-logo { width: 64px; height: 64px; }
+      .team-name { font-size: 21px; }
+      .member-link { align-items: flex-start; flex-direction: column; }
+      .stat-value { font-size: 15px; }
+      .event-summary { gap: 10px; }
+      .event-thumbnail {
+        width: 64px;
+        height: 64px;
+        flex-basis: 64px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-bar">
+    <button class="nav-action" type="button" aria-label="戻る">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5"/>
+        <path d="M12 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <p class="nav-title">チーム詳細</p>
+    <button class="nav-action" type="button" aria-label="チームを編集">
+      <img src="../material/icon/edit.svg" width="24" height="24" alt="" aria-hidden="true">
+    </button>
+  </header>
+
+  <main class="team-main">
+    <section class="panel team-overview" aria-label="チーム概要">
+      <div class="team-profile">
+        <div class="team-logo" aria-label="チームアイコン画像">
+          <img src="../material/icon/image.svg" alt="">
+        </div>
+        <div>
+          <h1 class="team-name">青葉大学OBチーム</h1>
+          <a class="member-link" href="チームメンバー.html">
+            <span class="member-avatars" aria-hidden="true">
+              <span class="member-avatar"><img src="../material/user-icon/Ryota.Kokubun_國分椋太.png" alt=""></span>
+              <span class="member-avatar"><img src="../material/user-icon/Nanami.Tanahashi_棚橋七海.png" alt=""></span>
+              <span class="member-avatar"><img src="../material/user-icon/Hayato.Akaiwa_赤岩駿斗.png" alt=""></span>
+              <span class="member-more">+5</span>
+            </span>
+            <span class="member-count">
+              メンバー数 8人
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <div class="stats-grid" aria-label="チーム成績">
+        <div class="stat-item">
+          <span class="stat-label">参加大会</span>
+          <span class="stat-value">12回</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">勝敗</span>
+          <span class="stat-value">8勝 4敗</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">MVP</span>
+          <span class="stat-value">3回</span>
+        </div>
+      </div>
+
+      <button class="dads-button team-entry-button" data-type="solid-fill" data-size="lg" type="button">
+        このチームで大会に参加する
+      </button>
+    </section>
+
+    <section class="panel" aria-labelledby="next-title">
+      <div class="section-head">
+        <h2 id="next-title" class="section-title">次回参加予定の大会</h2>
+      </div>
+      <a class="next-card" href="参加者専用_大会-開催前.html">
+        <div class="card-top">
+          <div class="event-summary">
+            <span class="event-thumbnail"><img src="../material/screen/体育館の画像.jpg" alt=""></span>
+            <div class="card-content">
+              <div class="tag-row">
+                <span class="level-label">球技大会レベル</span>
+                <span class="sport-text">バスケットボール</span>
+              </div>
+              <h3 class="tournament-title">第１回 ビギナーズ ホイッスルカップ</h3>
+              <div class="meta-list">
+                <p class="meta-row">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <path d="M16 2v4"/>
+                    <path d="M8 2v4"/>
+                    <path d="M3 10h18"/>
+                  </svg>
+                  2626年4/12日 09:55受付開始
+                </p>
+                <p class="meta-row">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                  神奈川県藤沢市
+                </p>
+              </div>
+            </div>
+          </div>
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </div>
+      </a>
+    </section>
+
+    <section class="panel" aria-labelledby="history-title">
+      <div class="section-head">
+        <h2 id="history-title" class="section-title section-title--muted">大会参加履歴</h2>
+      </div>
+
+      <div class="history-list">
+        <a class="history-card" href="#">
+          <div class="card-top">
+            <div class="event-summary">
+              <span class="event-thumbnail"><img src="../material/screen/外観.png" alt=""></span>
+              <div class="card-content">
+                <p class="history-meta">
+                  <span class="level-label">球技大会レベル</span>
+                  <span>サッカー</span>
+                </p>
+                <h3 class="history-title">Summer City Cup</h3>
+                <div class="history-detail">
+                  <p>2024年8月12日</p>
+                </div>
+                <span class="result-badge">結果：準優勝</span>
+              </div>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </div>
+          <div class="photo-strip" aria-label="Summer City Cup の写真">
+            <span class="photo-thumb"><img src="../material/screen/アルバム1.png" alt=""></span>
+            <span class="photo-thumb"><img src="../material/screen/アルバム2.png" alt=""></span>
+            <span class="photo-thumb"><img src="../material/screen/アルバム3.png" alt=""></span>
+            <span class="photo-more">+5</span>
+          </div>
+        </a>
+
+        <a class="history-card" href="#">
+          <div class="card-top">
+            <div class="event-summary">
+              <span class="event-thumbnail"><img src="../material/screen/体育館の画像.jpg" alt=""></span>
+              <div class="card-content">
+                <p class="history-meta">
+                  <span class="level-label">部活レベル</span>
+                  <span>フットサル</span>
+                </p>
+                <h3 class="history-title">Bayside Futsal Night</h3>
+                <div class="history-detail">
+                  <p>2024年7月20日</p>
+                </div>
+                <span class="result-badge result-badge--muted">結果：ベスト4</span>
+              </div>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </div>
+          <div class="photo-strip" aria-label="Bayside Futsal Night の写真">
+            <span class="photo-thumb"><img src="../material/screen/アルバム4.png" alt=""></span>
+            <span class="photo-thumb"><img src="../material/screen/写真.png" alt=""></span>
+          </div>
+        </a>
+
+        <a class="history-card" href="#">
+          <div class="card-top">
+            <div class="event-summary">
+              <span class="event-thumbnail"><img src="../material/screen/体育館の画像.jpg" alt=""></span>
+              <div class="card-content">
+                <p class="history-meta">
+                  <span class="level-label">球技大会レベル</span>
+                  <span>バスケットボール</span>
+                </p>
+                <h3 class="history-title">Shibuya 3on3 League</h3>
+                <div class="history-detail">
+                  <p>2024年6月9日</p>
+                </div>
+                <span class="result-badge">結果：優勝</span>
+              </div>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </div>
+          <div class="photo-strip" aria-label="Shibuya 3on3 League の写真">
+            <span class="photo-thumb"><img src="../material/screen/体育館の画像.jpg" alt=""></span>
+            <span class="photo-thumb"><img src="../material/screen/アルバム1.png" alt=""></span>
+            <span class="photo-thumb"><img src="../material/screen/アルバム4.png" alt=""></span>
+          </div>
+        </a>
+
+        <a class="history-card" href="#">
+          <div class="card-top">
+            <div class="event-summary">
+              <span class="event-thumbnail"><img src="../material/screen/外観.png" alt=""></span>
+              <div class="card-content">
+                <p class="history-meta">
+                  <span class="level-label">部活レベル</span>
+                  <span>バレーボール</span>
+                </p>
+                <h3 class="history-title">Spring Mixed Volley</h3>
+                <div class="history-detail">
+                  <p>2024年5月18日</p>
+                </div>
+                <span class="result-badge result-badge--muted">結果：予選突破</span>
+              </div>
+            </div>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </div>
+          <div class="photo-strip" aria-label="Spring Mixed Volley の写真">
+            <span class="photo-thumb"><img src="../material/screen/アルバム2.png" alt=""></span>
+            <span class="photo-thumb"><img src="../material/screen/アルバム3.png" alt=""></span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script src="prototype-map.js"></script>
+</body>
+</html>

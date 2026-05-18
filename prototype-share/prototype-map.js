@@ -1,7 +1,7 @@
 (function () {
-  if (window.location.pathname.indexOf('00_map') !== -1) return;
+  if (window.location.pathname.match(/\/index\.html?$/)) return;
   var a = document.createElement('a');
-  a.href = '00_index.html';
+  a.href = 'index.html';
   a.className = 'map-fab';
   a.textContent = 'サイトマップ';
   var container = document.querySelector('.page-wrapper') || document.body;
